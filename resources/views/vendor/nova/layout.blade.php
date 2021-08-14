@@ -34,7 +34,7 @@
     <div id="nova">
         <div v-cloak class="flex min-h-screen">
             <!-- Sidebar -->
-            <div class="flex-none pt-header min-h-screen w-sidebar bg-grad-sidebar px-6">
+            <collapsible-sidebar class="flex-none pt-header min-h-screen w-sidebar bg-grad-sidebar px-6">
                 <a href="{{ \Laravel\Nova\Nova::path() }}">
                     <div class="absolute pin-t pin-l pin-r bg-logo flex items-center w-sidebar h-header px-6 text-white">
                        @include('nova::partials.logo')
@@ -44,7 +44,7 @@
                 @foreach (\Laravel\Nova\Nova::availableTools(request()) as $tool)
                     {!! $tool->renderNavigation() !!}
                 @endforeach
-            </div>
+            </collapsible-sidebar>
 
             <!-- Content -->
             <div class="content">
@@ -63,7 +63,6 @@
                 </div>
 
                 <div data-testid="content" class="px-view py-view mx-auto">
-                    <h2>Tutto quello che è in questa pagina si può modificare!</h2>
                     @yield('content')
 
                     @include('nova::partials.footer')

@@ -14,6 +14,7 @@
         "beyondcode/nuova-card": "*",
         "beyondcode/viewcache": "*",
         "dkulyk/nova-tabs": "^1.1",
+        "ebess/nova-collapsible-sidebar": "^0.1.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
