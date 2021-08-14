@@ -19,7 +19,7 @@ class CreatePlantsTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('contact');
-            $table->string('image')->nullable();;
+            $table->string('image')->nullable();
             $table->foreignId('establishment_id');
             $table->timestamps();
         });

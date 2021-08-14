@@ -10,6 +10,10 @@
     "require": {
         "php": "^7.3|^8.0",
         "algolia/algoliasearch-client-php": "^3.0",
+        "beyondcode/nova-theme": "*",
+        "beyondcode/nuova-card": "*",
+        "beyondcode/viewcache": "*",
+        "dkulyk/nova-tabs": "^1.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -18,10 +22,7 @@
         "laravel/nova": "*",
         "laravel/scout": "^9.2",
         "laravel/tinker": "^2.5",
-        "meilisearch/meilisearch-php": "^0.18.3",
-        "beyondcode/viewcache": "*",
-        "beyondcode/nuova-card": "*",
-        "beyondcode/nova-theme": "*"
+        "meilisearch/meilisearch-php": "^0.18.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

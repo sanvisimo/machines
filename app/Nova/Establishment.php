@@ -3,7 +3,9 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Testing\Fluent\Concerns\Has;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Place;
@@ -67,6 +69,7 @@ class Establishment extends Resource
             Text::make('Contact'),
             Image::make('Image')->disk('public'),
             BelongsTo::make('Customer'),
+            HasMany::make('Plants'),
         ];
     }
 

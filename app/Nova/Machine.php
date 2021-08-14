@@ -25,7 +25,10 @@ use Laravel\Nova\Fields\Status;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Trix;
+use DKulyk\Nova\Tabs;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
+use Str;
 
 class Machine extends Resource
 {
@@ -65,22 +68,20 @@ class Machine extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            ID::make(__('ID'), 'id')->sortable(),
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
             Place::make('Address'),
             Text::make('Phone'),
-            Image::make('Image')->disk('public'),
             BelongsTo::make('Plant'),
             Heading::make('Aggiunti'),
             Date::make('Birthday'),
             Image::make('Image')->disk('public'),
-            Badge::make('Contact')->map([
+            Badge::make('Published')->map([
                 'draft' => 'danger',
                 'published' => 'success',
             ]),
-            DateTime::make('Created At')->format('DD MMM YYYY'),
+            DateTime::make('Published At')->format('DD MMM YYYY'),
             Boolean::make('Active'),
             BooleanGroup::make('Permissions')->options([
                 'create' => 'Create',
@@ -89,10 +90,7 @@ class Machine extends Resource
                 'delete' => 'Delete',
             ]),
             Country::make('Country', 'country_code'),
-            KeyValue::make('Meta')
-                ->keyLabel('Item') // Customize the key heading
-                ->valueLabel('Label') // Customize the value heading
-                ->actionText('Add Item'),
+            KeyValue::make('Meta')->rules('json'),
             Number::make('price')->min(1)->max(1000)->step(0.01),
             Password::make('Password'),
             PasswordConfirmation::make('Password Confirmation'),
@@ -106,13 +104,22 @@ class Machine extends Resource
                 ->loadingWhen(['waiting', 'running'])
                 ->failedWhen(['failed']),
             Stack::make('Details', [
-                Text::make('Name'),
+                Text::make('Longname'),
                 Text::make('Slug')->resolveUsing(function () {
-                    return Str::slug(optional($this->resource)->name);
+                    return Str::slug(optional($this->resource)->longname);
                 }),
             ]),
-            Textarea::make('Biography'),
-            Trix::make('Biography'),
+
+            new Tabs('Tabs', [
+                new Panel('Balance', [
+                    Text::make('Longname')->stacked(),
+                    Text::make('Slug')->stacked(),
+                ]),
+                'Other Info' => [
+                    Textarea::make('Excerpt'),
+                    Trix::make('Biography'),
+                 ]
+            ]),
         ];
     }
 

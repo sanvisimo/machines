@@ -2,13 +2,16 @@
 
 namespace App\Nova;
 
+use DKulyk\Nova\Tabs;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
 
 class Plant extends Resource
 {
@@ -56,6 +59,15 @@ class Plant extends Resource
             Text::make('Contact'),
             Image::make('Image')->disk('public'),
             BelongsTo::make('Establishment'),
+
+            new Tabs('Relations', [
+                new Panel(__('Details'), [
+                    ID::make('Id', 'id')->rules('required')->hideFromIndex(),
+                    Text::make('Name', 'name'),
+                ]),
+                HasMany::make('Machines'),
+            ]),
+
         ];
     }
 

@@ -9,6 +9,13 @@ class Machine extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'birthday' => 'date',
+        'published_at' => 'datetime',
+        'meta' => 'array',
+        'permissions' => 'array'
+    ];
+
     public function plant()
     {
         return $this->belongsTo(Plant::class);

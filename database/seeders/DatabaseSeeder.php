@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\Plant::factory(10)->create();
+        \App\Models\Machine::factory(10)->create();
 
         DB::table('users')->insert([
             'name' => 'admin',
