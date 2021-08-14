@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production",
+        "build-viewcache": "cd nova-components/Viewcache && npm run dev",
+        "build-viewcache-prod": "cd nova-components/Viewcache && npm run prod",
+        "build-stripe-inspector": "cd nova-components/StripeInspector && npm run dev",
+        "build-stripe-inspector-prod": "cd nova-components/StripeInspector && npm run prod",
+        "build-nuova-card": "cd nova-components/NuovaCard && npm run dev",
+        "build-nuova-card-prod": "cd nova-components/NuovaCard && npm run prod"
+    },
+    "devDependencies": {
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14"
+    }
+}
