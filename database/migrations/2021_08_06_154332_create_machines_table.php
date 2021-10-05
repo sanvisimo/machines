@@ -15,27 +15,26 @@ class CreateMachinesTable extends Migration
     {
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('address');
-            $table->string('phone');
-            $table->string('image')->nullable();
-            $table->foreignId('plant_id');
+            $table->string('name');
+            $table->string('manufacturer_code', 10);
+            $table->string('manufacturer_description', 40);
+            $table->string('type')->nullable();
+            $table->string('serial_number', 20);
+            $table->string('revision', 5);
+            $table->enum('state', array('active', 'suspended', 'not_operative'));
+            $table->float('power');
+            $table->float('engine_side_rpm');
+            $table->float('process_side_rpm');
+            $table->float('pressure_min');
+            $table->float('pressure_max');
+            $table->float('temperature_min');
+            $table->float('temperature_max');
+            $table->string('documentation');
+            $table->date('activation_date');
+            $table->string('note');
+            $table->string('internal_note');
+            $table->foreignId('plant_id')->nullable();
             $table->timestamps();
-
-            $table->string('published')->nullable();
-            $table->date('birthday');
-            $table->dateTime('published_at', $precision = 0);
-            $table->tinyInteger('active');
-            $table->string('permissions')->nullable();
-            $table->string('country_code');
-            $table->string('meta')->nullable();
-            $table->decimal('price', $precision = 8, $scale = 2);
-            $table->string('password');
-            $table->string('size');
-            $table->string('longname');
-            $table->string('slug');
-            $table->string('excerpt');
-            $table->string('biography');
         });
     }
 

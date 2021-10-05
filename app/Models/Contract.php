@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Establishment extends Model
+class Contract extends Model
 {
     use HasFactory;
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
-    }
-
-    public function plants()
-    {
-        return $this->hasMany(Plant::class);
+        return $this->belongsToMany(Customer::class, 'customer_contract');
     }
 }

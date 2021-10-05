@@ -12,8 +12,28 @@ class Customer extends Model
 
     protected $fillable = ['firstname', 'lastname', 'alias', 'address', 'phone', 'fax', 'authorization', 'image'];
 
-    public function establishment()
+    public function leader_code()
     {
-        return $this->hasMany(Establishment::class);
+        return $this->hasOne(Customer::class);
+    }
+
+    public function maintenance_contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+
+    public function fixfee_contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+
+    public function monitoring_contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+
+    public function plants()
+    {
+        return $this->hasMany(Plant::class);
     }
 }

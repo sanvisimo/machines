@@ -79,14 +79,102 @@ Nova.booting(function (Vue, router, store) {
   router.addRoutes([{
     name: 'viewcache',
     path: '/viewcache',
-    component: __webpack_require__(15)
+    component: __webpack_require__(2)
   }]);
 });
 
 /***/ }),
-/* 2 */,
-/* 3 */,
-/* 4 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(3)
+}
+var normalizeComponent = __webpack_require__(8)
+/* script */
+var __vue_script__ = __webpack_require__(9)
+/* template */
+var __vue_template__ = __webpack_require__(10)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/APanels.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-68ff5483", Component.options)
+  } else {
+    hotAPI.reload("data-v-68ff5483", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(4);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("6e5db1d0", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-68ff5483\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./APanels.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-68ff5483\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./APanels.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -539,113 +627,13 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(16)
-}
-var normalizeComponent = __webpack_require__(8)
-/* script */
-var __vue_script__ = __webpack_require__(18)
-/* template */
-var __vue_template__ = __webpack_require__(19)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/Tool.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-68ff5483", Component.options)
-  } else {
-    hotAPI.reload("data-v-68ff5483", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(17);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("6e5db1d0", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-68ff5483\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Tool.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-68ff5483\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Tool.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Scoped Styles */\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 18 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -694,7 +682,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 19 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -705,7 +693,7 @@ var render = function() {
     "div",
     [
       _c("heading", { staticClass: "mb-6" }, [_vm._v("Componente")]),
-      _vm._v(" "),
+      _vm._v("\n\n    Cacca\n\n    "),
       _c(
         "card",
         {
@@ -753,7 +741,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                /nova-components/Viewcache/resources/js/components/Tool.vue\n            "
+                  "\n                /nova-components/Viewcache/resources/js/components/APanels.vue\n            "
                 )
               ]
             )
@@ -773,6 +761,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-68ff5483", module.exports)
   }
 }
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: ModuleBuildError: Module build failed: Error: Node Sass does not yet support your current environment: Linux 64-bit with Unsupported runtime (88)\nFor more information on which environments are supported please see:\nhttps://github.com/sass/node-sass/releases/tag/v4.14.1\n    at module.exports (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/node-sass/lib/binding.js:13:13)\n    at Object.<anonymous> (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/node-sass/lib/index.js:14:35)\n    at Module._compile (node:internal/modules/cjs/loader:1108:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1137:10)\n    at Module.load (node:internal/modules/cjs/loader:973:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:813:14)\n    at Module.require (node:internal/modules/cjs/loader:997:19)\n    at require (node:internal/modules/cjs/helpers:92:18)\n    at Object.<anonymous> (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/sass-loader/lib/loader.js:3:14)\n    at Module._compile (node:internal/modules/cjs/loader:1108:14)\n    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1137:10)\n    at Module.load (node:internal/modules/cjs/loader:973:32)\n    at Function.Module._load (node:internal/modules/cjs/loader:813:14)\n    at Module.require (node:internal/modules/cjs/loader:997:19)\n    at require (node:internal/modules/cjs/helpers:92:18)\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:18:17)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/NormalModule.js:195:19\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:172:11\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:32:11)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:165:10)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:176:18\n    at loadLoader (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/loadLoader.js:47:3)\n    at iteratePitchingLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:169:2)\n    at runLoaders (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/loader-runner/lib/LoaderRunner.js:365:2)\n    at NormalModule.doBuild (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/NormalModule.js:182:3)\n    at NormalModule.build (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/NormalModule.js:275:15)\n    at Compilation.buildModule (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/Compilation.js:157:10)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/Compilation.js:460:10\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/NormalModuleFactory.js:243:5\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/NormalModuleFactory.js:94:13\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/tapable/lib/Tapable.js:268:11\n    at NormalModuleFactory.<anonymous> (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/CompatibilityPlugin.js:52:5)\n    at NormalModuleFactory.applyPluginsAsyncWaterfall (/home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/tapable/lib/Tapable.js:272:13)\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/NormalModuleFactory.js:69:10\n    at /home/sanvisimo/Projects/development/nova-components/Viewcache/node_modules/webpack/lib/NormalModuleFactory.js:196:7\n    at processTicksAndRejections (node:internal/process/task_queues:76:11)");
 
 /***/ })
 /******/ ]);

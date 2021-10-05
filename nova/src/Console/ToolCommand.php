@@ -45,11 +45,11 @@ class ToolCommand extends Command
         );
 
         // Tool.js replacements...
-        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/resources/js/tool.js');
+        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/resources/js/aPanels.js');
 
-        // Tool.vue replacements...
-        $this->replace('{{ title }}', $this->toolTitle(), $this->toolPath().'/resources/js/components/Tool.vue');
-        $this->replace('{{ class }}', $this->toolClass(), $this->toolPath().'/resources/js/components/Tool.vue');
+        // APanels.vue replacements...
+        $this->replace('{{ title }}', $this->toolTitle(), $this->toolPath().'/resources/js/components/APanels.vue');
+        $this->replace('{{ class }}', $this->toolClass(), $this->toolPath().'/resources/js/components/APanels.vue');
 
         // Tool.php replacements...
         $this->replace('{{ namespace }}', $this->toolNamespace(), $this->toolPath().'/src/Tool.stub');
@@ -61,10 +61,10 @@ class ToolCommand extends Command
             $this->toolPath().'/src/'.$this->toolClass().'.php'
         );
 
-        // ToolServiceProvider.php replacements...
-        $this->replace('{{ namespace }}', $this->toolNamespace(), $this->toolPath().'/src/ToolServiceProvider.stub');
-        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/src/ToolServiceProvider.stub');
-        $this->replace('{{ name }}', $this->toolName(), $this->toolPath().'/src/ToolServiceProvider.stub');
+        // APanelsServiceProvider.php replacements...
+        $this->replace('{{ namespace }}', $this->toolNamespace(), $this->toolPath().'/src/APanelsServiceProvider.stub');
+        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/src/APanelsServiceProvider.stub');
+        $this->replace('{{ name }}', $this->toolName(), $this->toolPath().'/src/APanelsServiceProvider.stub');
 
         // Authorize.php replacements...
         $this->replace('{{ namespace }}', $this->toolNamespace(), $this->toolPath().'/src/Http/Middleware/Authorize.stub');
@@ -111,7 +111,7 @@ class ToolCommand extends Command
     protected function stubsToRename()
     {
         return [
-            $this->toolPath().'/src/ToolServiceProvider.stub',
+            $this->toolPath().'/src/APanelsServiceProvider.stub',
             $this->toolPath().'/src/Http/Middleware/Authorize.stub',
             $this->toolPath().'/routes/api.stub',
         ];

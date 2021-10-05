@@ -2,6 +2,8 @@
     <div>
         <heading class="mb-6">Componente</heading>
 
+        Cacca
+
         <card
             class="bg-90 flex flex-col items-center justify-center"
             style="min-height: 300px"

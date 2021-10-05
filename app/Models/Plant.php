@@ -11,7 +11,7 @@ class Plant extends Model
 
     public function establishment()
     {
-        return $this->belongsTo(Establishment::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function machines()

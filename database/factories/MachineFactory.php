@@ -24,31 +24,23 @@ class MachineFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->sentence(3),
-            'address' => $this->faker->address(),
-            'phone' => $this->faker->phoneNumber(),
-            'plant_id' => Plant::factory(),
-            'published' => 'draft',
-            'birthday' =>  $this->faker->date(),
-            'published_at' => $this->faker->dateTime(),
-            'active' => $this->faker->boolean(),
-            'permissions' => [
-                "create" => false,
-                "read" => true,
-                "update" => true,
-                "delete" => false
-            ],
-            'country_code' => 'IT',
-            'meta' => [
-                "casa" => "chiesa",
-                "auto" => "moto"
-            ],
-            'price' => $this->faker->randomFloat(2, 5, 100),
-            'password' => $this->faker->word(),
-            'size' => 'L',
-            'longname' => $this->faker->name(),
-            'slug' => $this->faker->slug(),
-            'excerpt' => $this->faker->sentence(6),
-            'biography' => $this->faker->sentence(6),
+            'manufacturer_code' => $this->faker->isbn10(),
+            'manufacturer_description' => $this->faker->text(40),
+            'type' => $this->faker->text(5),
+            'serial_number' => $this->faker->text(20),
+            'revision' => $this->faker->text(5),
+            'state' =>  'active',
+            'power' => $this->faker->randomFloat(2,0, 150),
+            'engine_side_rpm' => $this->faker->randomFloat(2,0, 150),
+            'process_side_rpm' =>$this->faker->randomFloat(2,0, 150),
+            'pressure_min' =>$this->faker->randomFloat(2,0, 150),
+            'pressure_max' =>$this->faker->randomFloat(2,0, 150),
+            'temperature_min' =>$this->faker->randomFloat(2,0, 150),
+            'temperature_max' =>$this->faker->randomFloat(2,0, 150),
+            'documentation' =>$this->faker->imageUrl(),
+            'activation_date' =>$this->faker->date(),
+            'note' =>$this->faker->sentence(),
+            'internal_note' =>$this->faker->sentence(),
         ];
     }
 }

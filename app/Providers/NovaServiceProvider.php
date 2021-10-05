@@ -81,7 +81,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new Viewcache
+            new Viewcache,
+            new \Czemu\NovaCalendarTool\NovaCalendarTool,
         ];
     }
 

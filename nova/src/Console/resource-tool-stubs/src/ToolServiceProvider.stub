@@ -21,7 +21,7 @@ class ToolServiceProvider extends ServiceProvider
         });
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('{{ component }}', __DIR__.'/../dist/js/tool.js');
+            Nova::script('{{ component }}', __DIR__.'/../dist/js/aPanels.js');
             Nova::style('{{ component }}', __DIR__.'/../dist/css/tool.css');
         });
     }

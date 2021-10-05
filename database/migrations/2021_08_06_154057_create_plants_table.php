@@ -15,12 +15,13 @@ class CreatePlantsTable extends Migration
     {
         Schema::create('plants', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('address');
-            $table->string('phone');
-            $table->string('contact');
-            $table->string('image')->nullable();
-            $table->foreignId('establishment_id');
+            $table->string('plant', 20)->unique();
+            $table->string('description', 40);
+            $table->string('note');
+            $table->enum('plant_state', array('active', 'suspended', 'cancel'));
+            $table->string('internal_note');
+            $table->string('documents');
+            $table->foreignId('customer_id');
             $table->timestamps();
         });
     }

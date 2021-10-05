@@ -13,7 +13,9 @@
         "build-stripe-inspector": "cd nova-components/StripeInspector && npm run dev",
         "build-stripe-inspector-prod": "cd nova-components/StripeInspector && npm run prod",
         "build-nuova-card": "cd nova-components/NuovaCard && npm run dev",
-        "build-nuova-card-prod": "cd nova-components/NuovaCard && npm run prod"
+        "build-nuova-card-prod": "cd nova-components/NuovaCard && npm run prod",
+        "build-block-panels": "cd nova-components/nova-panels && npm run dev",
+        "build-block-panels-prod": "cd nova-components/nova-panels && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.21",
