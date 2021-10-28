@@ -1,0 +1,22 @@
+.components-forms h1 {
+    display: none !important;
+}
+
+.components-forms .card {
+    display: grid !important;
+    gap: 1rem;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+}
+
+.components-forms .card .w-full {
+    width: auto !important;
+}
+
+.components-forms .card .w-1\/5 {
+    width: 33% !important;
+}
+
+.components-forms .card .w-1\/2 {
+    width: 66% !important;
+}
+

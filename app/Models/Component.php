@@ -19,13 +19,13 @@ class Component extends Model
         return $this->hasMany(ManagedArticle::class);
     }
 
-    public function component_category()
+    public function componentCategory()
     {
-        return $this->hasOne(ComponentCategory::class);
+        return $this->belongsTo(ComponentCategory::class);
     }
 
-    public function component_sub_category()
+    public function componentSubCategory()
     {
-        return $this->hasOne(ComponentSubCategory::class);
+        return $this->belongsTo(ComponentSubCategory::class);
     }
 }

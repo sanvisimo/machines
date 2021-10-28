@@ -9,8 +9,8 @@ class Article extends Model
 {
     use HasFactory;
 
-    public function article()
+    public function managedArticles()
     {
-        return $this->belongsTo(Article::class);
+        return $this->hasMany(ManagedArticle::class);
     }
 }

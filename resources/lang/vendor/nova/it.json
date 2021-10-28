@@ -1,6 +1,6 @@
 {
-  "Actions": "Actions",
-  "Details": "Details",
+  "Actions": "Azioni",
+  "Details": "Dettagli",
   "If you did not request a password reset, no further action is required.": "If you did not request a password reset, no further action is required.",
   "Reset Password": "Reset Password",
   "Sorry! You are not authorized to perform this action.": "Sorry! You are not authorized to perform this action.",
@@ -14,7 +14,7 @@
   "Logout": "Logout",
   "Password": "Password",
   "Remember Me": "Remember Me",
-  "Resources": "Resources",
+  "Resources": "Risorse",
   "Send Password Reset Link": "Send Password Reset Link",
   "Welcome Back!": "Welcome Back!",
   "Delete Resource": "Delete Resource",
@@ -423,5 +423,12 @@
   "Update attached :resource: :title": "Update attached :resource: :title",
   ":resource Details: :title": ":resource Details: :title",
   "The HasOne relationship has already been filled.": "The HasOne relationship has already been filled.",
-  "An error occured while uploading the file.": "An error occured while uploading the file."
+  "An error occured while uploading the file.": "An error occured while uploading the file.",
+    "Machines": "Treni Macchina",
+    "Machine": "Treno Macchina",
+    "List is empty": "La lista è vuota",
+    "Select": "Seleziona",
+    "Press enter to select": "Premi invio per selezionare",
+    "Selected": "Selezionato",
+    "Press enter to remove": "Premi invio per rimuovere"
 }

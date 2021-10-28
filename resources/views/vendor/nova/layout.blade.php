@@ -60,6 +60,8 @@
                     <dropdown class="ml-auto h-9 flex items-center dropdown-right">
                         @include('nova::partials.user')
                     </dropdown>
+
+                    <locale-switcher></locale-switcher>
                 </div>
 
                 <div data-testid="content" class="px-view py-view mx-auto">

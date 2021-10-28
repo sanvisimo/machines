@@ -13,4 +13,9 @@ class ManagedArticle extends Model
     {
         return $this->belongsTo(Component::class);
     }
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
 }

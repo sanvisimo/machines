@@ -1,5 +1,5 @@
-import Tool from './components/APanels.vue'
+import APanels from './components/APanels.vue'
 
 Nova.booting((Vue, router, store) => {
-    Vue.component('akka-panels', Tool);
+    Vue.component('akka-panels', APanels);
 })

@@ -19,7 +19,6 @@ class CreateContractsTable extends Migration
             $table->string('reference', 20);
             $table->date('expiration_date');
             $table->string('attachment');
-            $table->foreignId('customer_id');
             $table->timestamps();
         });
     }

@@ -1,35 +1,56 @@
 <template>
     <div>
-        <heading class="mb-6">Block Panels</heading>
-
-        <card
-            class="bg-90 flex flex-col items-center justify-center"
-            style="min-height: 300px"
-        >
-            <svg
-                class="spin fill-80 mb-6"
-                width="69"
-                height="72"
-                viewBox="0 0 23 24"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M20.12 20.455A12.184 12.184 0 0 1 11.5 24a12.18 12.18 0 0 1-9.333-4.319c4.772 3.933 11.88 3.687 16.36-.738a7.571 7.571 0 0 0 0-10.8c-3.018-2.982-7.912-2.982-10.931 0a3.245 3.245 0 0 0 0 4.628 3.342 3.342 0 0 0 4.685 0 1.114 1.114 0 0 1 1.561 0 1.082 1.082 0 0 1 0 1.543 5.57 5.57 0 0 1-7.808 0 5.408 5.408 0 0 1 0-7.714c3.881-3.834 10.174-3.834 14.055 0a9.734 9.734 0 0 1 .03 13.855zM4.472 5.057a7.571 7.571 0 0 0 0 10.8c3.018 2.982 7.912 2.982 10.931 0a3.245 3.245 0 0 0 0-4.628 3.342 3.342 0 0 0-4.685 0 1.114 1.114 0 0 1-1.561 0 1.082 1.082 0 0 1 0-1.543 5.57 5.57 0 0 1 7.808 0 5.408 5.408 0 0 1 0 7.714c-3.881 3.834-10.174 3.834-14.055 0a9.734 9.734 0 0 1-.015-13.87C5.096 1.35 8.138 0 11.5 0c3.75 0 7.105 1.68 9.333 4.319C16.06.386 8.953.632 4.473 5.057z"
-                    fill-rule="evenodd"
-                />
-            </svg>
-
-            <h1 class="text-white text-4xl text-90 font-light mb-6">
-                We're in a black hole.
-            </h1>
-
-            <p class="text-white-50% text-lg">
-                You can edit this tool's component at:
-                <code class="ml-1 border border-80 text-sm font-mono text-white bg-black rounded px-2 py-1">
-                    /nova-components/BlockPanels/resources/js/components/Tool.vue
-                </code>
-            </p>
-        </card>
+        <div class=""></div>
+        <div>
+            <div class="flex flex-row">
+                <h4 class="text-90 font-normal text-2xl title px-8 border-b-2 border-40">{{ panel.name }}</h4>
+                <div class="flex-1 border-b-2 border-40"></div>
+                <div class="flex flex-row">
+                    <button
+                        class="py-5 px-8 border-b-2 focus:outline-none tab"
+                        :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary': 'text-grey font-semibold border-40']"
+                        v-for="(tab, key) in tabs"
+                        :key="key"
+                        @click="handleTabClick(tab, $event)"
+                    >{{ tab.name }}
+                    </button>
+                </div>
+                </div>
+                <div
+                    v-for="(tab, index) in tabs"
+                    v-if="tab.init"
+                    v-show="tab.name === activeTab"
+                    :label="tab.name"
+                    :key="'related-tabs-fields' + index"
+                >
+                    <div>
+<!--                        <router-link-->
+<!--                            v-if="resource.authorizedToUpdate"-->
+<!--                            data-testid="edit-resource"-->
+<!--                            dusk="edit-resource-button"-->
+<!--                            :to="{ name: 'edit', params: { id: resource.id } }"-->
+<!--                            class="btn btn-default btn-icon bg-primary"-->
+<!--                            :title="__('Edit')"-->
+<!--                        >-->
+<!--                            <icon-->
+<!--                                type="edit"-->
+<!--                                class="text-white"-->
+<!--                                style="margin-top: -2px; margin-left: 3px"-->
+<!--                            />-->
+<!--                        </router-link>-->
+                        <div v-for="(pan, index) in tab.fields" class="my-4">
+                            <component
+                                :is="pan.component"
+                                :name="index"
+                                :panel="pan"
+                                :resourceId="resourceId"
+                                resourceName="machines"
+                                :resource="resource"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 </template>
 
@@ -38,18 +59,71 @@ import BehavesAsPanel from 'laravel-nova/src/mixins/BehavesAsPanel'
 
 export default {
     mixins: [BehavesAsPanel],
-    metaInfo() {
+    data() {
         return {
-          title: 'nova-panels',
-        }
+            tabs: null,
+            activeTab: "",
+            pans: null
+        };
     },
     mounted() {
-        //
-        console.log('panels', this.panel)
+        let tabs = {}
+
+        tabs = [
+            {id: 0, name: this.__('Overview'), init: true, fields: {}},
+            {id: 1, name: this.__('Calendar'), init: false, fields: {}},
+            {id: 2, name: this.__('Control Plan'), init: false, fields: {}},
+        ]
+
+        this.panel.fields.forEach(field => {
+            if (!tabs[field.tab].fields.hasOwnProperty(field.pan)) {
+                tabs[field.tab].fields[field.pan] = {
+                    name: field.pan,
+                    init: false,
+                    listable: field.listableTab,
+                    component: this.componentName(field),
+                    fields: []
+                }
+            }
+
+            tabs[field.tab].fields[field.pan].fields.push(field);
+        })
+
+        this.tabs = tabs;
+        this.handleTabClick(tabs[Object.keys(tabs)[0]]);
     },
+    methods: {
+        /**
+         * Handle the actionExecuted event and pass it up the chain.
+         */
+        actionExecuted() {
+            this.$emit("actionExecuted");
+        },
+
+        handleTabClick(tab, event) {
+            tab.init = true
+            this.activeTab = tab.name
+        },
+
+        componentName(field) {
+            return field.listableTab ? 'relationship-panel' : field.panComponent
+        },
+
+        panelName(panel) {
+            switch(panel) {
+                case "Accordion":
+                    return "akka-accordion"
+                default:
+                    return 'panel'
+            }
+        }
+    }
 }
 </script>
 
 <style>
-/* Scoped Styles */
+.title  {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
 </style>

@@ -43,10 +43,10 @@ class ResourceToolCommand extends Command
         );
 
         // Tool.js replacements...
-        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/resources/js/aPanels.js');
+        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/resources/js/tool.js');
 
-        // APanels.vue replacements...
-        $this->replace('{{ title }}', $this->toolTitle(), $this->toolPath().'/resources/js/components/APanels.vue');
+        // ACalendar.vue replacements...
+        $this->replace('{{ title }}', $this->toolTitle(), $this->toolPath().'/resources/js/components/Tool.vue');
 
         // Tool.php replacements...
         $this->replace('{{ namespace }}', $this->toolNamespace(), $this->toolPath().'/src/Tool.stub');
@@ -59,10 +59,10 @@ class ResourceToolCommand extends Command
             $this->toolPath().'/src/'.$this->toolClass().'.php'
         );
 
-        // APanelsServiceProvider.php replacements...
-        $this->replace('{{ namespace }}', $this->toolNamespace(), $this->toolPath().'/src/APanelsServiceProvider.stub');
-        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/src/APanelsServiceProvider.stub');
-        $this->replace('{{ name }}', $this->toolName(), $this->toolPath().'/src/APanelsServiceProvider.stub');
+        // ToolServiceProvider.php replacements...
+        $this->replace('{{ namespace }}', $this->toolNamespace(), $this->toolPath().'/src/ToolServiceProvider.stub');
+        $this->replace('{{ component }}', $this->toolName(), $this->toolPath().'/src/ToolServiceProvider.stub');
+        $this->replace('{{ name }}', $this->toolName(), $this->toolPath().'/src/ToolServiceProvider.stub');
 
         // Tool composer.json replacements...
         $this->replace('{{ name }}', $this->argument('name'), $this->toolPath().'/composer.json');
@@ -106,7 +106,7 @@ class ResourceToolCommand extends Command
     protected function stubsToRename()
     {
         return [
-            $this->toolPath().'/src/APanelsServiceProvider.stub',
+            $this->toolPath().'/src/ToolServiceProvider.stub',
             $this->toolPath().'/routes/api.stub',
         ];
     }

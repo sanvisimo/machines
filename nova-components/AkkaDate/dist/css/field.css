@@ -1,0 +1,11 @@
+/* Nova tool Css */
+div[dusk="activities-index-component"] div[dusk="select-all-dropdown"],
+div[dusk="activities-index-component"] .table td:first-child,
+div[dusk="activities-index-component"] .table th:first-child {
+    display: none !important;
+}
+
+div[dusk="activities-index-component"] .table td:nth-child(2) {
+    padding-left: 0 !important;
+}
+

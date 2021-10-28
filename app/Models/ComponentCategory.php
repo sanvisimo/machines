@@ -9,7 +9,7 @@ class ComponentCategory extends Model
 {
     use HasFactory;
 
-    public function component_sub_categories()
+    public function subs()
     {
         return $this->hasMany(ComponentSubCategory::class);
     }

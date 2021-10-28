@@ -14,26 +14,26 @@ class Customer extends Model
 
     public function leader_code()
     {
-        return $this->hasOne(Customer::class);
+        return $this->hasOne(Customer::class, 'leader_code');
     }
 
     public function maintenance_contract()
     {
-        return $this->hasOne(Contract::class);
+        return $this->hasOne(Contract::class,'maintenance_contract');
     }
 
     public function fixfee_contract()
     {
-        return $this->hasOne(Contract::class);
+        return $this->hasOne(Contract::class, 'fixfee_contract');
     }
 
     public function monitoring_contract()
     {
-        return $this->hasOne(Contract::class);
+        return $this->hasOne(Contract::class, 'monitoring_contract');
     }
 
-    public function plants()
+    public function factories()
     {
-        return $this->hasMany(Plant::class);
+        return $this->hasMany(Factory::class);
     }
 }

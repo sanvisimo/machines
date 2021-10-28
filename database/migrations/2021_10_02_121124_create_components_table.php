@@ -17,8 +17,16 @@ class CreateComponentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('machine_id');
-            $table->foreignId('components_category_id');
-            $table->foreignId('components_sub_category_id');
+            $table->foreignId('component_category_id');
+            $table->foreignId('component_sub_category_id');
+            $table->string('constructor', 40);
+            $table->string('model', 40);
+            $table->string('serial_number', 40);
+            $table->string('description');
+            $table->integer('vibrations');
+            $table->integer('temperature');
+            $table->integer('pressure');
+            $table->integer('payload');
             $table->timestamps();
         });
     }

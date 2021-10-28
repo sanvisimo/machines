@@ -2,12 +2,19 @@
 
 namespace App\Providers;
 
+use Akka\Calendar\Calendar;
+use App\Nova\Dashboards\CustomD;
 use Beyondcode\NuovaCard\NuovaCard;
-use Beyondcode\Viewcache\Viewcache;
+use CodencoDev\NovaGridSystem\NovaGridSystem;
+use Day4\SwitchLocale\SwitchLocale;
+use Eolica\NovaLocaleSwitcher\LocaleSwitcher;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
+use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Sloveniangooner\LocaleAnywhere\LocaleAnywhere;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -19,6 +26,18 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::serving(function (ServingNova $event) {
+
+            $user = $event->request->user();
+//            app()->setLocale('it');
+            if (array_key_exists($user->locale, config('nova.locales'))) {
+                $lang = $user->locale === "en" ? '/lang/en.json' : '/lang/it.json';
+
+                Nova::translations(public_path().$lang);
+                app()->setLocale($user->locale);
+            }
+        });
     }
 
     /**
@@ -70,7 +89,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        return [];
+        return [
+            new CustomD
+        ];
     }
 
     /**
@@ -81,8 +102,18 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new Viewcache,
+            new Calendar,
+            new NovaGridSystem,
             new \Czemu\NovaCalendarTool\NovaCalendarTool,
+            LocaleSwitcher::make()
+                ->setLocales(config('nova.locales'))
+                ->onSwitchLocale(function (Request $request) {
+
+                    $locale = $request->post('locale');
+                    if (array_key_exists($locale, config('nova.locales'))) {
+                        $request->user()->update(['locale' => $locale]);
+                    }
+                }),
         ];
     }
 

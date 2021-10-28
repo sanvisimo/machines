@@ -34,6 +34,7 @@ class CreateMachinesTable extends Migration
             $table->string('note');
             $table->string('internal_note');
             $table->foreignId('plant_id')->nullable();
+            $table->foreignId('config_plan_config_id')->nullable();
             $table->timestamps();
         });
     }

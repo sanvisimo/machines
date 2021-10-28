@@ -34,10 +34,10 @@ class CreateCustomersTable extends Migration
             $table->string('contact_person');
             $table->date('activation_date');
             $table->string('language');
-            $table->foreignId('leader_code')->nullable();
             $table->string('note')->nullable();
             $table->string('main_activity')->nullable();
             $table->string('image')->nullable();
+            $table->foreignId('leader_code')->nullable();
             $table->foreignId('maintenance_contract');
             $table->foreignId('fixfee_contract');
             $table->foreignId('monitoring_contract');
