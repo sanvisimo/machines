@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Activity;
+use App\Models\ControlPlanConfig;
+use App\Models\Maintenance;
 use App\Observers\ActivityObserver;
+use App\Observers\ControlPlanConfigObserver;
+use App\Observers\MaintenanceObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,5 +34,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Activity::observe(ActivityObserver::class);
+        ControlPlanConfig::observe(ControlPlanConfigObserver::class);
+        Maintenance::observe(MaintenanceObserver::class);
     }
 }

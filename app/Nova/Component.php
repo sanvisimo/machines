@@ -7,6 +7,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -77,6 +78,9 @@ class Component extends Resource
             Number::make(__('Point of Temperature'), 'temperature')->size('w-1/4'),
             Number::make(__('Point of Pressure'), 'pressure')->size('w-1/4'),
             Number::make(__('Point of Payload'), 'payload')->size('w-1/4'),
+            MorphMany::make(__('Attachments'), 'attachments'),
+            HasMany::make(__('Articles'), 'articles', ManagedArticle::class),
+            HasMany::make('maintenances')->onlyOnIndex()->hideFromIndex()
         ];
     }
 

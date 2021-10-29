@@ -38,7 +38,8 @@
         "optimistdigital/nova-tailwind": "^1.1",
         "orlyapps/nova-belongsto-depend": "^3.0",
         "sloveniangooner/locale-anywhere": "dev-master",
-        "akka/control-plan-field": "*"
+        "akka/control-plan-field": "*",
+        "akka/button-group": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
@@ -121,6 +122,10 @@
         {
             "type": "path",
             "url": "./nova-components/ControlPlanField"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ButtonGroup"
         }
     ]
 }

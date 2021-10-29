@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="control-plan-config">
         <form
             v-if="panels"
             @submit="submitViaCreateResource"
@@ -7,7 +7,9 @@
             autocomplete="off"
             ref="form"
         >
-            <button type="submit">Crea!</button>
+            <div class="flex justify-end p-4 w-full">
+                <button type="submit" class="btn btn-default btn-primary">{{ __('Create Control Plan') }}</button>
+            </div>
             <form-panel
                 class="mb-8"
                 v-for="panel in panelsWithFields"
@@ -25,7 +27,7 @@
                 :via-relationship="viaRelationship"
             />
         </form>
-        <component-config :resource-id="resourceId" submitted="" />
+        <component-config :resource-id="resourceId" ref="compos" />
     </div>
 </template>
 
@@ -60,6 +62,7 @@ export default {
     data: () => ({
         mode: 'form',
         viaRelationship:"controlPlanConfig",
+        submittedViaCreateResource: false,
         viaResource:"machines",
         viaResourceId: null,
         shouldOverrideMeta: true,
@@ -67,6 +70,7 @@ export default {
         loading: true,
         fields: [],
         panels: [],
+        submitted: false
     }),
 
     async created() {
@@ -133,9 +137,7 @@ export default {
 
         async submitViaCreateResource(e) {
             e.preventDefault()
-
-            this.submittedViaCreateResource = true
-            this.submittedViaCreateResourceAndAddAnother = false
+            // this.submittedViaCreateResource = false
             await this.createResource()
         },
 
@@ -151,26 +153,14 @@ export default {
                         data: { redirect, id },
                     } = await this.createRequest()
 
-                    // this.canLeave = true
-                    //
-                    // Nova.success(
-                    //     this.__('The :resource was created!', {
-                    //         resource: 'configuration',
-                    //     })
-                    // )
-                    //
-                    // if (this.submittedViaCreateResource) {
-                    //     this.$emit('resource-created', { id, redirect })
-                    // } else {
-                    //     // Reset the form by refetching the fields
-                    //     this.getFields()
-                    //     this.validationErrors = new Errors()
-                    //     this.submittedViaCreateAndAddAnother = false
-                    //     this.submittedViaCreateResource = false
-                    //     this.isWorking = false
-                    //
-                    //     return
-                    // }
+                    await this.$refs.compos.submitForms(id);
+
+                    this.canLeave = true
+
+                    Nova.success(
+                        this.__('The configuration was created!')
+                    )
+                    this.$emit('createdConfig');
                 } catch (error) {
                     console.log("erri", error)
                     window.scrollTo(0, 0)
@@ -196,20 +186,16 @@ export default {
          * Send a create request for this resource
          */
         async createRequest() {
-            const data = this.createResourceFormData();
-            for(var pair of data.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]);
-            }
-            // return Nova.request().post(
-            //     `/nova-api/control-plan-configs`,
-            //     this.createResourceFormData(),
-            //     {
-            //         params: {
-            //             editing: true,
-            //             editMode: 'create',
-            //         },
-            //     }
-            // )
+            return Nova.request().post(
+                `/nova-api/control-plan-configs`,
+                this.createResourceFormData(),
+                {
+                    params: {
+                        editing: true,
+                        editMode: 'create',
+                    },
+                }
+            )
         },
 
         /**

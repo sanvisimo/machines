@@ -1,23 +1,49 @@
 <template>
-    <div class="flex h-full items-center"><span class="block alert w-1 h-full" :class="getColor"></span><span>{{ field.value }}</span></div>
+    <div class="flex h-full items-center"><span class="block alert w-1 h-full" :class="getColor"></span><span>{{ value }}{{ expired }}</span></div>
 </template>
 
 <script>
 export default {
     props: ['resourceName', 'field'],
+    data() {
+      return {
+          resource: null
+      }
+    },
+    mounted() {
+      this.fetchData();
+    },
     computed: {
+        expired() {
+            if(this.resource && this.resource.active) {
+                if (moment().isAfter(moment(this.field.value))) {
+                    return " - " + this.__('Expired');
+                }
+            }
+            return '';
+        },
         getColor() {
-           const diff = moment(this.field.value, 'YYYY-MM-DD').diff(moment(), 'days');
-            console.log('diff',this.field.value,  diff);
-            if(diff >= 5) {
-                return "bg-red-600"
+            if(this.resource && this.resource.active) {
+                if (moment().isAfter(moment(this.field.value))) {
+                    return "bg-red-600"
+                }
+
+                if (moment(this.field.value).isSameOrBefore(moment().add(5, 'day'))) {
+                    return "bg-yellow-500"
+                }
             }
 
-            if(diff >= 3 ) {
-                return "bg-yellow-500"
-            }
+            return '';
+        },
 
-
+        value() {
+            return moment(this.field.value).format('DD/MM/YYYY');
+        }
+    },
+    methods: {
+        async fetchData() {
+            const { data } = await Nova.request().get(`/nova-vendor/akka-date/date/${this.$attrs.resource.id.value}/${this.resourceName}`);
+            this.resource = data.resource
         }
     }
 }

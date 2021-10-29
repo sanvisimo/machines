@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -34,7 +35,15 @@ class createMaintenance extends Action
     {
         foreach ($models as $model) {
             $resource = str_contains($model->activitable_type, 'Maintenance') ? 'maintenances' : 'control-plans';
-            return Action::push("/resources/{$resource}/{$model->activitable_id}/edit");
+            if($resource === "maintenances"){
+                $maintenance = \App\Models\Maintenance::find($model->activitable_id);
+                $maintenance->opening_date = Carbon::now();
+                $maintenance->save();
+                return Action::push("/resources/{$resource}/{$model->activitable_id}/edit");
+            } else {
+                return Action::push("/resources/machines/{$model->machine_id}?measurement=true");
+            }
+
         }
     }
 

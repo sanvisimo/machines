@@ -2,11 +2,20 @@
 
 namespace App\Nova;
 
+use Akka\ButtonGroup\ButtonGroup;
+use Carbon\Carbon;
+use Google\Service\HangoutsChat\Button;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Currency;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphOne;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Maintenance extends Resource
@@ -42,6 +51,19 @@ class Maintenance extends Resource
     public static $displayInNavigation = false;
 
     /**
+     * Return the location to redirect the user after update.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return string
+     */
+    public static function redirectAfterUpdate(NovaRequest $request, $resource)
+    {
+        return '/resources/'.Machine::uriKey().'/'.$resource->model()->machine->id;
+    }
+
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -54,6 +76,23 @@ class Maintenance extends Resource
             Text::make(__('Work Permit'),'work_permit'),
 //            BelongsTo::make(__('Activity'), 'activity', 'App\Nova\Activity'),
             MorphOne::make('Activity'),
+            Select::make(__('Type'), 'type')->options([
+                'maintenance' => __('Ordinary Maintenance'),
+                'maintenance_no' => __('Extraordinary Maintenance')
+            ])->nullable()->default('maintenance_no'),
+            Date::make(__('Opening Date'), 'opening_date')->nullable(),
+            Date::make(__('Onsite intervention'), 'onsite_intervention')->nullable(),
+            Date::make(__('Closed on'), 'closed_on')->nullable(),
+            Number::make(__('Duration'), 'duration')->nullable(),
+            Currency::make(__('Indicative cost'), 'indicative_cost')->nullable(),
+
+//            $table->string('drawing')->nullable();
+            Text::make(__('Position'), 'position')->nullable(),
+            Boolean::make(__('Extra fee'), 'extra_fee')->nullable(),
+            Textarea::make(__('Task notes'), 'task_notes')->nullable(),
+            Textarea::make(__('Internal notes'), 'internal_notes')->nullable(),
+            BelongsTo::make(__('Component'), 'component', Component::class)->readonly(),
+//            BelongsTo::make(__('Machine'), 'machine', Machine::class)->onlyOnIndex(),
         ];
     }
 

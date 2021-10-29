@@ -61,6 +61,7 @@ class Activity extends Resource
     public static $search = [
         'id',
     ];
+
     /**
      * Return the location to redirect the user after creation.
      *
@@ -123,6 +124,13 @@ class Activity extends Resource
     }
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -158,21 +166,6 @@ class Activity extends Resource
             ])
                 ->dependsOn('type', 'maintenance')
                 ->dependsOn('type', 'maintenance_no'),
-
-//            MorphTo::make(__('Activitable'), 'activitable')->types([
-//                Maintenance::class,
-//                ControlPlan::class,
-//            ]),
-
-//            NovaDependencyContainer::make([
-//                MorphTo::make(__('Element'), 'element')->types([
-//                    Component::class,
-//                    ManagedArticle::class,
-//                ]),
-//            ])
-//                ->dependsOn('type', 'maintenance')
-//                ->dependsOn('type', 'maintenance_no')
-//                ->onlyOnForms(),
         ];
     }
 

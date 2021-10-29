@@ -16,8 +16,9 @@ class CreateControlPlanConfigsTable extends Migration
         Schema::create('control_plan_configs', function (Blueprint $table) {
             $table->id();
             $table->boolean('contract')->default(true);
-            $table->boolean('cost')->default(true);
-            $table->boolean('periodicity')->default(true);
+            $table->decimal('cost', 10, 2);
+            $table->date('start_date');
+            $table->integer('periodicity')->default(true);
             $table->boolean('global_conditions')->default(true);
             $table->boolean('machine_status')->default(true);
             $table->boolean('casing_integrity_check')->default(true);

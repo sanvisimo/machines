@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Activity;
+use App\Models\ControlPlan;
 use App\Models\Maintenance;
 
 class ActivityObserver
@@ -18,27 +19,19 @@ class ActivityObserver
         switch($activity->type) {
             case "maintenance":
             case "maintenance_no":
-                $model = new Maintenance;
-                $model->machine_id = $activity->machine_id;
-                $model->component_id = $activity->element_type === 'App\Models\Component' ? $activity->element_id : null;
-                $model->managed_article_id = $activity->element_type === 'App\Models\ManagedArticle' ? $activity->element_id : null;
-                $model->type = $activity->type;
-                $model->save();
+                $maintenance = $activity->element_type::where('id', $activity->element_id)->first();
+                if(!$maintenance) {
+                    $model = new Maintenance;
+                    $model->machine_id = $activity->machine_id;
+                    $model->component_id = $activity->element_type === 'App\Models\Component' ? $activity->element_id : null;
+                    $model->managed_article_id = $activity->element_type === 'App\Models\ManagedArticle' ? $activity->element_id : null;
+                    $model->type = $activity->type;
+                    $model->save();
 
-                $activity->activitable_id = $model->id;
-                $activity->activitable_type ='App\Models\Maintenance';
-                $activity->save();
-                break;
-            case "control_plan":
-            case "control_plan_no":
-                $model = new Maintenance;
-                $model->machine_id = $activity->machine_id;
-                $model->contract = $activity->type === "control_plan";
-                $model->save();
-
-                $activity->activitable_id = $model->id;
-                $activity->activitable_type ='App\Models\Maintenance';
-                $activity->save();
+                    $activity->activitable_id = $model->id;
+                    $activity->activitable_type = 'App\Models\Maintenance';
+                    $activity->save();
+                }
                 break;
         }
 

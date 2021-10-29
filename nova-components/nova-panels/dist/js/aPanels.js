@@ -55,20 +55,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova_src_mixins_BehavesAsPanel__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -737,7 +723,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(_vm._s(tab.name) + "\n                    ")]
+                [_vm._v(_vm._s(tab.name) + "\n                ")]
               )
             }),
             0

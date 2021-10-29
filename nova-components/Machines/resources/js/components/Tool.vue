@@ -1,30 +1,27 @@
 <template>
-  <div>
-      <div class="relationship-tabs-panel card">
+    <div>
+        <div class="flex flex-row">
+            <button
+                class="py-5 px-8 border-b-4 focus:outline-none tab self-center"
+                :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary-30%': 'text-grey font-semibold border-40']"
+                v-for="(tab, key) in tabs"
+                :key="key"
+                @click="handleTabClick(tab, $event)"
+            >
+                {{ tab.name }}
+            </button>
 
-          <div class="flex flex-row">
-              <button
-                  class="py-5 px-8 border-b-2 focus:outline-none tab self-center"
-                  :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary': 'text-grey font-semibold border-40']"
-                  v-for="(tab, key) in tabs"
-                  :key="key"
-                  @click="handleTabClick(tab, $event)"
-              >{{ tab.name }}
-              </button>
+            <div class="border-b-4 border-40 flex py-5 px-8">
+                <create-relation-button
+                  @click="openRelationModal"
+                  class="ml-1"
+                  :dusk="`component-inline-create`"
+                />
+            </div>
 
-              <div class="border-b-2 border-40 flex">
-                  <div class="flex items-center">
-                      <create-relation-button
-                          @click="openRelationModal"
-                          class="ml-1"
-                          :dusk="`component-inline-create`"
-                      />
-                  </div>
-              </div>
-
-              <div class="flex-1 border-b-2 border-40"></div>
-          </div>
+            <div class="flex-1 border-b-4 border-40"></div>
       </div>
+
       <div
           v-for="(tab, index) in tabs"
           v-if="tab.init"
@@ -32,12 +29,7 @@
           :label="tab.name"
           :key="'related-tabs-fields' + index"
       >
-          <div>
-              <div v-for="(field, index) in tab.fields" class="border-b-2 my-3 px-3">
-                  <h6>{{ index }}</h6>
-                  <div>{{ __(field) }}</div>
-              </div>
-          </div>
+          <component-detail :component="tab.fields" />
       </div>
       <portal to="modals" transition="fade-transition">
           <modal
@@ -47,14 +39,14 @@
               role="dialog"
               @modal-close="closeRelationModal"
               :classWhitelist="[
-      'flatpickr-current-month',
-      'flatpickr-next-month',
-      'flatpickr-prev-month',
-      'flatpickr-weekday',
-      'flatpickr-weekdays',
-      'flatpickr-calendar',
-      'form-file-input',
-    ]"
+                  'flatpickr-current-month',
+                  'flatpickr-next-month',
+                  'flatpickr-prev-month',
+                  'flatpickr-weekday',
+                  'flatpickr-weekdays',
+                  'flatpickr-calendar',
+                  'form-file-input',
+                ]"
           >
               <div
                   class="bg-40 rounded-lg shadow-lg overflow-hidden p-8"
@@ -79,10 +71,12 @@
 <script>
 import Title from "./Title";
 import Create from '../../../../../nova/resources/js/views/Create'
+import ComponentDetail from "./ComponentDetail";
 
 export default {
     props: ['resourceName', 'resourceId', 'panel'],
     components: {
+        ComponentDetail,
       Title,
         Create
     },
@@ -95,19 +89,27 @@ export default {
     },
     mounted() {
         this.fetchData();
-        console.log("panel", this.data);
     },
     methods: {
+        isActive(id){
+            return this.$route.query.component && this.$route.query.component == id
+        },
+
         async fetchData () {
             let tabs = {}
             const { data } = await Nova.request().get(`/nova-vendor/machines/components/${this.resourceId}`);
             data.components.forEach(component => {
                 if (!tabs.hasOwnProperty(component.name)) {
                     tabs[component.name] = {
+                        id: component.id,
                         name: component.name,
-                        init: false,
+                        init: this.isActive(component.id),
                         fields: {...component}
                     }
+                }
+
+                if(this.isActive(component.id)) {
+                    this.activeTab = component.name
                 }
 
                 tabs[component.name].fields = {
@@ -117,7 +119,7 @@ export default {
             })
 
             this.tabs = tabs
-            this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+            if(!this.activeTab) this.handleTabClick(tabs[Object.keys(tabs)[0]]);
         },
         handleTabClick(tab, event) {
             tab.init = true

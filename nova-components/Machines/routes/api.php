@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
  * Components
  */
 Route::get('/components/{resourceId}', 'ComponentsController@index');
+Route::get('/components/{resourceId}/attachments', 'ComponentsController@attachments');
 Route::get('/components-config/{resourceId}', 'ComponentsController@config');
+Route::post('/components-config', 'ResourceStoreController@handle');
 
 
 /**

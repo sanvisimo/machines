@@ -19,9 +19,9 @@ class CreateActivitiesTable extends Migration
             $table->foreignId('machine_id');
             $table->string('description');
             $table->enum('type', ['maintenance', 'control_plan','maintenance_no', 'control_plan_no']);
-            $table->boolean('contract')->default(true);
-            $table->boolean('fix_fee')->default(true);;
-            $table->boolean('active')->default(true);;
+            $table->boolean('contract')->default(true)->nullable();
+            $table->boolean('fix_fee')->default(true)->nullable();
+            $table->boolean('active')->default(true);
             $table->integer('activitable_id')->nullable();
             $table->string('activitable_type')->nullable();
             $table->integer('element_id');

@@ -27,13 +27,18 @@
         "build-accordion-prod": "cd nova-components/nova-accordion && npm run prod",
         "watch-date": "cd nova-components/AkkaDate && npm run watch",
         "build-date": "cd nova-components/AkkaDate && npm run dev",
-        "build-date-prod": "cd nova-components/nova-dependency-container && npm run prod",
+        "build-date-prod": "cd nova-components/AkkaDate && npm run prod",
+        "watch-buttons": "cd nova-components/ButtonGroup && npm run watch",
+        "build-buttons": "cd nova-components/ButtonGroup && npm run dev",
+        "build-buttons-prod": "cd nova-components/ButtonGroup && npm run prod",
         "watch-dependency": "cd nova-components/nova-dependency-container && npm run watch",
         "build-dependency": "cd nova-components/nova-dependency-container && npm run dev",
         "build-dependency-prod": "cd nova-components/AkkaDate && npm run prod",
         "watch-control-plan-field": "cd nova-components/ControlPlanField && npm run watch",
         "build-control-plan-field": "cd nova-components/ControlPlanField && npm run dev",
-        "build-control-plan-field-prod": "cd nova-components/ControlPlanField && npm run prod"
+        "build-control-plan-field-prod": "cd nova-components/ControlPlanField && npm run prod",
+        "build-button-group": "cd nova-components/ButtonGroup && npm run dev",
+        "build-button-group-prod": "cd nova-components/ButtonGroup && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.21",

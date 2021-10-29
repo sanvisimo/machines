@@ -5,6 +5,9 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -51,26 +54,27 @@ class ControlPlanConfig extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make(__('Machine'), 'machine', Machine::class),
-            Boolean::make('contract')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('cost')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('periodicity')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('global_conditions')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('machine_status')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('casing_integrity_check')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('nameplate_integrity')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('rpm')->default(true)->readonly(true)->size('w-1/2'),
-            Boolean::make('check_pressure_gauges')->size('w-1/2'),
-            Boolean::make(__('Check sight glasses oil'), 'check_sight_glasses_oil')->size('w-1/2'),
-            Boolean::make('check_sight_glasses_water')->size('w-1/2'),
-            Boolean::make('check_thermometers')->size('w-1/2'),
-            Boolean::make('electric_absorption')->size('w-1/2'),
-            Boolean::make('check_cleaning_protective_grid')->size('w-1/2'),
-            Boolean::make('check_cleaning_junction_box')->size('w-1/2'),
-            Boolean::make('check_integrity_flexible_electric')->size('w-1/2'),
-            Boolean::make('check_ground_connections')->size('w-1/2'),
-            Boolean::make('check_ground_connections_notes')->size('w-1/2'),
-            Boolean::make('thermography')->size('w-1/2'),
-            Boolean::make('laser_alignment')->size('w-1/2'),
+            Date::make(__('Start Date'), 'start_date')->default(true)->required()->size('w-1/3')->stacked(false),
+            Number::make(__('Periodicity'), 'periodicity')->default(true)->required()->size('w-1/3')->stacked(false),
+            Currency::make(__('Cost'), 'cost')->currency('EUR')->required()->size('w-1/3')->stacked(false),
+            Boolean::make(__('Contract'), 'contract')->default(true)->size('w-1/3')->stacked(false),
+            Boolean::make(__('Global Condition'), 'global_conditions')->default(true)->readonly(true)->size('w-1/3')->stacked(false),
+            Boolean::make(__('Machine status'), 'machine_status')->default(true)->readonly(true)->size('w-1/3')->stacked(false),
+            Boolean::make(__('Casing integrity check'), 'casing_integrity_check')->default(true)->readonly(true)->size('w-1/3')->stacked(false),
+            Boolean::make(__('Nameplate integrity'), 'nameplate_integrity')->default(true)->readonly(true)->size('w-1/3')->stacked(false),
+            Boolean::make(__('RPM'), 'rpm')->default(true)->readonly(true)->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check pressure gauges'), 'check_pressure_gauges')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check sight glasses oil'), 'check_sight_glasses_oil')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check sight glasses water'), 'check_sight_glasses_water')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check thermometers'), 'check_thermometers')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Electric absorption'), 'electric_absorption')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check cleaning protective grid'), 'check_cleaning_protective_grid')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check cleaning junction box'), 'check_cleaning_junction_box')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check integrity flexible electric'), 'check_integrity_flexible_electric')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check ground connections'), 'check_ground_connections')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Check ground connections notes'), 'check_ground_connections_notes')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Thermography'), 'thermography')->size('w-1/3')->stacked(false),
+            Boolean::make(__('Laser alignment'), 'laser_alignment')->size('w-1/3')->stacked(false),
         ];
     }
 

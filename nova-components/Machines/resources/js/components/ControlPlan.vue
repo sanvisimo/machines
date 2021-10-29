@@ -8,11 +8,11 @@
         <div v-else>
             <card class="mb-6 py-3 px-6 flex justify-center items-center border border-dashed" v-if="!showConfig">
                 <button @click="createConfigPlan" class="btn btn-default btn-primary">
-                    {{ __('Create Control Plan') }}
+                    {{ __('Configure Control Plan') }}
                 </button>
             </card>
             <div v-if="showConfig">
-                <config-control-plan :resource-id="resourceId" resource-name="machines" />
+                <config-control-plan :resource-id="resourceId" resource-name="machines" @createdConfig="handleCreated" />
             </div>
         </div>
     </loading-view>
@@ -93,6 +93,10 @@ export default {
             this.showConfig = true;
         },
 
+        handleCreated() {
+            this.showConfig = false;
+            this.configPlan = true;
+        }
     },
 }
 </script>

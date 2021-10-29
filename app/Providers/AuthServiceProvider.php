@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Component;
+use App\Models\ManagedArticle;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -26,6 +28,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+//
+//        Gate::define('create-managed_article', function (User $user, ManagedArticle $article) {
+//            dd($article->component->id);
+//        });
     }
 }

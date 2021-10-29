@@ -24,7 +24,7 @@ class CreateArticlesTable extends Migration
             $table->enum('state', array('active', 'suspended', 'blocked'));
             $table->string('external_part_number', 18);
             $table->string('supplier_code', 18)->nullable();
-            $table->string('supplier_descriptio', 40);
+            $table->string('supplier_description', 40)->nullable();
             $table->enum("MU", array('PZ', 'MT', 'LT', 'KT'));
             $table->timestamps();
         });

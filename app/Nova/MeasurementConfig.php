@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Akka\NovaDependencyContainer\NovaDependencyContainer;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphTo;
@@ -63,6 +64,8 @@ class MeasurementConfig extends Resource
             Number::make('pressure_max'),
             Boolean::make('vibrations_type_SPM'),
             Boolean::make('vibrations_type_SISM'),
+            BelongsTo::make('controlPlanConfig')->onlyOnDetail(),
+            BelongsTo::make('component')->onlyOnDetail(),
         ];
     }
 

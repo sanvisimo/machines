@@ -24,20 +24,6 @@
                     :key="'related-tabs-fields' + index"
                 >
                     <div>
-<!--                        <router-link-->
-<!--                            v-if="resource.authorizedToUpdate"-->
-<!--                            data-testid="edit-resource"-->
-<!--                            dusk="edit-resource-button"-->
-<!--                            :to="{ name: 'edit', params: { id: resource.id } }"-->
-<!--                            class="btn btn-default btn-icon bg-primary"-->
-<!--                            :title="__('Edit')"-->
-<!--                        >-->
-<!--                            <icon-->
-<!--                                type="edit"-->
-<!--                                class="text-white"-->
-<!--                                style="margin-top: -2px; margin-left: 3px"-->
-<!--                            />-->
-<!--                        </router-link>-->
                         <div v-for="(pan, index) in tab.fields" class="my-4">
                             <component
                                 :is="pan.component"

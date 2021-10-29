@@ -19,6 +19,11 @@ class Component extends Model
         return $this->hasMany(ManagedArticle::class);
     }
 
+    public function maintenances()
+    {
+        return $this->hasMany(ManagedArticle::class);
+    }
+
     public function componentCategory()
     {
         return $this->belongsTo(ComponentCategory::class);
@@ -27,5 +32,10 @@ class Component extends Model
     public function componentSubCategory()
     {
         return $this->belongsTo(ComponentSubCategory::class);
+    }
+
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachmentable');
     }
 }

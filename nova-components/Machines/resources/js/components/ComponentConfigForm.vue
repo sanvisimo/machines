@@ -2,11 +2,12 @@
     <div class="components-forms">
         <form
             v-if="panels"
-            @submit="submitViaCreateResource"
+            @submit.prevent="submitViaCreateResource"
             @change="onUpdateFormStatus"
             autocomplete="off"
             ref="form"
         >
+            <button type="submit" ref="button" v-show="false">submit</button>
             <form-panel
                 class="mb-8"
                 v-for="panel in panelsWithFields"
@@ -58,6 +59,7 @@ export default {
         viaRelationship:"component",
         viaResource:"components",
         viaResourceId: null,
+        controlPlanConfig: null,
         shouldOverrideMeta: true,
         relationResponse: null,
         loading: true,
@@ -73,6 +75,10 @@ export default {
     },
 
     methods: {
+        async submitForm(id){
+            this.controlPlanConfig = id;
+            this.$refs.button.click();
+        },
         /**
          * Get the available fields for the resource.
          */
@@ -90,7 +96,7 @@ export default {
                         editMode: 'create',
                         viaResource: 'components',
                         viaResourceId: this.componentId,
-                        viaRelationship: 'controlPlanConfig'
+                        viaRelationship: 'component'
                     },
                 }
             )
@@ -102,9 +108,31 @@ export default {
 
         async submitViaCreateResource(e) {
             e.preventDefault()
-            this.submittedViaCreateResource = true
-            this.submittedViaCreateResourceAndAddAnother = false
-            await this.createResource()
+            await this.createRequest()
+        },
+
+        /**
+         * Send a create request for this resource
+         */
+        async createRequest() {
+            return Nova.request().post(
+                `/nova-vendor/machines/components-config`,
+                this.createResourceFormData(),
+            )
+        },
+
+        /**
+         * Create the form data for creating the resource.
+         */
+        createResourceFormData() {
+            return _.tap(new FormData(), formData => {
+                _.each(this.fields, field => {
+                    field.fill(formData)
+                })
+
+                formData.append('control_plan_config_id', this.controlPlanConfig);
+                formData.append('component_id', this.componentId);
+            })
         },
 
         /**

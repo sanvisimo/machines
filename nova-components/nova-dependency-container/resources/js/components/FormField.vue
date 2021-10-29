@@ -25,9 +25,6 @@
 		props: ['resourceName', 'resourceId', 'field', 'viaResource', 'viaResourceId'],
 
 		mounted() {
-
-            console.log('resource', this.viaResource, this.viaResourceId);
-
 			this.registerDependencyWatchers(this.$root, function() {
 				this.updateDependencyStatus();
 			});

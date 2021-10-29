@@ -9,6 +9,26 @@ class ManagedArticle extends Model
 {
     use HasFactory;
 
+    public static function boot()
+    {
+        parent::boot();
+
+//        self::saving(function($model){
+//
+//            if(!$model->measurement_point){
+//                $component = Component::find($model->component_id);
+//                $components =  $component->machine->components;
+//                $index = $components->search(function($compo) use ($model){
+//                    return $compo->id == $model->component_id;
+//                });
+//                $c = $index +1;
+//                $position = $component->articles->count()+1;
+//                $model->measurement_point = "C".$c."-P".$position;
+//            }
+//        });
+
+    }
+
     public function component()
     {
         return $this->belongsTo(Component::class);
