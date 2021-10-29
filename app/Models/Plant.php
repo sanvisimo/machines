@@ -9,9 +9,9 @@ class Plant extends Model
 {
     use HasFactory;
 
-    public function establishment()
+    public function factory()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Factory::class);
     }
 
     public function machines()

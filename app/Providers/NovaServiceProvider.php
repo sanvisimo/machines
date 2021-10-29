@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Akka\Calendar\Calendar;
-use App\Nova\Dashboards\CustomD;
 use Beyondcode\NuovaCard\NuovaCard;
 use CodencoDev\NovaGridSystem\NovaGridSystem;
 use Day4\SwitchLocale\SwitchLocale;
@@ -90,7 +89,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         return [
-            new CustomD
         ];
     }
 
@@ -102,9 +100,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new Calendar,
+//            new Calendar,
             new NovaGridSystem,
-            new \Czemu\NovaCalendarTool\NovaCalendarTool,
+//            new \Czemu\NovaCalendarTool\NovaCalendarTool,
             LocaleSwitcher::make()
                 ->setLocales(config('nova.locales'))
                 ->onSwitchLocale(function (Request $request) {

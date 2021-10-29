@@ -2,28 +2,26 @@
 
 namespace App\Nova;
 
-use Acme\StripeInspector\StripeInspector;
-use App\Nova\Lenses\HasAddress;
-use App\Nova\Metrics\ClientCount;
-use App\Nova\Metrics\ClientsPerDay;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Customer extends Resource
+class Factory extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Customer::class;
+    public static $model = \App\Models\Factory::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -62,6 +60,7 @@ class Customer extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:customer_code'),
             Text::make(__('Customer name'), 'customer_name')->required(),
             Text::make(__('Other customer Name'),'other_customer_name'),
@@ -74,7 +73,7 @@ class Customer extends Resource
             Text::make(__('Province'),'province'),
             Text::make(__('Country'),'country'),
             Text::make(__('CRM C4C code'),'crm_c4c_code'),
-            Select::make(__('Type'), 'type')->options(['customer',  'vendor','subcontractor']),
+            Select::make(__('Type'), 'type')->options(['factory'])->default('factory'),
             Text::make(__('Phone'), 'phone'),
             Text::make(__('Fax'),'fax'),
             Text::make(__('Email'),'email'),
@@ -87,7 +86,8 @@ class Customer extends Resource
             HasOne::make(__('Maintenance contract'), 'maintenance_contract', Contract::class),
             HasOne::make(__('Fixfee contract'), 'fixfee_contract',Contract::class),
             HasOne::make(__('Monitoring contract'), 'monitoring_contract',Contract::class),
-            HasMany::make(__('Factory'), 'Factory')
+            BelongsTo::make(__('Customer'), 'customer'),
+            HasMany::make(__('Plants'), 'plants'),
         ];
     }
 
@@ -99,10 +99,7 @@ class Customer extends Resource
      */
     public function cards(Request $request)
     {
-        return [
-//            new ClientCount,
-//            new ClientsPerDay,
-        ];
+        return [];
     }
 
     /**
@@ -124,9 +121,7 @@ class Customer extends Resource
      */
     public function lenses(Request $request)
     {
-        return [
-            new HasAddress
-        ];
+        return [];
     }
 
     /**
