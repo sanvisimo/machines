@@ -71,7 +71,7 @@ class Customer extends Resource
             Text::make('Fax'),
             Text::make('Authorization'),
             Image::make('Image')->disk('public'),
-            HasMany::make('Establishment')
+            HasMany::make('Factory')
         ];
     }
 
