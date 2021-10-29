@@ -6,7 +6,6 @@ use Acme\StripeInspector\StripeInspector;
 use App\Nova\Lenses\HasAddress;
 use App\Nova\Metrics\ClientCount;
 use App\Nova\Metrics\ClientsPerDay;
-use App\Nova\Metrics\EstablishmentsPerClient;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -86,7 +85,6 @@ class Customer extends Resource
         return [
             new ClientCount,
             new ClientsPerDay,
-            new EstablishmentsPerClient,
         ];
     }
 
