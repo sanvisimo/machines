@@ -42,6 +42,6 @@ class CreateMaintenancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manutentions');
+        Schema::dropIfExists('maintenances');
     }
 }

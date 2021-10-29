@@ -49,7 +49,7 @@ class Plant extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Plant'),'plant')->rules('required','unique:plant'),
+            Text::make(__('Plant'),'plant')->rules('required','unique:plants,plant'),
             Text::make(__('Description'),'description'),
             Textarea::make(__('Note'),'note'),
             Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),

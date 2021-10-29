@@ -61,7 +61,7 @@ class Factory extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:customer_code'),
+            Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:factories,customer_code'),
             Text::make(__('Customer name'), 'customer_name')->required(),
             Text::make(__('Other customer Name'),'other_customer_name'),
             Text::make(__('ISO'),'iso'),

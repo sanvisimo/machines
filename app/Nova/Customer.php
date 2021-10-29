@@ -33,11 +33,14 @@ class Customer extends Resource
     public static $title = 'customer_name';
 
     /**
-     * The single value that should be used to represent the resource when being displayed.
+     * Get the search result subtitle for the resource.
      *
-     * @var string
+     * @return string
      */
-    public static $subtitle = 'customer_code';
+    public function subtitle()
+    {
+        return __('Customer code').": ".$this->customer_code;
+    }
 
     /**
      * The columns that should be searched.
@@ -62,7 +65,7 @@ class Customer extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:customer_code'),
+            Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:customers,customer_code'),
             Text::make(__('Customer name'), 'customer_name')->required(),
             Text::make(__('Other customer Name'),'other_customer_name'),
             Text::make(__('ISO'),'iso'),
