@@ -6,12 +6,15 @@ use Akka\ControlPlanField\ControlPlanField;
 use Akka\Machines\Machines;
 use Akka\Machines\ControlPlan;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Akka\Nova\APanels;
@@ -102,9 +105,27 @@ class Machine extends Resource
                         ])->size('w-1/2')->stacked(false),
                     ]),
                     (new Panel ("Accordion", [
-                        ID::make(__('ID'), 'id')->sortable(),
-                        Text::make(__('Name'), 'name'),
+                        Text::make(__('Manufacturer code'), 'manufacturer_code'),
+                        Text::make(__('Manufacturer description'), 'manufacturer_description'),
+                        Text::make(__('Type'), 'type'),
+                        Text::make(__('Serial number'), 'serial_number'),
+                        Text::make(__('Revision'), 'revision'),
+                        Select::make(__('State'), 'state')->options([
+                            'active' => __('Active'),
+                            'suspended' => __('Suspended'),
+                            'not_operative' => __('Not operative')
+                        ]),
                         Number::make(__('Power'), 'power'),
+                        Number::make(__('Engine side RMP'), 'engine_side_rpm'),
+                        Number::make(__('Process side RPM'), 'process_side_rpm'),
+                        Number::make(__('Pressure min'), 'pressure_min'),
+                        Number::make(__('Pressure max'), 'pressure_max'),
+                        Number::make(__('Temperature min'), 'temperature_min'),
+                        Number::make(__('Temperature max'), 'temperature_max'),
+                        File::make(__('Documentation'), 'documentation'),
+                        Date::make(__('Activation date'), 'activation_date'),
+                        Textarea::make(__('Note'), 'note'),
+                        Textarea::make(__('Internal note'), 'internal_note'),
                     ]))->withComponent('akka-accordion'),
 
                     HasMany::make(__('Activities'), 'lastActivities', Activity::class),

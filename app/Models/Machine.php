@@ -10,6 +10,10 @@ class Machine extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'activation_date' => 'date'
+    ];
+
     public function plant()
     {
         return $this->belongsTo(Plant::class);
