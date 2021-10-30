@@ -65,11 +65,11 @@ export default {
     getOptions() {
         const options = [
             {
-                value: 0,
+                value: 1,
                 label: 'fa-thumbs-up'
             },
             {
-                value: 1,
+                value: 0,
                 label: 'fa-thumbs-down'
             }];
 

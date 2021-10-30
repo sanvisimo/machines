@@ -125,10 +125,8 @@ class Machine extends Resource
 
                     ControlPlan::make(__('Control Plan')),
 
-                    HasOne::make(__('Control Plan'), 'controlPlanConfig', ControlPlanConfig::class),
-                    HasMany::make(__('Control Plans'), 'controlPlans')->hideFromDetail(function() {
-                        return $this->controlPlanConfig === null;
-                    })
+                    HasOne::make(__('Control Plan config'), 'controlPlanConfig', ControlPlanConfig::class)->hideFromDetail(),
+                    HasMany::make(__('Control Plans'), 'controlPlans')->hideFromDetail()
                 ]
             ]))->withToolbar(),
         ];

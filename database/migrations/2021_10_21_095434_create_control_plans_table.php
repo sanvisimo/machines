@@ -45,7 +45,9 @@ class CreateControlPlansTable extends Migration
             $table->boolean('check_ground_connections')->nullable();
             $table->string('check_ground_connections_notes')->nullable();
             $table->string('thermography')->nullable();
+            $table->string('thermography_dcoumentation')->nullable();
             $table->string('laser_alignment')->nullable();
+            $table->string('laser_alignment_dcoumentation')->nullable();
             $table->foreignId('machine_id');
             $table->foreignId('control_plan_config_id');
             $table->timestamps();

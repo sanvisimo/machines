@@ -12928,10 +12928,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['resourceName', 'resourceId', 'panel'],
+  props: ['resourceName', 'resourceId', 'panel', 'config'],
   components: {
     Title: _Title__WEBPACK_IMPORTED_MODULE_1__["default"],
     Create: _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -13135,6 +13169,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     componentId: {
       type: Number
+    },
+    position: {
+      type: String
     }
   },
   data: function data() {
@@ -13301,6 +13338,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         formData.append('control_plan_config_id', _this6.controlPlanConfig);
         formData.append('component_id', _this6.componentId);
+        formData.append('position', _this6.position);
       });
     },
 
@@ -13599,6 +13637,283 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ComponentForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ComponentForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesFormRequest */ "../../nova/resources/js/mixins/HandlesFormRequest.js");
+/* harmony import */ var _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesUploads */ "../../nova/resources/js/mixins/HandlesUploads.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_1__.InteractsWithResourceInformation, _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__["default"], _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  props: {
+    updateFormStatus: {
+      type: Function,
+      "default": function _default() {}
+    },
+    componentId: {
+      type: Number
+    },
+    position: {
+      type: String
+    }
+  },
+  data: function data() {
+    return {
+      mode: 'form',
+      measurement: {},
+      controlPlanConfig: null,
+      shouldOverrideMeta: true,
+      relationResponse: null,
+      loading: true,
+      fields: [],
+      panels: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _yield$Nova$request$g, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!Nova.missingResource('measurements')) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return", _this.$router.push({
+                name: '404'
+              }));
+
+            case 2:
+              _context.next = 4;
+              return Nova.request().get("/nova-vendor/machines/measurements/".concat(_this.componentId, "/").concat(_this.position));
+
+            case 4:
+              _yield$Nova$request$g = _context.sent;
+              data = _yield$Nova$request$g.data;
+              _this.measurement = data.measurement;
+              _context.next = 9;
+              return _this.getFields();
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  methods: {
+    submitForm: function submitForm(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.controlPlan = id;
+
+                _this2.$refs.button.click();
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+
+    /**
+     * Get the available fields for the resource.
+     */
+    getFields: function getFields() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var _yield$Nova$request$g2, _yield$Nova$request$g3, panels, fields;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.panels = [];
+                _this3.fields = [];
+                _context3.next = 4;
+                return Nova.request().get("/nova-api/measurements/".concat(_this3.measurement.id, "/update-fields"), {
+                  params: {
+                    editing: true,
+                    editMode: 'update',
+                    viaResource: 'components',
+                    position: _this3.position,
+                    viaResourceId: _this3.componentId,
+                    viaRelationship: ''
+                  }
+                });
+
+              case 4:
+                _yield$Nova$request$g2 = _context3.sent;
+                _yield$Nova$request$g3 = _yield$Nova$request$g2.data;
+                panels = _yield$Nova$request$g3.panels;
+                fields = _yield$Nova$request$g3.fields;
+                _this3.panels = panels;
+                _this3.fields = fields;
+                _this3.loading = false;
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    submitViaCreateResource: function submitViaCreateResource(e) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                e.preventDefault();
+                _context4.next = 3;
+                return _this4.createRequest();
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+
+    /**
+     * Send a create request for this resource
+     */
+    createRequest: function createRequest() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                return _context5.abrupt("return", Nova.request().post("/nova-vendor/machines/components/".concat(_this5.measurement.id), _this5.createResourceFormData()));
+
+              case 1:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+
+    /**
+     * Create the form data for creating the resource.
+     */
+    createResourceFormData: function createResourceFormData() {
+      var _this6 = this;
+
+      return _.tap(new FormData(), function (formData) {
+        _.each(_this6.fields, function (field) {
+          field.fill(formData);
+        });
+      });
+    },
+
+    /**
+     * Prevent accidental abandonment only if form was changed.
+     */
+    onUpdateFormStatus: function onUpdateFormStatus() {
+      if (this.resourceInformation.preventFormAbandonment) {
+        this.updateFormStatus();
+      }
+    }
+  },
+  computed: {
+    panelsWithFields: function panelsWithFields() {
+      var _this7 = this;
+
+      return _.map(this.panels, function (panel) {
+        return _objectSpread(_objectSpread({}, panel), {}, {
+          fields: _.filter(_this7.fields, function (field) {
+            return field.panel == panel.name;
+          })
+        });
+      });
+    },
+    alreadyFilled: function alreadyFilled() {
+      return this.relationResponse && this.relationResponse.alreadyFilled;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlan.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlan.vue?vue&type=script&lang=js& ***!
@@ -13616,6 +13931,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesFormRequest */ "../../nova/resources/js/mixins/HandlesFormRequest.js");
 /* harmony import */ var _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesUploads */ "../../nova/resources/js/mixins/HandlesUploads.js");
+/* harmony import */ var _ControlPlanForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ControlPlanForm */ "./resources/js/components/ControlPlanForm.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -13645,7 +13961,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    ControlPlanForm: _ControlPlanForm__WEBPACK_IMPORTED_MODULE_4__["default"]
+  },
   mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_1__.InteractsWithResourceInformation, _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__["default"], _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__["default"]],
   metaInfo: function metaInfo() {
     if (this.shouldOverrideMeta && this.resourceInformation) {
@@ -13673,7 +13993,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loading: true,
       configPlan: null,
       showConfig: false,
-      viaRelationship: "controlPlanConfig",
+      viaRelationship: "controlPlansConfig",
       viaResource: "machines",
       viaResourceId: null,
       shouldOverrideMeta: true,
@@ -13734,10 +14054,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$Nova$request$g = _context2.sent;
                 data = _yield$Nova$request$g.data;
                 _this2.configPlan = data.controlPlan;
-                console.log("data", data);
                 _this2.loading = false;
 
-              case 7:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -13786,6 +14105,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -13991,7 +14313,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this4.isWorking = true;
 
                 if (!_this4.$refs.form.reportValidity()) {
-                  _context4.next = 25;
+                  _context4.next = 24;
                   break;
                 }
 
@@ -14013,13 +14335,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this4.$emit('createdConfig');
 
-                _context4.next = 25;
+                _context4.next = 24;
                 break;
 
               case 16:
                 _context4.prev = 16;
                 _context4.t0 = _context4["catch"](2);
-                console.log("erri", _context4.t0);
                 window.scrollTo(0, 0);
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
@@ -14031,12 +14352,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this4.handleOnCreateResponseError(_context4.t0);
 
-              case 25:
+              case 24:
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
                 _this4.isWorking = false;
 
-              case 28:
+              case 27:
               case "end":
                 return _context4.stop();
             }
@@ -14104,6 +14425,350 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return _.map(this.panels, function (panel) {
         return _objectSpread(_objectSpread({}, panel), {}, {
+          fields: _.filter(_this7.fields, function (field) {
+            return field.panel == panel.name;
+          })
+        });
+      });
+    },
+    alreadyFilled: function alreadyFilled() {
+      return this.relationResponse && this.relationResponse.alreadyFilled;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanForm.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanForm.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesFormRequest */ "../../nova/resources/js/mixins/HandlesFormRequest.js");
+/* harmony import */ var _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesUploads */ "../../nova/resources/js/mixins/HandlesUploads.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_1__.InteractsWithResourceInformation, _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__["default"], _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__["default"]],
+  props: {
+    updateFormStatus: {
+      type: Function,
+      "default": function _default() {}
+    },
+    resourceName: {
+      type: String
+    },
+    machine: {
+      type: String
+    }
+  },
+  data: function data() {
+    return {
+      mode: 'form',
+      submittedViaCreateResource: false,
+      shouldOverrideMeta: true,
+      controlPlan: null,
+      loading: true,
+      fields: [],
+      panels: [],
+      submitted: false
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _yield$Nova$request$g, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!Nova.missingResource('control-plans')) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return", _this.$router.push({
+                name: '404'
+              }));
+
+            case 2:
+              _context.next = 4;
+              return Nova.request().get("/nova-vendor/machines/control-plans/".concat(_this.machine));
+
+            case 4:
+              _yield$Nova$request$g = _context.sent;
+              data = _yield$Nova$request$g.data;
+              _this.controlPlan = data.controlPlan;
+              _context.next = 9;
+              return _this.getFields();
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  methods: {
+    /**
+     * Update the last retrieved at timestamp to the current UNIX timestamp.
+     */
+    updateLastRetrievedAtTimestamp: function updateLastRetrievedAtTimestamp() {
+      this.lastRetrievedAt = Math.floor(new Date().getTime() / 1000);
+    },
+
+    /**
+     * Get the available fields for the resource.
+     */
+    getFields: function getFields() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var _yield$Nova$request$g2, _yield$Nova$request$g3, panels, fields;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.panels = [];
+                _this2.fields = [];
+                _context2.next = 4;
+                return Nova.request().get("/nova-api/control-plans/".concat(_this2.controlPlan.id, "/update-fields"), {
+                  params: {
+                    editing: true,
+                    editMode: 'update',
+                    viaResource: 'machines',
+                    viaResourceId: _this2.machine,
+                    viaRelationship: 'controlPlans'
+                  }
+                });
+
+              case 4:
+                _yield$Nova$request$g2 = _context2.sent;
+                _yield$Nova$request$g3 = _yield$Nova$request$g2.data;
+                panels = _yield$Nova$request$g3.panels;
+                fields = _yield$Nova$request$g3.fields;
+                _this2.panels = panels;
+                _this2.fields = fields;
+                _this2.loading = false;
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    submitViaCreateResource: function submitViaCreateResource(e) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                e.preventDefault(); // this.submittedViaCreateResource = false
+
+                _context3.next = 3;
+                return _this3.createResource();
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+
+    /**
+     * Create a new resource instance using the provided data.
+     */
+    createResource: function createResource() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var _yield$_this4$createR, _yield$_this4$createR2, redirect, id;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.isWorking = true;
+
+                if (!_this4.$refs.form.reportValidity()) {
+                  _context4.next = 24;
+                  break;
+                }
+
+                _context4.prev = 2;
+                _context4.next = 5;
+                return _this4.createRequest();
+
+              case 5:
+                _yield$_this4$createR = _context4.sent;
+                _yield$_this4$createR2 = _yield$_this4$createR.data;
+                redirect = _yield$_this4$createR2.redirect;
+                id = _yield$_this4$createR2.id;
+                _context4.next = 11;
+                return _this4.$refs.compos.submitForms(id);
+
+              case 11:
+                _this4.canLeave = true;
+                Nova.success(_this4.__('The Measurement was created!'));
+
+                _this4.$router.go("".concat(_this4.$route.path, "?tab=0"));
+
+                _context4.next = 24;
+                break;
+
+              case 16:
+                _context4.prev = 16;
+                _context4.t0 = _context4["catch"](2);
+                window.scrollTo(0, 0);
+                _this4.submittedViaCreateAndAddAnother = false;
+                _this4.submittedViaCreateResource = true;
+                _this4.isWorking = false;
+
+                if (_this4.resourceInformation.preventFormAbandonment) {
+                  _this4.canLeave = false;
+                }
+
+                _this4.handleOnCreateResponseError(_context4.t0);
+
+              case 24:
+                _this4.submittedViaCreateAndAddAnother = false;
+                _this4.submittedViaCreateResource = true;
+                _this4.isWorking = false;
+
+              case 27:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[2, 16]]);
+      }))();
+    },
+
+    /**
+     * Send a create request for this resource
+     */
+    createRequest: function createRequest() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                return _context5.abrupt("return", Nova.request().post("/nova-vendor/machines/control-plans/".concat(_this5.controlPlan.id), _this5.createResourceFormData()));
+
+              case 1:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+
+    /**
+     * Create the form data for creating the resource.
+     */
+    createResourceFormData: function createResourceFormData() {
+      var _this6 = this;
+
+      return _.tap(new FormData(), function (formData) {
+        _.each(_this6.fields, function (field) {
+          field.fill(formData);
+        });
+      });
+    },
+
+    /**
+     * Prevent accidental abandonment only if form was changed.
+     */
+    onUpdateFormStatus: function onUpdateFormStatus() {
+      if (this.resourceInformation.preventFormAbandonment) {
+        this.updateFormStatus();
+      }
+    }
+  },
+  computed: {
+    panelsWithFields: function panelsWithFields() {
+      var _this7 = this;
+
+      return _.map(this.panels, function (panel) {
+        return _objectSpread(_objectSpread({}, panel), {}, {
+          name: _this7.__('Control Plan'),
           fields: _.filter(_this7.fields, function (field) {
             return field.panel == panel.name;
           })
@@ -14414,9 +15079,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ControlPlanConfigForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ControlPlanConfigForm */ "./resources/js/components/ControlPlanConfigForm.vue");
 /* harmony import */ var _components_ComponentConfig__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ComponentConfig */ "./resources/js/components/ComponentConfig.vue");
 /* harmony import */ var _components_ComponentConfigForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ComponentConfigForm */ "./resources/js/components/ComponentConfigForm.vue");
-/* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "./node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
+/* harmony import */ var _components_ControlPlanForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ControlPlanForm */ "./resources/js/components/ControlPlanForm.vue");
+/* harmony import */ var _components_ComponentForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/ComponentForm */ "./resources/js/components/ComponentForm.vue");
+/* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "./node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
+
+
 
 
 
@@ -14433,15 +15102,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /* add icons to the library */
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_5__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__.faFileImage, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_7__.faFilePdf);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_7__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_9__.faFileImage, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_9__.faFilePdf);
 Nova.booting(function (Vue, router, store) {
   /* add font awesome icon component */
-  Vue.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_6__.FontAwesomeIcon);
+  Vue.component('font-awesome-icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_8__.FontAwesomeIcon);
   Vue.component('machines', _components_Tool__WEBPACK_IMPORTED_MODULE_0__["default"]);
   Vue.component('control-plan', _components_ControlPlan__WEBPACK_IMPORTED_MODULE_1__["default"]);
   Vue.component('config-control-plan', _components_ControlPlanConfigForm__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  Vue.component('create-control-plan', _components_ControlPlanForm__WEBPACK_IMPORTED_MODULE_5__["default"]);
   Vue.component('component-config', _components_ComponentConfig__WEBPACK_IMPORTED_MODULE_3__["default"]);
   Vue.component('component-config-form', _components_ComponentConfigForm__WEBPACK_IMPORTED_MODULE_4__["default"]);
+  Vue.component('component-form', _components_ComponentForm__WEBPACK_IMPORTED_MODULE_6__["default"]);
 });
 
 /***/ }),
@@ -41797,6 +42468,45 @@ component.options.__file = "resources/js/components/ComponentDetailField.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/ComponentForm.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/ComponentForm.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ComponentForm_vue_vue_type_template_id_7bd54af4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ComponentForm.vue?vue&type=template&id=7bd54af4& */ "./resources/js/components/ComponentForm.vue?vue&type=template&id=7bd54af4&");
+/* harmony import */ var _ComponentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ComponentForm.vue?vue&type=script&lang=js& */ "./resources/js/components/ComponentForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ComponentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ComponentForm_vue_vue_type_template_id_7bd54af4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ComponentForm_vue_vue_type_template_id_7bd54af4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ComponentForm.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ControlPlan.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/ControlPlan.vue ***!
@@ -41871,6 +42581,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/ControlPlanConfigForm.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ControlPlanForm.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/ControlPlanForm.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ControlPlanForm_vue_vue_type_template_id_fbb33922___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ControlPlanForm.vue?vue&type=template&id=fbb33922& */ "./resources/js/components/ControlPlanForm.vue?vue&type=template&id=fbb33922&");
+/* harmony import */ var _ControlPlanForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ControlPlanForm.vue?vue&type=script&lang=js& */ "./resources/js/components/ControlPlanForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ControlPlanForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ControlPlanForm_vue_vue_type_template_id_fbb33922___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ControlPlanForm_vue_vue_type_template_id_fbb33922___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ControlPlanForm.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -42056,6 +42805,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ComponentForm.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/ComponentForm.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ComponentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ComponentForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ComponentForm.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ComponentForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ControlPlan.vue?vue&type=script&lang=js&":
 /*!**************************************************************************!*\
   !*** ./resources/js/components/ControlPlan.vue?vue&type=script&lang=js& ***!
@@ -42085,6 +42850,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanConfigForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ControlPlanConfigForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanConfigForm.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanConfigForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ControlPlanForm.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/ControlPlanForm.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ControlPlanForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanForm.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -42204,6 +42985,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ComponentForm.vue?vue&type=template&id=7bd54af4&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/ComponentForm.vue?vue&type=template&id=7bd54af4& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComponentForm_vue_vue_type_template_id_7bd54af4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComponentForm_vue_vue_type_template_id_7bd54af4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComponentForm_vue_vue_type_template_id_7bd54af4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ComponentForm.vue?vue&type=template&id=7bd54af4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ComponentForm.vue?vue&type=template&id=7bd54af4&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/ControlPlan.vue?vue&type=template&id=679633ea&":
 /*!********************************************************************************!*\
   !*** ./resources/js/components/ControlPlan.vue?vue&type=template&id=679633ea& ***!
@@ -42234,6 +43032,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanConfigForm_vue_vue_type_template_id_53f3ce91___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanConfigForm_vue_vue_type_template_id_53f3ce91___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ControlPlanConfigForm.vue?vue&type=template&id=53f3ce91& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanConfigForm.vue?vue&type=template&id=53f3ce91&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ControlPlanForm.vue?vue&type=template&id=fbb33922&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/ControlPlanForm.vue?vue&type=template&id=fbb33922& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanForm_vue_vue_type_template_id_fbb33922___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanForm_vue_vue_type_template_id_fbb33922___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPlanForm_vue_vue_type_template_id_fbb33922___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ControlPlanForm.vue?vue&type=template&id=fbb33922& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanForm.vue?vue&type=template&id=fbb33922&");
 
 
 /***/ }),
@@ -42376,11 +43191,23 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("component-config-form", {
-                        ref: "vibration-C" + tab.index + "-B" + vibration,
-                        refInFor: true,
-                        attrs: { "component-id": tab.id }
-                      })
+                      _vm.config
+                        ? _c("component-config-form", {
+                            ref: "vibration-C" + tab.index + "-B" + vibration,
+                            refInFor: true,
+                            attrs: {
+                              "component-id": tab.id,
+                              position: "C" + tab.index + "-B" + vibration
+                            }
+                          })
+                        : _c("component-form", {
+                            ref: "vibration-C" + tab.index + "-B" + vibration,
+                            refInFor: true,
+                            attrs: {
+                              "component-id": tab.id,
+                              position: "C" + tab.index + "-B" + vibration
+                            }
+                          })
                     ],
                     1
                   )
@@ -42404,11 +43231,23 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("component-config-form", {
-                        ref: "position-C" + tab.index + "-P" + article,
-                        refInFor: true,
-                        attrs: { "component-id": tab.id }
-                      })
+                      _vm.config
+                        ? _c("component-config-form", {
+                            ref: "position-C" + tab.index + "-P" + article,
+                            refInFor: true,
+                            attrs: {
+                              "component-id": tab.id,
+                              position: "C" + tab.index + "-P" + article
+                            }
+                          })
+                        : _c("component-form", {
+                            ref: "position-C" + tab.index + "-P" + article,
+                            refInFor: true,
+                            attrs: {
+                              "component-id": tab.id,
+                              position: "C" + tab.index + "-P" + article
+                            }
+                          })
                     ],
                     1
                   )
@@ -42418,7 +43257,38 @@ var render = function() {
             )
           ]
         )
-      })
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex flex-row" },
+        [
+          _vm._l(_vm.tabs, function(tab, key) {
+            return _c(
+              "button",
+              {
+                key: key,
+                staticClass:
+                  "py-5 px-8 border-b-4 focus:outline-none tab self-center",
+                class: [
+                  _vm.activeTab === tab.name
+                    ? "text-grey-black font-bold border-primary-30%"
+                    : "text-grey font-semibold border-40"
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.handleTabClick(tab, $event)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(tab.name) + "\n        ")]
+            )
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex-1 border-b-42 border-40" })
+        ],
+        2
+      )
     ],
     2
   )
@@ -42785,6 +43655,87 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ComponentForm.vue?vue&type=template&id=7bd54af4&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ComponentForm.vue?vue&type=template&id=7bd54af4& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {}, [
+    _vm.panels
+      ? _c(
+          "form",
+          {
+            ref: "form",
+            attrs: { autocomplete: "off" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submitViaCreateResource.apply(null, arguments)
+              },
+              change: _vm.onUpdateFormStatus
+            }
+          },
+          [
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: false,
+                    expression: "false"
+                  }
+                ],
+                ref: "button",
+                attrs: { type: "submit" }
+              },
+              [_vm._v("submit")]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.panelsWithFields, function(panel) {
+              return _c("form-panel", {
+                key: panel.name,
+                staticClass: "mb-8",
+                attrs: {
+                  "shown-via-new-relation-modal": false,
+                  panel: panel,
+                  name: panel.name,
+                  "resource-name": "measurement-configs",
+                  fields: panel.fields,
+                  mode: "form",
+                  "validation-errors": _vm.validationErrors,
+                  "via-resource": "components",
+                  "via-resource-id": _vm.componentId,
+                  "via-relationship": ""
+                },
+                on: { "field-changed": _vm.onUpdateFormStatus }
+              })
+            })
+          ],
+          2
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlan.vue?vue&type=template&id=679633ea&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlan.vue?vue&type=template&id=679633ea& ***!
@@ -42811,7 +43762,11 @@ var render = function() {
       }),
       _vm._v(" "),
       _vm.configPlan
-        ? _c("div", [_vm._v("\n       Form Controllo\n    ")])
+        ? _c(
+            "div",
+            [_c("control-plan-form", { attrs: { machine: _vm.resourceId } })],
+            1
+          )
         : _c(
             "div",
             [
@@ -42909,7 +43864,7 @@ var render = function() {
                     staticClass: "btn btn-default btn-primary",
                     attrs: { type: "submit" }
                   },
-                  [_vm._v(_vm._s(_vm.__("Create Control Plan")))]
+                  [_vm._v(_vm._s(_vm.__("Configure Control Plan")))]
                 )
               ]),
               _vm._v(" "),
@@ -42939,8 +43894,120 @@ var render = function() {
       _vm._v(" "),
       _c("component-config", {
         ref: "compos",
-        attrs: { "resource-id": _vm.resourceId }
-      })
+        attrs: { "resource-id": _vm.resourceId, config: true }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-end p-4 w-full" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default btn-primary",
+            attrs: { type: "button" },
+            on: { click: _vm.submitViaCreateResource }
+          },
+          [_vm._v(_vm._s(_vm.__("Configure Control Plan")))]
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanForm.vue?vue&type=template&id=fbb33922&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPlanForm.vue?vue&type=template&id=fbb33922& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "control-plan" },
+    [
+      _vm.panels
+        ? _c(
+            "form",
+            {
+              ref: "form",
+              attrs: { autocomplete: "off" },
+              on: {
+                submit: _vm.submitViaCreateResource,
+                change: _vm.onUpdateFormStatus
+              }
+            },
+            [
+              _c("div", { staticClass: "flex justify-end p-4 w-full" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default btn-primary",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v(_vm._s(_vm.__("Create Control Plan")))]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.panelsWithFields, function(panel) {
+                return _c("form-panel", {
+                  key: panel.name,
+                  staticClass: "mb-8",
+                  attrs: {
+                    panel: panel,
+                    name: panel.name,
+                    "resource-id": _vm.controlPlan.id,
+                    "resource-name": "control-plans",
+                    fields: panel.fields,
+                    mode: "form",
+                    "validation-errors": _vm.validationErrors,
+                    "via-resource": "machines",
+                    "via-resource-id": _vm.machine,
+                    "via-relationship": "controlPlans"
+                  },
+                  on: {
+                    "update-last-retrieved-at-timestamp":
+                      _vm.updateLastRetrievedAtTimestamp,
+                    "field-changed": _vm.onUpdateFormStatus,
+                    "file-upload-started": _vm.handleFileUploadStarted,
+                    "file-upload-finished": _vm.handleFileUploadFinished
+                  }
+                })
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("component-config", {
+        ref: "compos",
+        attrs: { "resource-id": _vm.machine, config: false }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex justify-end p-4 w-full" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default btn-primary",
+            attrs: { type: "button" },
+            on: { click: _vm.submitViaCreateResource }
+          },
+          [_vm._v(_vm._s(_vm.__("Create Control Plan")))]
+        )
+      ])
     ],
     1
   )

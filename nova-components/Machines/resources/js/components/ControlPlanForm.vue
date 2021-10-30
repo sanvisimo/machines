@@ -1,5 +1,5 @@
 <template>
-    <div class="control-plan-config">
+    <div class="control-plan">
         <form
             v-if="panels"
             @submit="submitViaCreateResource"
@@ -8,28 +8,33 @@
             ref="form"
         >
             <div class="flex justify-end p-4 w-full">
-                <button type="submit" class="btn btn-default btn-primary">{{ __('Configure Control Plan') }}</button>
+                <button type="submit" class="btn btn-default btn-primary">{{ __('Create Control Plan') }}</button>
             </div>
+
             <form-panel
-                class="mb-8"
                 v-for="panel in panelsWithFields"
+                @update-last-retrieved-at-timestamp="updateLastRetrievedAtTimestamp"
                 @field-changed="onUpdateFormStatus"
-                :shown-via-new-relation-modal="false"
+                @file-upload-started="handleFileUploadStarted"
+                @file-upload-finished="handleFileUploadFinished"
                 :panel="panel"
                 :name="panel.name"
                 :key="panel.name"
-                resource-name="control-plan-configs"
+                :resource-id="controlPlan.id"
+                resource-name="control-plans"
                 :fields="panel.fields"
                 mode="form"
+                class="mb-8"
                 :validation-errors="validationErrors"
                 via-resource="machines"
-                :via-resource-id="resourceId"
-                :via-relationship="viaRelationship"
+                :via-resource-id="machine"
+                via-relationship="controlPlans"
             />
+
         </form>
-        <component-config :resource-id="resourceId" ref="compos" :config="true" />
+        <component-config :resource-id="machine" ref="compos" :config="false" />
         <div class="flex justify-end p-4 w-full">
-            <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Configure Control Plan') }}</button>
+            <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Create Control Plan') }}</button>
         </div>
     </div>
 </template>
@@ -57,19 +62,16 @@ export default {
         resourceName: {
             type: String,
         },
-        resourceId: {
+        machine: {
             type: String,
         },
     },
 
     data: () => ({
         mode: 'form',
-        viaRelationship:"controlPlanConfig",
         submittedViaCreateResource: false,
-        viaResource:"machines",
-        viaResourceId: null,
         shouldOverrideMeta: true,
-        relationResponse: null,
+        controlPlan: null,
         loading: true,
         fields: [],
         panels: [],
@@ -77,40 +79,25 @@ export default {
     }),
 
     async created() {
-        if (Nova.missingResource('control-plan-configs'))
+        if (Nova.missingResource('control-plans'))
             return this.$router.push({ name: '404' })
 
         // If this create is via a relation index, then let's grab the field
         // and use the label for that as the one we use for the title and buttons
-        const { data } = await Nova.request().get(
-            '/nova-api/machines/field/controlPlanConfig',
-            {
-                params: {
-                    resourceName: 'control-plan-configs',
-                    viaResource: 'machines',
-                    viaResourceId: this.resourceId,
-                    viaRelationship: 'controlPlanConfig'
-                },
-            }
-        )
-        this.relationResponse = data
-
-        if (this.alreadyFilled) {
-            Nova.error(this.__('The HasOne relationship has already been filled.'))
-
-            this.$router.push({
-                name: 'detail',
-                params: {
-                    resourceId: this.resourceId,
-                    resourceName: this.resourceName,
-                },
-            })
-        }
+        const { data } = await Nova.request().get(`/nova-vendor/machines/control-plans/${this.machine}`)
+        this.controlPlan = data.controlPlan;
 
         await this.getFields()
     },
 
     methods: {
+        /**
+         * Update the last retrieved at timestamp to the current UNIX timestamp.
+         */
+        updateLastRetrievedAtTimestamp() {
+            this.lastRetrievedAt = Math.floor(new Date().getTime() / 1000)
+        },
+
         /**
          * Get the available fields for the resource.
          */
@@ -121,14 +108,14 @@ export default {
             const {
                 data: { panels, fields },
             } = await Nova.request().get(
-                `/nova-api/control-plan-configs/creation-fields`,
+                `/nova-api/control-plans/${this.controlPlan.id}/update-fields`,
                 {
                     params: {
                         editing: true,
-                        editMode: 'create',
-                        viaResource: this.resourceName,
-                        viaResourceId: this.resourceId,
-                        viaRelationship: 'controlPlanConfig'
+                        editMode: 'update',
+                        viaResource: 'machines',
+                        viaResourceId:this.machine,
+                        viaRelationship: 'controlPlans'
                     },
                 }
             )
@@ -141,7 +128,7 @@ export default {
         async submitViaCreateResource(e) {
             e.preventDefault()
             // this.submittedViaCreateResource = false
-            await this.createResource()
+             await this.createResource()
         },
 
         /**
@@ -161,9 +148,9 @@ export default {
                     this.canLeave = true
 
                     Nova.success(
-                        this.__('The configuration was created!')
+                        this.__('The Measurement was created!')
                     )
-                    this.$emit('createdConfig');
+                    this.$router.go(`${this.$route.path}?tab=0`);
                 } catch (error) {
                     window.scrollTo(0, 0)
 
@@ -189,14 +176,8 @@ export default {
          */
         async createRequest() {
             return Nova.request().post(
-                `/nova-api/control-plan-configs`,
+                `/nova-vendor/machines/control-plans/${this.controlPlan.id}`,
                 this.createResourceFormData(),
-                {
-                    params: {
-                        editing: true,
-                        editMode: 'create',
-                    },
-                }
             )
         },
 
@@ -208,10 +189,6 @@ export default {
                 _.each(this.fields, field => {
                     field.fill(formData)
                 })
-
-                formData.append('viaResource', 'machines')
-                formData.append('viaResourceId', this.resourceId)
-                formData.append('viaRelationship', 'controlPlanConfig')
             })
         },
 
@@ -230,6 +207,7 @@ export default {
             return _.map(this.panels, panel => {
                 return {
                     ...panel,
+                    name: this.__('Control Plan'),
                     fields: _.filter(this.fields, field => field.panel == panel.name),
                 }
             })

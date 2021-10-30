@@ -9,6 +9,8 @@ class Measurement extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function controlPlan()
     {
         return $this->belongsTo(ControlPlan::class);

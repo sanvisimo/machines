@@ -16,6 +16,17 @@ class MaintenanceObserver
      */
     public function created(Maintenance $maintenance)
     {
+       //
+    }
+
+    /**
+     * Handle the Maintenance "updated" event.
+     *
+     * @param  \App\Models\Maintenance  $maintenance
+     * @return void
+     */
+    public function updated(Maintenance $maintenance)
+    {
         $activity = $maintenance->activity;
         if(!$activity){
             $model = new Activity;
@@ -29,20 +40,21 @@ class MaintenanceObserver
             $model->element_id = $maintenance->component_id;
             $model->element_type = '\App\Models\Component';
             $model->save();
-        }
-    }
+        } else {
+            $activity->active = false;
+            $activity->save();
 
-    /**
-     * Handle the Maintenance "updated" event.
-     *
-     * @param  \App\Models\Maintenance  $maintenance
-     * @return void
-     */
-    public function updated(Maintenance $maintenance)
-    {
-        $activity = $maintenance->activity;
-        $activity->active = false;
-        $activity->save();
+            $model = new Activity;
+            $model->machine_id = $maintenance->machine_id;
+            $model->description = "Maintenance";
+            $model->expiration = Carbon::now()->addDays($maintenance->periodicity);
+            $model->type = $maintenance->type;
+            $model->periodicity = $maintenance->periodicity;
+            $model->active = true;
+            $model->element_id = $maintenance->component_id;
+            $model->element_type = '\App\Models\Component';
+            $model->save();
+        }
     }
 
     /**

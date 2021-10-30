@@ -15,7 +15,7 @@ class CreateMeasurementsTable extends Migration
     {
         Schema::create('measurements', function (Blueprint $table) {
             $table->id();
-            $table->boolean('anomaly');
+            $table->boolean('anomaly')->nullable();
             $table->string('anomaly_notes')->nullable();
             $table->boolean('lubricant_levels')->nullable();
             $table->string('lubricant_levels_notes')->nullable();
@@ -30,7 +30,8 @@ class CreateMeasurementsTable extends Migration
             $table->string('vibrations_type_SISM_2')->nullable();
             $table->string('vibrations_type_SISM_3')->nullable();
             $table->foreignId('control_plan_id');
-            $table->foreignId('component_id')->nullable();
+            $table->foreignId('component_id');
+            $table->string('position');
             $table->foreignId('article_id')->nullable();
             $table->foreignId('measurement_config_id');
             $table->timestamps();

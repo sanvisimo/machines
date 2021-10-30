@@ -80,7 +80,8 @@ class Component extends Resource
             Number::make(__('Point of Payload'), 'payload')->size('w-1/4'),
             MorphMany::make(__('Attachments'), 'attachments'),
             HasMany::make(__('Articles'), 'articles', ManagedArticle::class),
-            HasMany::make('maintenances')->onlyOnIndex()->hideFromIndex()
+            HasMany::make('maintenances')->onlyOnIndex()->hideFromIndex(),
+            HasMany::make('measurements')->onlyOnIndex()->hideFromIndex()
         ];
     }
 

@@ -8,7 +8,7 @@
                 <div class="flex flex-row">
                     <button
                         class="py-5 px-8 border-b-2 focus:outline-none tab"
-                        :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary': 'text-grey font-semibold border-40']"
+                        :class="[activeTab === tab.id ? 'text-grey-black font-bold border-primary': 'text-grey font-semibold border-40']"
                         v-for="(tab, key) in tabs"
                         :key="key"
                         @click="handleTabClick(tab, $event)"
@@ -19,7 +19,7 @@
                 <div
                     v-for="(tab, index) in tabs"
                     v-if="tab.init"
-                    v-show="tab.name === activeTab"
+                    v-show="tab.id === activeTab"
                     :label="tab.name"
                     :key="'related-tabs-fields' + index"
                 >
@@ -76,7 +76,18 @@ export default {
         })
 
         this.tabs = tabs;
-        this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+        if(this.$route.query.measurement){
+            this.handleTabClick(tabs[Object.keys(tabs)[2]]);
+        } else {
+            this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+        }
+    },
+    watch:{
+        $route(newValue){
+            if(newValue.query.tab) {
+                this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
+            }
+        }
     },
     methods: {
         /**
@@ -87,8 +98,12 @@ export default {
         },
 
         handleTabClick(tab, event) {
-            tab.init = true
-            this.activeTab = tab.name
+            if(this.$route.query.tab){
+                this.$router.push(`${this.$route.path}?tab=${tab.id}`)
+            }
+
+            tab.init = true;
+            this.activeTab = tab.id;
         },
 
         componentName(field) {

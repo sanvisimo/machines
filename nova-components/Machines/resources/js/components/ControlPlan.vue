@@ -3,7 +3,7 @@
         <custom-create-header class="mb-3" resource-name="control-plan-configs" />
 
         <div v-if="configPlan">
-           Form Controllo
+           <control-plan-form :machine="resourceId" />
         </div>
         <div v-else>
             <card class="mb-6 py-3 px-6 flex justify-center items-center border border-dashed" v-if="!showConfig">
@@ -25,8 +25,10 @@ import {
 } from 'laravel-nova'
 import HandlesFormRequest from '../../../../../nova/resources/js/mixins/HandlesFormRequest'
 import HandlesUploads from '../../../../../nova/resources/js/mixins/HandlesUploads'
+import ControlPlanForm from "./ControlPlanForm";
 
 export default {
+    components: {ControlPlanForm},
     mixins: [
         InteractsWithResourceInformation,
         HandlesFormRequest,
@@ -61,7 +63,7 @@ export default {
         configPlan: null,
         showConfig: false,
 
-        viaRelationship:"controlPlanConfig",
+        viaRelationship:"controlPlansConfig",
         viaResource:"machines",
         viaResourceId: null,
         shouldOverrideMeta: true,
@@ -85,7 +87,6 @@ export default {
         async getControlPlanConfig() {
             const { data } = await Nova.request().get(`/nova-vendor/machines/control-plan-configs/${this.resourceId}`);
             this.configPlan = data.controlPlan;
-            console.log("data" , data);
             this.loading = false;
         },
 

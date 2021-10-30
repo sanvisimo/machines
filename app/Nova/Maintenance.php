@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphOne;
 use Laravel\Nova\Fields\Number;
@@ -74,15 +75,17 @@ class Maintenance extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Work Permit'),'work_permit'),
+            BelongsTo::make(__('Component'), 'component', Component::class)->readonly(),
 //            BelongsTo::make(__('Activity'), 'activity', 'App\Nova\Activity'),
             MorphOne::make('Activity'),
             Select::make(__('Type'), 'type')->options([
                 'maintenance' => __('Ordinary Maintenance'),
                 'maintenance_no' => __('Extraordinary Maintenance')
             ])->nullable()->default('maintenance_no'),
-            Date::make(__('Opening Date'), 'opening_date')->nullable(),
-            Date::make(__('Onsite intervention'), 'onsite_intervention')->nullable(),
-            Date::make(__('Closed on'), 'closed_on')->nullable(),
+            DateTime::make(__('Opening Date'), 'opening_date')->nullable()->default(Carbon::now()),
+            Number::make(__('Periodicity'), 'periodicity')->nullable(),
+            DateTime::make(__('Onsite intervention'), 'onsite_intervention')->nullable(),
+            DateTime::make(__('Closed on'), 'closed_on')->nullable(),
             Number::make(__('Duration'), 'duration')->nullable(),
             Currency::make(__('Indicative cost'), 'indicative_cost')->nullable(),
 
@@ -91,7 +94,6 @@ class Maintenance extends Resource
             Boolean::make(__('Extra fee'), 'extra_fee')->nullable(),
             Textarea::make(__('Task notes'), 'task_notes')->nullable(),
             Textarea::make(__('Internal notes'), 'internal_notes')->nullable(),
-            BelongsTo::make(__('Component'), 'component', Component::class)->readonly(),
 //            BelongsTo::make(__('Machine'), 'machine', Machine::class)->onlyOnIndex(),
         ];
     }

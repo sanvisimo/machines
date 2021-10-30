@@ -27,3 +27,7 @@ Route::post('/components-config', 'ResourceStoreController@handle');
  * Control Plan
  */
 Route::get('/control-plan-configs/{resourceId}', 'ControlPlanController@index');
+Route::get('/control-plans/{machineId}', 'ControlPlanController@getControlPlan');
+Route::get('/measurements/{componentId}/{position}', 'ControlPlanController@getMeasurement');
+Route::post('/control-plans/{controlPlanId}', 'ResourceStoreController@updateControlPlan');
+Route::post('/components/{measurementId}', 'ResourceStoreController@updateComponent');

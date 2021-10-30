@@ -12950,10 +12950,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     getOptions: function getOptions() {
       var options = [{
-        value: 0,
+        value: 1,
         label: 'fa-thumbs-up'
       }, {
-        value: 1,
+        value: 0,
         label: 'fa-thumbs-down'
       }];
       this.options = this.field.options ? this.field.options : options;

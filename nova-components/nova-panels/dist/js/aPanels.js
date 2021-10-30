@@ -99,7 +99,19 @@ __webpack_require__.r(__webpack_exports__);
       tabs[field.tab].fields[field.pan].fields.push(field);
     });
     this.tabs = tabs;
-    this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+
+    if (this.$route.query.measurement) {
+      this.handleTabClick(tabs[Object.keys(tabs)[2]]);
+    } else {
+      this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+    }
+  },
+  watch: {
+    $route: function $route(newValue) {
+      if (newValue.query.tab) {
+        this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
+      }
+    }
   },
   methods: {
     /**
@@ -109,8 +121,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("actionExecuted");
     },
     handleTabClick: function handleTabClick(tab, event) {
+      if (this.$route.query.tab) {
+        this.$router.push("".concat(this.$route.path, "?tab=").concat(tab.id));
+      }
+
       tab.init = true;
-      this.activeTab = tab.name;
+      this.activeTab = tab.id;
     },
     componentName: function componentName(field) {
       return field.listableTab ? 'relationship-panel' : field.panComponent;
@@ -713,7 +729,7 @@ var render = function() {
                   key: key,
                   staticClass: "py-5 px-8 border-b-2 focus:outline-none tab",
                   class: [
-                    _vm.activeTab === tab.name
+                    _vm.activeTab === tab.id
                       ? "text-grey-black font-bold border-primary"
                       : "text-grey font-semibold border-40"
                   ],
@@ -739,8 +755,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: tab.name === _vm.activeTab,
-                      expression: "tab.name === activeTab"
+                      value: tab.id === _vm.activeTab,
+                      expression: "tab.id === activeTab"
                     }
                   ],
                   key: "related-tabs-fields" + index,

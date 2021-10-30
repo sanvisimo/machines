@@ -1,5 +1,5 @@
 <template>
-    <div class="components-forms">
+    <div class="">
         <form
             v-if="panels"
             @submit.prevent="submitViaCreateResource"
@@ -22,7 +22,7 @@
                 :validation-errors="validationErrors"
                 via-resource="components"
                 :via-resource-id="componentId"
-                :via-relationship="viaRelationship"
+                via-relationship=""
             />
         </form>
     </div>
@@ -60,9 +60,7 @@ export default {
 
     data: () => ({
         mode: 'form',
-        viaRelationship:"component",
-        viaResource:"components",
-        viaResourceId: null,
+        measurement: {},
         controlPlanConfig: null,
         shouldOverrideMeta: true,
         relationResponse: null,
@@ -72,15 +70,18 @@ export default {
     }),
 
     async created() {
-        if (Nova.missingResource('measurement-configs'))
+        if (Nova.missingResource('measurements'))
             return this.$router.push({ name: '404' })
+
+        const { data } = await Nova.request().get(`/nova-vendor/machines/measurements/${this.componentId}/${this.position}`)
+        this.measurement = data.measurement;
 
         await this.getFields()
     },
 
     methods: {
         async submitForm(id){
-            this.controlPlanConfig = id;
+            this.controlPlan = id;
             this.$refs.button.click();
         },
         /**
@@ -93,14 +94,15 @@ export default {
             const {
                 data: { panels, fields },
             } = await Nova.request().get(
-                `/nova-api/measurement-configs/creation-fields`,
+                `/nova-api/measurements/${this.measurement.id}/update-fields`,
                 {
                     params: {
                         editing: true,
-                        editMode: 'create',
+                        editMode: 'update',
                         viaResource: 'components',
+                        position: this.position,
                         viaResourceId: this.componentId,
-                        viaRelationship: 'component'
+                        viaRelationship: ''
                     },
                 }
             )
@@ -120,7 +122,7 @@ export default {
          */
         async createRequest() {
             return Nova.request().post(
-                `/nova-vendor/machines/components-config`,
+                `/nova-vendor/machines/components/${this.measurement.id}`,
                 this.createResourceFormData(),
             )
         },
@@ -133,10 +135,6 @@ export default {
                 _.each(this.fields, field => {
                     field.fill(formData)
                 })
-
-                formData.append('control_plan_config_id', this.controlPlanConfig);
-                formData.append('component_id', this.componentId);
-                formData.append('position', this.position);
             })
         },
 

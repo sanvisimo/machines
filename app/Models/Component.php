@@ -24,6 +24,16 @@ class Component extends Model
         return $this->hasMany(ManagedArticle::class);
     }
 
+    public function measurementConfig()
+    {
+        return $this->hasOne(MeasurementConfig::class);
+    }
+
+    public function measurements()
+    {
+        return $this->hasMany(Measurement::class);
+    }
+
     public function componentCategory()
     {
         return $this->belongsTo(ComponentCategory::class);

@@ -21,13 +21,47 @@
             <div>
                 <div v-for="(vibration) in tab.vibrations" class="border-b-4 my-3 px-3">
                     <h2 class="text-90 font-normal text-2xl mb-3">C{{ tab.index + 1 }} - B{{ vibration }}</h2>
-                    <component-config-form :component-id="tab.id" :ref="`vibration-C${tab.index}-B${vibration}`" />
+                    <component-config-form
+                        v-if="config"
+                        :component-id="tab.id"
+                        :ref="`vibration-C${tab.index}-B${vibration}`"
+                        :position="`C${tab.index}-B${vibration}`"
+                    />
+                    <component-form
+                        v-else
+                        :component-id="tab.id"
+                        :ref="`vibration-C${tab.index}-B${vibration}`"
+                        :position="`C${tab.index}-B${vibration}`"
+                    />
                 </div>
                 <div v-for="(article) in tab.articles" class="border-b-4 my-3 px-3">
                     <h2 class="text-90 font-normal text-2xl mb-3">C{{ tab.index + 1 }} - P{{ article }}</h2>
-                    <component-config-form :component-id="tab.id" :ref="`position-C${tab.index}-P${article}`" />
+                    <component-config-form
+                        v-if="config"
+                        :component-id="tab.id"
+                        :ref="`position-C${tab.index}-P${article}`"
+                        :position="`C${tab.index}-P${article}`"
+                    />
+                    <component-form
+                        v-else
+                        :component-id="tab.id"
+                        :ref="`position-C${tab.index}-P${article}`"
+                        :position="`C${tab.index}-P${article}`"
+                    />
                 </div>
             </div>
+        </div>
+        <div class="flex flex-row">
+            <button
+                class="py-5 px-8 border-b-4 focus:outline-none tab self-center"
+                :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary-30%': 'text-grey font-semibold border-40']"
+                v-for="(tab, key) in tabs"
+                :key="key"
+                @click="handleTabClick(tab, $event)"
+            >{{ tab.name }}
+            </button>
+
+            <div class="flex-1 border-b-42 border-40"></div>
         </div>
     </div>
 </template>
@@ -37,7 +71,7 @@ import Title from "./Title";
 import Create from '../../../../../nova/resources/js/views/Create'
 
 export default {
-    props: ['resourceName', 'resourceId', 'panel'],
+    props: ['resourceName', 'resourceId', 'panel', 'config'],
     components: {
         Title,
         Create

@@ -9,6 +9,10 @@ class ControlPlanConfig extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'start_date' => 'date'
+    ];
+
     public function machine()
     {
         return $this->belongsTo(Machine::class);

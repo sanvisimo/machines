@@ -11,9 +11,9 @@ class Maintenance extends Model
     use HasFactory;
 
     protected $casts = [
-        'opening_date' => 'date',
-        'onsite_intervention' => 'date',
-        'closed_on' => 'date',
+        'opening_date' => 'datetime',
+        'onsite_intervention' => 'datetime',
+        'closed_on' => 'datetime',
     ];
 
     public static function boot()
@@ -24,6 +24,10 @@ class Maintenance extends Model
             if(!$model->machine_id) {
                 $element = Component::find($model->component_id);
                 $model->machine_id = $element->machine_id;
+            }
+            if(!$model->closed_on) {
+                $model->closed_on = Carbon::now();
+                $model->duration = Carbon::now()->diffInMinutes($model->opening_date);
             }
         });
 
