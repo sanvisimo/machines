@@ -24,6 +24,7 @@ class CreateActivitiesTable extends Migration
             $table->boolean('active')->default(true);
             $table->integer('activitable_id')->nullable();
             $table->string('activitable_type')->nullable();
+            $table->integer('periodicity')->nullable();
             $table->integer('element_id');
             $table->string('element_type');
             $table->timestamps();
