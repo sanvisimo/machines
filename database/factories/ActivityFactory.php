@@ -29,6 +29,7 @@ class ActivityFactory extends Factory
             'contract' => true,
             'fix_fee' => true,
             'active' => true,
+            'periodicity' => 30,
             'element_id' => 1,
             'element_type' => 'App\Models\Machine'
         ];
