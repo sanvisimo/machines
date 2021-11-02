@@ -1,5 +1,5 @@
 {
-    "name": "beyondcode/nuova-card",
+    "name": "akka/agenda",
     "description": "A Laravel Nova card.",
     "keywords": [
         "laravel",
@@ -11,13 +11,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Beyondcode\\NuovaCard\\": "src/"
+            "Akka\\Agenda\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Beyondcode\\NuovaCard\\CardServiceProvider"
+                "Akka\\Agenda\\CardServiceProvider"
             ]
         }
     },

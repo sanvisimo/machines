@@ -1,6 +1,6 @@
 <?php
 
-namespace Beyondcode\NuovaCard;
+namespace Akka\Agenda;
 
 use Laravel\Nova\Card;
 
@@ -11,7 +11,7 @@ class NuovaCard extends Card
      *
      * @var string
      */
-    public $width = '1/3';
+    public $width = 'full';
 
     public function blink($blink = true)
     {

@@ -2,5 +2,5 @@ let mix = require('laravel-mix')
 
 mix
   .setPublicPath('dist')
-  .js('resources/js/card.js', 'js')
-  .sass('resources/css/card.scss', 'css')
+  .js('resources/js/card.js', 'js').vue()
+  .postCss('resources/css/card.css', 'css')

@@ -1,6 +1,6 @@
 <?php
 
-namespace Beyondcode\NuovaCard;
+namespace Akka\Agenda;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -38,7 +38,8 @@ class CardServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova'])
-                ->prefix('nova-vendor/nuova-card')
+                ->prefix('nova-vendor/agenda')
+                ->namespace('Akka\Agenda\Http\Controllers')
                 ->group(__DIR__.'/../routes/api.php');
     }
 
