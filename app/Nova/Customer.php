@@ -65,18 +65,68 @@ class Customer extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:customers,customer_code'),
-            Text::make(__('Customer name'), 'customer_name')->required(),
-            Text::make(__('Other customer Name'),'other_customer_name')->required(),
-            Text::make(__('ISO'),'iso')->required(),
-            Text::make(__('VAT number'),'vat_number')->required(),
-            Text::make(__('Fiscal Code'),'fiscal_code'),
-            Text::make(__('Address'),'address')->nullable(),
-            Text::make(__('City'),'city')->nullable(),
+            Text::make(__('Customer code'), 'customer_code')
+                ->help(
+                    __('Max 10')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 10]])
+                ->rules('required', 'unique:establishments,customer_code', 'max:10'),
+            Text::make(__('Customer name'), 'customer_name')->required()
+                ->help(
+                    __('Max 60')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 60]])
+                ->rules( 'max:60'),
+            Text::make(__('Other customer Name'),'other_customer_name')
+                ->help(
+                    __('Max 60')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 60]])
+                ->rules( 'required', 'max:60'),
+            Text::make(__('ISO'),'iso')->required()
+                ->help(
+                    __('Max 3')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 3]])
+                ->rules( 'max:3'),
+            Text::make(__('VAT number'),'vat_number')->required()
+                ->help(
+                    __('Max 16')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 16]])
+                ->rules( 'max:16'),
+            Text::make(__('Fiscal Code'),'fiscal_code')
+                ->help(
+                    __('Max 16')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 16]])
+                ->rules( 'max:16'),
+            Text::make(__('Address'),'address')->nullable()
+                ->help(
+                    __('Max 40')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 40]])
+                ->rules( 'max:40'),
+            Text::make(__('City'),'city')->nullable()
+                ->help(
+                    __('Max 40')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 40]])
+                ->rules( 'max:40'),
             Text::make(__('PO box'),'po_box')->nullable(),
             Text::make(__('Province'),'province')->required(),
-            Text::make(__('Country'),'country')->required(),
-            Text::make(__('CRM C4C code'),'crm_c4c_code')->required(),
+            Text::make(__('Country'),'country')->required()
+                ->help(
+                    __('Max 3')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 3]])
+                ->rules( 'max:3'),
+            Text::make(__('CRM C4C code'),'crm_c4c_code')->required()
+                ->help(
+                    __('Max 20')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 20]])
+                ->rules( 'max:20'),
             Select::make(__('Type'), 'type')->options(['customer',  'vendor','subcontractor'])->required(),
             Text::make(__('Phone'), 'phone')->required(),
             Text::make(__('Fax'),'fax'),

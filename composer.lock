@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3e6552b40fd04f20b811d9d12820e18",
+    "content-hash": "18460028d23a0070e0ebb1a7ac6659c5",
     "packages": [
         {
             "name": "akka/accordion",
@@ -34,6 +34,42 @@
                 "MIT"
             ],
             "description": "Akka Accordion Panel.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "akka/agenda",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/NuovaCard",
+                "reference": "59fd48a18256941e0b29d5bf1a1f0cef22139b1d"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akka\\Agenda\\CardServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akka\\Agenda\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova card.",
             "keywords": [
                 "laravel",
                 "nova"
@@ -106,42 +142,6 @@
                 "MIT"
             ],
             "description": "A Laravel Nova field.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "akka/calendar",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./nova-components/Calendar",
-                "reference": "8b6e67e7662f85dc3214dc329ebba382af63d05a"
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Akka\\Calendar\\ToolServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Akka\\Calendar\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova tool.",
             "keywords": [
                 "laravel",
                 "nova"
@@ -423,42 +423,6 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.0.3"
             },
             "time": "2021-03-11T06:42:03+00:00"
-        },
-        {
-            "name": "beyondcode/nuova-card",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "./nova-components/NuovaCard",
-                "reference": "419d27f7a3992595cd29cf28634e18942a409a81"
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Beyondcode\\NuovaCard\\CardServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Beyondcode\\NuovaCard\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova card.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "transport-options": {
-                "relative": true
-            }
         },
         {
             "name": "brick/math",

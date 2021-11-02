@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-use Akka\Calendar\Calendar;
-use Beyondcode\NuovaCard\NuovaCard;
+use Akka\Agenda\NuovaCard;
 use CodencoDev\NovaGridSystem\NovaGridSystem;
 use Day4\SwitchLocale\SwitchLocale;
 use Eolica\NovaLocaleSwitcher\LocaleSwitcher;
@@ -76,8 +75,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            (new NuovaCard)->withSeconds(),
-            new Help
+            new NuovaCard,
         ];
     }
 
@@ -100,7 +98,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new Calendar,
             new NovaGridSystem,
 //            new \Czemu\NovaCalendarTool\NovaCalendarTool,
             LocaleSwitcher::make()

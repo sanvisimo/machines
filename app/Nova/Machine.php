@@ -105,12 +105,32 @@ class Machine extends Resource
                         ])->size('w-1/2')->stacked(false),
                     ]),
                     (new Panel ("Accordion", [
-                        Text::make(__('Manufacturer code'), 'manufacturer_code'),
-                        Text::make(__('Manufacturer description'), 'manufacturer_description'),
+                        Text::make(__('Manufacturer code'), 'manufacturer_code')
+                            ->help(
+                                __('Max 10')
+                            )
+                            ->withMeta(['extraAttributes' => ['maxlength' => 10]])
+                            ->rules( 'max:10'),
+                        Text::make(__('Manufacturer description'), 'manufacturer_description')
+                            ->help(
+                                __('Max 40')
+                            )
+                            ->withMeta(['extraAttributes' => ['maxlength' => 40]])
+                            ->rules( 'max:40'),
                         Text::make(__('Type'), 'type'),
-                        Text::make(__('Serial number'), 'serial_number'),
-                        Text::make(__('Revision'), 'revision'),
-                        Number::make(__('Power'), 'power'),
+                        Text::make(__('Serial number'), 'serial_number')
+                            ->help(
+                                __('Max 20')
+                            )
+                            ->withMeta(['extraAttributes' => ['maxlength' => 20]])
+                            ->rules( 'max:20'),
+                        Text::make(__('Revision'), 'revision')
+                            ->help(
+                                __('Max 5')
+                            )
+                            ->withMeta(['extraAttributes' => ['maxlength' => 5]])
+                            ->rules( 'max:5'),
+                        Number::make(__('Power'), 'power')->step(0.01),
                         Number::make(__('Engine side RMP'), 'engine_side_rpm'),
                         Number::make(__('Process side RPM'), 'process_side_rpm'),
                         Number::make(__('Pressure min'), 'pressure_min'),

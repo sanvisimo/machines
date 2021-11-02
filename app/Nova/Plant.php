@@ -49,8 +49,18 @@ class Plant extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Plant'),'plant')->rules('required','unique:plants,plant'),
-            Text::make(__('Description'),'description'),
+            Text::make(__('Plant'),'plant')->rules('required','unique:plants,plant')
+                ->help(
+                    __('Max 20')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 20]])
+                ->rules( 'max:20'),
+            Text::make(__('Description'),'description')
+                ->help(
+                    __('Max 40')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 40]])
+                ->rules( 'max:40'),
             Textarea::make(__('Note'),'note'),
             Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),
             Text::make(__('Internal notes'),'internal_note'),
