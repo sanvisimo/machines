@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Factory extends Model
+class Establishment extends Model
 {
     use HasFactory;
 
@@ -25,17 +25,17 @@ class Factory extends Model
 
     public function maintenance_contract()
     {
-        return $this->hasOne(Contract::class,'maintenance_contract', 'maintenance_contract');
+        return $this->hasOne(Contract::class,'id', 'maintenance_contract');
     }
 
     public function fixfee_contract()
     {
-        return $this->hasOne(Contract::class, 'fixfee_contract', 'fixfee_contract');
+        return $this->hasOne(Contract::class, 'id', 'fixfee_contract');
     }
 
     public function monitoring_contract()
     {
-        return $this->hasOne(Contract::class, 'monitoring_contract', 'monitoring_contract');
+        return $this->hasOne(Contract::class, 'id', 'monitoring_contract');
     }
 
     public function plants()

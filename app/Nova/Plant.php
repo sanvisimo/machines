@@ -55,7 +55,7 @@ class Plant extends Resource
             Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),
             Text::make(__('Internal notes'),'internal_note'),
             File::make(__('Document'),'documents'),
-            BelongsTo::make(__('Factory'), 'factory', Factory::class),
+            BelongsTo::make(__('Factory'), 'establishment', Establishment::class),
             HasMany::make(__('Machines'), 'machines', Machine::class)
         ];
     }

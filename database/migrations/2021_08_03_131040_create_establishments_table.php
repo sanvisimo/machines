@@ -13,7 +13,7 @@ class CreateFactoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('factories', function (Blueprint $table) {
+        Schema::create('establishments', function (Blueprint $table) {
             $table->id();
             $table->string('customer_code', 10)->unique();
             $table->string('customer_name', 60);
@@ -41,6 +41,7 @@ class CreateFactoriesTable extends Migration
             $table->foreignId('maintenance_contract')->nullable();
             $table->foreignId('fixfee_contract')->nullable();
             $table->foreignId('monitoring_contract')->nullable();
+            $table->foreignId('customer_id');
             $table->timestamps();
         });
     }

@@ -14,14 +14,14 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Factory extends Resource
+class Establishment extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Factory::class;
+    public static $model = \App\Models\Establishment::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -36,6 +36,10 @@ class Factory extends Resource
      * @var string
      */
     public static $subtitle = 'customer_code';
+
+    public static function label() {
+        return __('Factory');
+    }
 
     /**
      * The columns that should be searched.

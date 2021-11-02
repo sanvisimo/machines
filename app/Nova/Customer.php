@@ -90,7 +90,7 @@ class Customer extends Resource
             HasOne::make(__('Maintenance contract'), 'maintenance_contract', Contract::class),
             HasOne::make(__('Fixfee contract'), 'fixfee_contract',Contract::class),
             HasOne::make(__('Monitoring contract'), 'monitoring_contract',Contract::class),
-            HasMany::make(__('Factory'), 'Factory')
+            HasMany::make(__('Factory'), 'establishments', Establishment::class)
         ];
     }
 
