@@ -29,7 +29,7 @@ class CreateMachinesTable extends Migration
             $table->float('pressure_max');
             $table->float('temperature_min');
             $table->float('temperature_max');
-            $table->string('documentation');
+            $table->string('documentation')->nullable();
             $table->date('activation_date');
             $table->string('note');
             $table->string('internal_note');

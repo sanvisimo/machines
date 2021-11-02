@@ -37,7 +37,23 @@ class Establishment extends Resource
      */
     public static $subtitle = 'customer_code';
 
-    public static function label() {
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Factories');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
         return __('Factory');
     }
 
@@ -65,7 +81,7 @@ class Establishment extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:factories,customer_code'),
+            Text::make(__('Customer code'), 'customer_code')->rules('required', 'unique:establishments,customer_code'),
             Text::make(__('Customer name'), 'customer_name')->required(),
             Text::make(__('Other customer Name'),'other_customer_name')->required(),
             Text::make(__('ISO'),'iso')->required(),

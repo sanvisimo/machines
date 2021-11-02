@@ -110,11 +110,6 @@ class Machine extends Resource
                         Text::make(__('Type'), 'type'),
                         Text::make(__('Serial number'), 'serial_number'),
                         Text::make(__('Revision'), 'revision'),
-                        Select::make(__('State'), 'state')->options([
-                            'active' => __('Active'),
-                            'suspended' => __('Suspended'),
-                            'not_operative' => __('Not operative')
-                        ]),
                         Number::make(__('Power'), 'power'),
                         Number::make(__('Engine side RMP'), 'engine_side_rpm'),
                         Number::make(__('Process side RPM'), 'process_side_rpm'),

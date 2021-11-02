@@ -20,8 +20,8 @@ class CreatePlantsTable extends Migration
             $table->string('note');
             $table->enum('plant_state', array('active', 'suspended', 'cancel'));
             $table->string('internal_note');
-            $table->string('documents');
-            $table->foreignId('factory_id');
+            $table->string('documents')->nullable();
+            $table->foreignId('establishment_id');
             $table->timestamps();
         });
     }
