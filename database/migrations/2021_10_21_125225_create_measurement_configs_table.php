@@ -26,8 +26,8 @@ class CreateMeasurementConfigsTable extends Migration
             $table->integer('pressure_max')->nullable();
             $table->boolean('vibrations_type_SPM');
             $table->boolean('vibrations_type_SISM');
+            $table->string('position');
             $table->foreignId('component_id');
-            $table->foreignId('position');
             $table->foreignId('article_id')->nullable();
             $table->foreignId('control_plan_config_id');
             $table->timestamps();

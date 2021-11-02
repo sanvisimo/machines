@@ -7,8 +7,16 @@
             autocomplete="off"
             ref="form"
         >
-            <div class="flex justify-end p-4 w-full">
-                <button type="submit" class="btn btn-default btn-primary">{{ __('Configure Control Plan') }}</button>
+            <div class="flex justify-end p-4 w-full gap-4">
+                <button type="submit" class="btn btn-default btn-primary">
+                    {{ update ? __('Update configuration') : __('Configure Control Plan') }}
+                </button>
+                <span
+                    @click="$emit('cancel')"
+                    class="btn btn-default cursor-pointer btn-white"
+                >
+                    {{ __('Cancel') }}
+                </span>
             </div>
             <form-panel
                 class="mb-8"
@@ -27,9 +35,11 @@
                 :via-relationship="viaRelationship"
             />
         </form>
-        <component-config :resource-id="resourceId" ref="compos" :config="true" />
+        <component-config :resource-id="resourceId" ref="compos" :config="true" :update="update" />
         <div class="flex justify-end p-4 w-full">
-            <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Configure Control Plan') }}</button>
+            <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">
+                {{ update ? __('Update configuration') : __('Configure Control Plan') }}
+            </button>
         </div>
     </div>
 </template>
@@ -60,6 +70,12 @@ export default {
         resourceId: {
             type: String,
         },
+        update: {
+            type: Boolean
+        },
+        id: {
+            type: Number
+        }
     },
 
     data: () => ({
@@ -76,7 +92,7 @@ export default {
         submitted: false
     }),
 
-    async created() {
+    async mounted() {
         if (Nova.missingResource('control-plan-configs'))
             return this.$router.push({ name: '404' })
 
@@ -95,7 +111,7 @@ export default {
         )
         this.relationResponse = data
 
-        if (this.alreadyFilled) {
+        if (this.alreadyFilled && !this.update) {
             Nova.error(this.__('The HasOne relationship has already been filled.'))
 
             this.$router.push({
@@ -118,15 +134,22 @@ export default {
             this.panels = []
             this.fields = []
 
+            console.log('aggiorno?', this.update)
+
+            let url = `/nova-api/control-plan-configs/creation-fields`
+            if(this.update){
+                url = `/nova-api/control-plan-configs/${this.id}/update-fields`
+            }
+
             const {
                 data: { panels, fields },
             } = await Nova.request().get(
-                `/nova-api/control-plan-configs/creation-fields`,
+                url,
                 {
                     params: {
                         editing: true,
-                        editMode: 'create',
-                        viaResource: this.resourceName,
+                        editMode: this.update ? 'update' : 'create',
+                        viaResource:  this.resourceName,
                         viaResourceId: this.resourceId,
                         viaRelationship: 'controlPlanConfig'
                     },
@@ -188,13 +211,19 @@ export default {
          * Send a create request for this resource
          */
         async createRequest() {
+            let url = `/nova-api/control-plan-configs`;
+
+            if(this.update) {
+                url = `/nova-vendor/machines/control-plans-configs/${this.id}`;
+            }
+
             return Nova.request().post(
-                `/nova-api/control-plan-configs`,
+                url,
                 this.createResourceFormData(),
                 {
                     params: {
                         editing: true,
-                        editMode: 'create',
+                        editMode: this.update ? 'update' : 'create',
                     },
                 }
             )

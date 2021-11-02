@@ -56,23 +56,23 @@ class Component extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Name'), 'name'),
+            Text::make(__('Name'), 'name')->required(),
             BelongsTo::make(__('Machine'), 'machine', 'App\Nova\Machine'),
 
             NovaBelongsToDepend::make(__('Category'), 'componentCategory', 'App\Nova\ComponentCategory')
                 ->placeholder('Optional Placeholder') // Add this just if you want to customize the placeholder
-                ->options(\App\Models\ComponentCategory::all())->size('w-1/2')->stacked(false),
+                ->options(\App\Models\ComponentCategory::all())->size('w-1/2')->stacked(false)->required(),
             NovaBelongsToDepend::make(__('Sub Category'), 'componentSubCategory', 'App\Nova\ComponentSubCategory')
                 ->placeholder('Optional Placeholder') // Add this just if you want to customize the placeholder
                 ->optionsResolve(function ($componentCategory) {
                     // Reduce the amount of unnecessary data sent
                     return $componentCategory->subs()->get(['id','name']);
                 })
-                ->dependsOn('componentCategory')->size('w-1/2')->stacked(false),
+                ->dependsOn('componentCategory')->size('w-1/2')->stacked(false)->required(),
 
-            Text::make(__('Constructor'),'constructor')->size('w-1/3'),
-            Text::make(__('Model'),'model')->size('w-1/3'),
-            Text::make(__('Serial number'),'serial_number')->size('w-1/3'),
+            Text::make(__('Constructor'),'constructor')->size('w-1/3')->required(),
+            Text::make(__('Model'),'model')->size('w-1/3')->required(),
+            Text::make(__('Serial number'),'serial_number')->size('w-1/3')->required(),
             Textarea::make(__('Description'),'description')->stacked(),
             Number::make(__('Point of Vibrations'), 'vibrations')->size('w-1/4'),
             Number::make(__('Point of Temperature'), 'temperature')->size('w-1/4'),

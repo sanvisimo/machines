@@ -7,9 +7,16 @@
             autocomplete="off"
             ref="form"
         >
-            <div class="flex justify-end p-4 w-full">
+            <div class="flex justify-end p-4 w-full gap-4">
                 <button type="submit" class="btn btn-default btn-primary">{{ __('Create Control Plan') }}</button>
+                <span
+                    @click="$emit('edit')"
+                    class="btn btn-default cursor-pointer btn-white"
+                >
+                    {{ __('Edit') }}
+                </span>
             </div>
+
 
             <form-panel
                 v-for="panel in panelsWithFields"

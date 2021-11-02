@@ -3,6 +3,7 @@
 namespace Akka\Machines\Http\Controllers;
 
 use App\Models\Component;
+use App\Models\MeasurementConfig;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Fields\Number;
@@ -46,5 +47,18 @@ class ComponentsController
         return response()->json([
             'attachments' => $data->attachments
         ]);
+    }
+
+    public function getConfig(NovaRequest $request, $componentId, $position)
+    {
+
+        $config = MeasurementConfig::where('component_id', $componentId)
+            ->where('position', $position)
+            ->first();
+
+        return response()->json([
+            'id' => $config->id
+        ]);
+
     }
 }

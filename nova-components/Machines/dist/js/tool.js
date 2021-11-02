@@ -12962,10 +12962,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['resourceName', 'resourceId', 'panel', 'config'],
+  props: ['resourceName', 'resourceId', 'panel', 'config', 'update'],
   components: {
     Title: _Title__WEBPACK_IMPORTED_MODULE_1__["default"],
     Create: _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -13172,6 +13174,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     position: {
       type: String
+    },
+    update: {
+      type: Boolean
     }
   },
   data: function data() {
@@ -13185,7 +13190,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       relationResponse: null,
       loading: true,
       fields: [],
-      panels: []
+      panels: [],
+      componentConfigId: null
     };
   },
   created: function created() {
@@ -13246,7 +13252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var _yield$Nova$request$g, _yield$Nova$request$g2, panels, fields;
+        var url, _yield$Nova$request$g, data, _yield$Nova$request$g2, _yield$Nova$request$g3, panels, fields;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
@@ -13254,27 +13260,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this3.panels = [];
                 _this3.fields = [];
-                _context3.next = 4;
-                return Nova.request().get("/nova-api/measurement-configs/creation-fields", {
+                url = "/nova-api/measurement-configs/creation-fields";
+
+                if (!_this3.update) {
+                  _context3.next = 10;
+                  break;
+                }
+
+                _context3.next = 6;
+                return Nova.request().get("/nova-vendor/machines/components-config/".concat(_this3.componentId, "/").concat(_this3.position));
+
+              case 6:
+                _yield$Nova$request$g = _context3.sent;
+                data = _yield$Nova$request$g.data;
+                _this3.componentConfigId = data.id;
+                url = "/nova-api/measurement-configs/".concat(data.id, "/update-fields");
+
+              case 10:
+                _context3.next = 12;
+                return Nova.request().get(url, {
                   params: {
                     editing: true,
-                    editMode: 'create',
-                    viaResource: 'components',
-                    viaResourceId: _this3.componentId,
-                    viaRelationship: 'component'
+                    editMode: _this3.update ? 'update' : 'create',
+                    viaResource: _this3.update ? '' : 'components',
+                    viaResourceId: _this3.update ? '' : _this3.componentId,
+                    viaRelationship: _this3.update ? '' : 'component'
                   }
                 });
 
-              case 4:
-                _yield$Nova$request$g = _context3.sent;
-                _yield$Nova$request$g2 = _yield$Nova$request$g.data;
-                panels = _yield$Nova$request$g2.panels;
-                fields = _yield$Nova$request$g2.fields;
+              case 12:
+                _yield$Nova$request$g2 = _context3.sent;
+                _yield$Nova$request$g3 = _yield$Nova$request$g2.data;
+                panels = _yield$Nova$request$g3.panels;
+                fields = _yield$Nova$request$g3.fields;
                 _this3.panels = panels;
                 _this3.fields = fields;
                 _this3.loading = false;
 
-              case 11:
+              case 19:
               case "end":
                 return _context3.stop();
             }
@@ -13310,13 +13333,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var url;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                return _context5.abrupt("return", Nova.request().post("/nova-vendor/machines/components-config", _this5.createResourceFormData()));
+                url = "/nova-vendor/machines/components-config";
 
-              case 1:
+                if (_this5.update) {
+                  url = "/nova-vendor/machines/components-config/".concat(_this5.componentConfigId);
+                }
+
+                return _context5.abrupt("return", Nova.request().post(url, _this5.createResourceFormData()));
+
+              case 3:
               case "end":
                 return _context5.stop();
             }
@@ -13958,6 +13988,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -13992,7 +14049,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       loading: true,
       configPlan: null,
+      isConfigPlan: true,
       showConfig: false,
+      isUpdate: false,
+      dropdownOpen: false,
       viaRelationship: "controlPlansConfig",
       viaResource: "machines",
       viaResourceId: null,
@@ -14054,9 +14114,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$Nova$request$g = _context2.sent;
                 data = _yield$Nova$request$g.data;
                 _this2.configPlan = data.controlPlan;
+                _this2.isConfigPlan = !data.controlPlan;
+                _this2.showConfig = !!data.controlPlan;
                 _this2.loading = false;
 
-              case 6:
+              case 8:
               case "end":
                 return _context2.stop();
             }
@@ -14069,7 +14131,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     handleCreated: function handleCreated() {
       this.showConfig = false;
-      this.configPlan = true;
+      this.isConfigPlan = false;
+    },
+    editConfig: function editConfig() {
+      this.dropdownOpen = false;
+      this.isUpdate = true;
+      this.isConfigPlan = true;
+      this.showConfig = true;
+    },
+    closeEdit: function closeEdit() {
+      this.isUpdate = false;
+      this.isConfigPlan = false;
     }
   }
 });
@@ -14141,6 +14213,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14156,6 +14238,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     resourceId: {
       type: String
+    },
+    update: {
+      type: Boolean
+    },
+    id: {
+      type: Number
     }
   },
   data: function data() {
@@ -14173,7 +14261,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       submitted: false
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -14208,7 +14296,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               data = _yield$Nova$request$g.data;
               _this.relationResponse = data;
 
-              if (_this.alreadyFilled) {
+              if (_this.alreadyFilled && !_this.update) {
                 Nova.error(_this.__('The HasOne relationship has already been filled.'));
 
                 _this.$router.push({
@@ -14239,7 +14327,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var _yield$Nova$request$g2, _yield$Nova$request$g3, panels, fields;
+        var url, _yield$Nova$request$g2, _yield$Nova$request$g3, panels, fields;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
@@ -14247,18 +14335,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this2.panels = [];
                 _this2.fields = [];
-                _context2.next = 4;
-                return Nova.request().get("/nova-api/control-plan-configs/creation-fields", {
+                console.log('aggiorno?', _this2.update);
+                url = "/nova-api/control-plan-configs/creation-fields";
+
+                if (_this2.update) {
+                  url = "/nova-api/control-plan-configs/".concat(_this2.id, "/update-fields");
+                }
+
+                _context2.next = 7;
+                return Nova.request().get(url, {
                   params: {
                     editing: true,
-                    editMode: 'create',
+                    editMode: _this2.update ? 'update' : 'create',
                     viaResource: _this2.resourceName,
                     viaResourceId: _this2.resourceId,
                     viaRelationship: 'controlPlanConfig'
                   }
                 });
 
-              case 4:
+              case 7:
                 _yield$Nova$request$g2 = _context2.sent;
                 _yield$Nova$request$g3 = _yield$Nova$request$g2.data;
                 panels = _yield$Nova$request$g3.panels;
@@ -14267,7 +14362,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.fields = fields;
                 _this2.loading = false;
 
-              case 11:
+              case 14:
               case "end":
                 return _context2.stop();
             }
@@ -14373,18 +14468,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var url;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                return _context5.abrupt("return", Nova.request().post("/nova-api/control-plan-configs", _this5.createResourceFormData(), {
+                url = "/nova-api/control-plan-configs";
+
+                if (_this5.update) {
+                  url = "/nova-vendor/machines/control-plans-configs/".concat(_this5.id);
+                }
+
+                return _context5.abrupt("return", Nova.request().post(url, _this5.createResourceFormData(), {
                   params: {
                     editing: true,
-                    editMode: 'create'
+                    editMode: _this5.update ? 'update' : 'create'
                   }
                 }));
 
-              case 1:
+              case 3:
               case "end":
                 return _context5.stop();
             }
@@ -14468,6 +14570,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43197,7 +43306,8 @@ var render = function() {
                             refInFor: true,
                             attrs: {
                               "component-id": tab.id,
-                              position: "C" + tab.index + "-B" + vibration
+                              position: "C" + tab.index + "-B" + vibration,
+                              update: _vm.update
                             }
                           })
                         : _c("component-form", {
@@ -43237,7 +43347,8 @@ var render = function() {
                             refInFor: true,
                             attrs: {
                               "component-id": tab.id,
-                              position: "C" + tab.index + "-P" + article
+                              position: "C" + tab.index + "-P" + article,
+                              update: _vm.update
                             }
                           })
                         : _c("component-form", {
@@ -43752,71 +43863,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "loading-view",
-    { attrs: { loading: _vm.loading } },
-    [
-      _c("custom-create-header", {
-        staticClass: "mb-3",
-        attrs: { "resource-name": "control-plan-configs" }
-      }),
-      _vm._v(" "),
-      _vm.configPlan
-        ? _c(
-            "div",
-            [_c("control-plan-form", { attrs: { machine: _vm.resourceId } })],
-            1
-          )
-        : _c(
-            "div",
-            [
-              !_vm.showConfig
-                ? _c(
-                    "card",
-                    {
-                      staticClass:
-                        "mb-6 py-3 px-6 flex justify-center items-center border border-dashed"
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-primary",
-                          on: { click: _vm.createConfigPlan }
-                        },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(_vm.__("Configure Control Plan")) +
-                              "\n            "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.showConfig
-                ? _c(
-                    "div",
-                    [
-                      _c("config-control-plan", {
-                        attrs: {
-                          "resource-id": _vm.resourceId,
-                          "resource-name": "machines"
-                        },
-                        on: { createdConfig: _vm.handleCreated }
-                      })
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-    ],
-    1
-  )
+  return _c("loading-view", { attrs: { loading: _vm.loading } }, [
+    !_vm.isConfigPlan
+      ? _c(
+          "div",
+          [
+            _c("control-plan-form", {
+              attrs: { machine: _vm.resourceId },
+              on: { edit: _vm.editConfig }
+            })
+          ],
+          1
+        )
+      : _c(
+          "div",
+          [
+            !_vm.showConfig
+              ? _c(
+                  "card",
+                  {
+                    staticClass:
+                      "mb-6 py-3 px-6 flex justify-center items-center border border-dashed"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default btn-primary",
+                        on: { click: _vm.createConfigPlan }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.__("Configure Control Plan")) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.showConfig
+              ? _c(
+                  "div",
+                  [
+                    _c("config-control-plan", {
+                      attrs: {
+                        "resource-id": _vm.resourceId,
+                        "resource-name": "machines",
+                        update: _vm.isUpdate,
+                        id: _vm.configPlan.id
+                      },
+                      on: {
+                        createdConfig: _vm.handleCreated,
+                        cancel: _vm.closeEdit
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
+          ],
+          1
+        )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43857,14 +43968,43 @@ var render = function() {
               }
             },
             [
-              _c("div", { staticClass: "flex justify-end p-4 w-full" }, [
+              _c("div", { staticClass: "flex justify-end p-4 w-full gap-4" }, [
                 _c(
                   "button",
                   {
                     staticClass: "btn btn-default btn-primary",
                     attrs: { type: "submit" }
                   },
-                  [_vm._v(_vm._s(_vm.__("Configure Control Plan")))]
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(
+                          _vm.update
+                            ? _vm.__("Update configuration")
+                            : _vm.__("Configure Control Plan")
+                        ) +
+                        "\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "btn btn-default cursor-pointer btn-white",
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("cancel")
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.__("Cancel")) +
+                        "\n            "
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),
@@ -43894,7 +44034,11 @@ var render = function() {
       _vm._v(" "),
       _c("component-config", {
         ref: "compos",
-        attrs: { "resource-id": _vm.resourceId, config: true }
+        attrs: {
+          "resource-id": _vm.resourceId,
+          config: true,
+          update: _vm.update
+        }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "flex justify-end p-4 w-full" }, [
@@ -43905,7 +44049,17 @@ var render = function() {
             attrs: { type: "button" },
             on: { click: _vm.submitViaCreateResource }
           },
-          [_vm._v(_vm._s(_vm.__("Configure Control Plan")))]
+          [
+            _vm._v(
+              "\n            " +
+                _vm._s(
+                  _vm.update
+                    ? _vm.__("Update configuration")
+                    : _vm.__("Configure Control Plan")
+                ) +
+                "\n        "
+            )
+          ]
         )
       ])
     ],
@@ -43951,7 +44105,7 @@ var render = function() {
               }
             },
             [
-              _c("div", { staticClass: "flex justify-end p-4 w-full" }, [
+              _c("div", { staticClass: "flex justify-end p-4 w-full gap-4" }, [
                 _c(
                   "button",
                   {
@@ -43959,6 +44113,25 @@ var render = function() {
                     attrs: { type: "submit" }
                   },
                   [_vm._v(_vm._s(_vm.__("Create Control Plan")))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "btn btn-default cursor-pointer btn-white",
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("edit")
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.__("Edit")) +
+                        "\n            "
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),

@@ -3,6 +3,7 @@
 namespace Akka\Machines\Http\Controllers;
 
 use App\Models\ControlPlan;
+use App\Models\ControlPlanConfig;
 use App\Models\Measurement;
 use App\Models\MeasurementConfig;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +44,59 @@ class ResourceStoreController extends Controller
     {
 
         $controlPlan = ControlPlan::findOrFail($controlPlanId);
+
+        $input = $request->all();
+        unset($input['machine']);
+        unset($input['machine_trashed']);
+
+        $controlPlan->fill($input);
+        $controlPlan->save();
+
+        return response()->json([
+            'id' => $controlPlan->getKey(),
+            'resource' => $controlPlan->attributesToArray(),
+        ], 201);
+    }
+
+    /**
+     * Update a new resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\CreateResourceRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateControlPlanConfig(CreateResourceRequest $request, $controlPlanId)
+    {
+
+        $controlPlan = ControlPlanConfig::findOrFail($controlPlanId);
+
+        $input = $request->all();
+        unset($input['machine']);
+        unset($input['machine_trashed']);
+        unset($input['viaResource']);
+        unset($input['viaResourceId']);
+        unset($input['viaRelationship']);
+        unset($input['editing']);
+        unset($input['editMode']);
+
+        $controlPlan->fill($input);
+        $controlPlan->save();
+
+        return response()->json([
+            'id' => $controlPlan->getKey(),
+            'resource' => $controlPlan->attributesToArray(),
+        ], 201);
+    }
+
+    /**
+     * Update a new resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\CreateResourceRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateComponentConfig(CreateResourceRequest $request, $id)
+    {
+
+        $controlPlan = MeasurementConfig::findOrFail($id);
 
         $input = $request->all();
         unset($input['machine']);

@@ -41,7 +41,7 @@ class ControlPlanConfig extends Resource
      *
      * @var bool
      */
-    public static $displayInNavigation = false;
+    public static $displayInNavigation = true;
 
     /**
      * Get the fields displayed by the resource.

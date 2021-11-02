@@ -21,7 +21,8 @@ Route::get('/components/{resourceId}', 'ComponentsController@index');
 Route::get('/components/{resourceId}/attachments', 'ComponentsController@attachments');
 Route::get('/components-config/{resourceId}', 'ComponentsController@config');
 Route::post('/components-config', 'ResourceStoreController@handle');
-
+Route::post('/components-config/{id}', 'ResourceStoreController@updateComponentConfig');
+Route::get('/components-config/{componentId}/{position}' , 'ComponentsController@getConfig');
 
 /**
  * Control Plan
@@ -29,5 +30,6 @@ Route::post('/components-config', 'ResourceStoreController@handle');
 Route::get('/control-plan-configs/{resourceId}', 'ControlPlanController@index');
 Route::get('/control-plans/{machineId}', 'ControlPlanController@getControlPlan');
 Route::get('/measurements/{componentId}/{position}', 'ControlPlanController@getMeasurement');
+Route::post('/control-plans-configs/{controlPlanId}', 'ResourceStoreController@updateControlPlanConfig');
 Route::post('/control-plans/{controlPlanId}', 'ResourceStoreController@updateControlPlan');
 Route::post('/components/{measurementId}', 'ResourceStoreController@updateComponent');

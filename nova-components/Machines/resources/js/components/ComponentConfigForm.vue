@@ -55,6 +55,10 @@ export default {
 
         position: {
             type: String
+        },
+
+        update: {
+            type: Boolean
         }
     },
 
@@ -69,6 +73,7 @@ export default {
         loading: true,
         fields: [],
         panels: [],
+        componentConfigId: null,
     }),
 
     async created() {
@@ -90,17 +95,24 @@ export default {
             this.panels = []
             this.fields = []
 
+            let url = `/nova-api/measurement-configs/creation-fields`;
+            if(this.update){
+                const { data } = await Nova.request().get(`/nova-vendor/machines/components-config/${this.componentId}/${this.position}`);
+                this.componentConfigId = data.id
+                url = `/nova-api/measurement-configs/${data.id}/update-fields`;
+            }
+
             const {
                 data: { panels, fields },
             } = await Nova.request().get(
-                `/nova-api/measurement-configs/creation-fields`,
+                url,
                 {
                     params: {
                         editing: true,
-                        editMode: 'create',
-                        viaResource: 'components',
-                        viaResourceId: this.componentId,
-                        viaRelationship: 'component'
+                        editMode: this.update ? 'update' : 'create',
+                        viaResource: this.update ? '' : 'components',
+                        viaResourceId: this.update ? '' : this.componentId,
+                        viaRelationship: this.update ? '' : 'component'
                     },
                 }
             )
@@ -119,8 +131,14 @@ export default {
          * Send a create request for this resource
          */
         async createRequest() {
+
+            let url = `/nova-vendor/machines/components-config`;
+            if(this.update) {
+                url = `/nova-vendor/machines/components-config/${this.componentConfigId}`;
+            }
+
             return Nova.request().post(
-                `/nova-vendor/machines/components-config`,
+                url,
                 this.createResourceFormData(),
             )
         },

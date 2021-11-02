@@ -26,6 +26,7 @@
                         :component-id="tab.id"
                         :ref="`vibration-C${tab.index}-B${vibration}`"
                         :position="`C${tab.index}-B${vibration}`"
+                        :update="update"
                     />
                     <component-form
                         v-else
@@ -41,6 +42,7 @@
                         :component-id="tab.id"
                         :ref="`position-C${tab.index}-P${article}`"
                         :position="`C${tab.index}-P${article}`"
+                        :update="update"
                     />
                     <component-form
                         v-else
@@ -71,7 +73,7 @@ import Title from "./Title";
 import Create from '../../../../../nova/resources/js/views/Create'
 
 export default {
-    props: ['resourceName', 'resourceId', 'panel', 'config'],
+    props: ['resourceName', 'resourceId', 'panel', 'config', 'update'],
     components: {
         Title,
         Create

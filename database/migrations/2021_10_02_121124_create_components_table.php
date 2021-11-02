@@ -22,11 +22,11 @@ class CreateComponentsTable extends Migration
             $table->string('constructor', 40);
             $table->string('model', 40);
             $table->string('serial_number', 40);
-            $table->string('description');
-            $table->integer('vibrations');
-            $table->integer('temperature');
-            $table->integer('pressure');
-            $table->integer('payload');
+            $table->string('description')->nullable();
+            $table->integer('vibrations')->nullable();
+            $table->integer('temperature')->nullable();
+            $table->integer('pressure')->nullable();
+            $table->integer('payload')->nullable();
             $table->timestamps();
         });
     }

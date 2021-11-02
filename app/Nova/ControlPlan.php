@@ -123,7 +123,7 @@ class ControlPlan extends Resource
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_cleaning_protective_grid : false;
                 })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__(''),'check_cleaning_junction_box')->nullable()
+            ButtonGroup::make(__('Check cleaning junction box'),'check_cleaning_junction_box')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_cleaning_junction_box : false;
                 })->size('w-2/3')->stacked(false),
