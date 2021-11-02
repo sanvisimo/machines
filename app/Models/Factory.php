@@ -9,6 +9,10 @@ class Factory extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'activation_date' => 'date'
+    ];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

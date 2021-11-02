@@ -10,7 +10,9 @@ class Customer extends Model
 {
     use HasFactory, Searchable;
 
-    protected $fillable = ['firstname', 'lastname', 'alias', 'address', 'phone', 'fax', 'authorization', 'image'];
+    protected $casts = [
+        'activation_date' => 'date'
+    ];
 
     public function leader_code()
     {
