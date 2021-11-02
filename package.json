@@ -17,6 +17,7 @@
         "watch-nova-panels": "cd nova-components/nova-panels && npm run watch",
         "build-nova-panels": "cd nova-components/nova-panels && npm run dev",
         "build-nova-panels-prod": "cd nova-components/nova-panels && npm run prod",
+        "watch-calendar": "cd nova-components/Calendar && npm run watch",
         "build-calendar": "cd nova-components/Calendar && npm run dev",
         "build-calendar-prod": "cd nova-components/Calendar && npm run prod",
         "watch-machines": "cd nova-components/Machines && npm run watch",
@@ -45,5 +46,8 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "@fullcalendar/list": "^5.10.0"
     }
 }

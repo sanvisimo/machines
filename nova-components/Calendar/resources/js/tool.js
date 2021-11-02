@@ -5,8 +5,8 @@ Nova.booting((Vue, router, store) => {
 
     router.addRoutes([
         {
-            name: 'calendar',
-            path: '/calendar',
+            name: 'agenda',
+            path: '/agenda',
             component: Calendar,
         },
     ])

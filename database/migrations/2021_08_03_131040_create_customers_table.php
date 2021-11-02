@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('other_customer_name', 60);
             $table->string('iso', 3);
             $table->string('vat_number', 16);
-            $table->string('fiscal_code', 16);
+            $table->string('fiscal_code', 16)->nullable();
             $table->string('address', 40)->nullable();
             $table->string('city', 40)->nullable();
             $table->string('po_box')->nullable();
@@ -29,19 +29,19 @@ class CreateCustomersTable extends Migration
             $table->string('crm_c4c_code', 20);
             $table->enum('type', array('customer', 'factory', 'vendor','subcontractor'));
             $table->string('phone');
-            $table->string('fax');
+            $table->string('fax')->nullable();
             $table->string('email');
             $table->string('contact_person');
             $table->date('activation_date');
-            $table->string('language');
+            $table->string('language')->nullable();
             $table->string('note')->nullable();
             $table->string('main_activity')->nullable();
             $table->string('image')->nullable();
             $table->foreignId('leader_code')->nullable();
-            $table->foreignId('maintenance_contract');
-            $table->foreignId('fixfee_contract');
-            $table->foreignId('monitoring_contract');
-            $table->index('leader_code');
+            $table->foreignId('maintenance_contract')->nullable();
+            $table->foreignId('fixfee_contract')->nullable();
+            $table->foreignId('monitoring_contract')->nullable();
+            $table->index('leader_code')->nullable();
             $table->timestamps();
         });
     }

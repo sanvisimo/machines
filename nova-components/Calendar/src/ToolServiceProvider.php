@@ -41,6 +41,7 @@ class ToolServiceProvider extends ServiceProvider
 
         Route::middleware(['nova', Authorize::class])
                 ->prefix('nova-vendor/calendar')
+                ->namespace('Akka\Calendar\Http\Controllers')
                 ->group(__DIR__.'/../routes/api.php');
     }
 

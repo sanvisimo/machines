@@ -100,7 +100,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-//            new Calendar,
+            new Calendar,
             new NovaGridSystem,
 //            new \Czemu\NovaCalendarTool\NovaCalendarTool,
             LocaleSwitcher::make()
