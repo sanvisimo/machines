@@ -15,17 +15,17 @@ class CreateMeasurementConfigsTable extends Migration
     {
         Schema::create('measurement_configs', function (Blueprint $table) {
             $table->id();
-            $table->boolean('lubricant_levels');
-            $table->boolean('lubricant_appearence');
-            $table->boolean('leakage');
-            $table->boolean('temperature');
+            $table->boolean('lubricant_levels')->nullable()->default(false);
+            $table->boolean('lubricant_appearence')->nullable()->default(false);
+            $table->boolean('leakage')->nullable()->default(false);
+            $table->boolean('temperature')->nullable()->default(false);
             $table->integer('temperature_min')->nullable();
             $table->integer('temperature_max')->nullable();
-            $table->boolean('pressure');
+            $table->boolean('pressure')->nullable()->default(false);
             $table->integer('pressure_min')->nullable();
             $table->integer('pressure_max')->nullable();
-            $table->boolean('vibrations_type_SPM');
-            $table->boolean('vibrations_type_SISM');
+            $table->boolean('vibrations_type_SPM')->nullable()->default(false);
+            $table->boolean('vibrations_type_SISM')->nullable()->default(false);
             $table->string('position');
             $table->foreignId('component_id');
             $table->foreignId('article_id')->nullable();

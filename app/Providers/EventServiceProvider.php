@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Models\Activity;
+use App\Models\Component;
 use App\Models\ControlPlan;
 use App\Models\ControlPlanConfig;
 use App\Models\Maintenance;
 use App\Models\Measurement;
 use App\Models\MeasurementConfig;
 use App\Observers\ActivityObserver;
+use App\Observers\ComponentObserver;
 use App\Observers\ControlPlanConfigObserver;
 use App\Observers\ControlPlanObserver;
 use App\Observers\MaintenanceObserver;
@@ -45,5 +47,6 @@ class EventServiceProvider extends ServiceProvider
         MeasurementConfig::observe(MeasurementConfigObserver::class);
         ControlPlan::observe(ControlPlanObserver::class);
         Measurement::observe(MeasurementObserver::class);
+        Component::observe(ComponentObserver::class);
     }
 }
