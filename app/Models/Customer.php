@@ -21,17 +21,17 @@ class Customer extends Model
 
     public function maintenance_contract()
     {
-        return $this->hasOne(Contract::class,'maintenance_contract');
+        return $this->hasOne(Contract::class,'maintenance_contract', 'maintenance_contract');
     }
 
     public function fixfee_contract()
     {
-        return $this->hasOne(Contract::class, 'fixfee_contract');
+        return $this->hasOne(Contract::class, 'fixfee_contract', 'fixfee_contract');
     }
 
     public function monitoring_contract()
     {
-        return $this->hasOne(Contract::class, 'monitoring_contract');
+        return $this->hasOne(Contract::class, 'monitoring_contract', 'monitoring_contract');
     }
 
     public function factories()
