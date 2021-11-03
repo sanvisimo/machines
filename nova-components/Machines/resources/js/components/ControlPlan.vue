@@ -37,7 +37,7 @@
                     resource-name="machines"
                     @createdConfig="handleCreated"
                     :update="isUpdate"
-                    :id="configPlan.id"
+                    :id="configPlan ? configPlan.id : null"
                     @cancel="closeEdit"
                 />
             </div>
@@ -123,7 +123,6 @@ export default {
 
         createConfigPlan() {
             this.showConfig = true;
-            this.isConfigPlan = true;
         },
 
         handleCreated() {

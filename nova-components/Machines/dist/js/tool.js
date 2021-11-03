@@ -14128,7 +14128,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     createConfigPlan: function createConfigPlan() {
       this.showConfig = true;
-      this.isConfigPlan = true;
     },
     handleCreated: function handleCreated() {
       this.showConfig = false;
@@ -43914,7 +43913,7 @@ var render = function() {
                         "resource-id": _vm.resourceId,
                         "resource-name": "machines",
                         update: _vm.isUpdate,
-                        id: _vm.configPlan.id
+                        id: _vm.configPlan ? _vm.configPlan.id : null
                       },
                       on: {
                         createdConfig: _vm.handleCreated,
