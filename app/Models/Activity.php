@@ -24,7 +24,7 @@ class Activity extends Model
             }
 
             if(!$model->element_id){
-                $model->element_id = $element->machine_id;
+                $model->element_id = $model->machine_id;
                 $model->element_type = "\App\Models\Machine";
             }
         });
