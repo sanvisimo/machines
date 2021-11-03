@@ -24,6 +24,37 @@
                     :key="'related-tabs-fields' + index"
                 >
                     <div>
+                        <div class="relative my-4 flex justify-end" v-if="activeTab === 0">
+                                <button type="button" @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
+                                    <span class="flex gap-2 items-center">
+                                        <span>{{ __('Menu') }}</span>
+                                        <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+                                <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                                <span
+                                    @click="editMachine"
+                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                >
+                                    {{ __('Edit') }}
+                                </span>
+                                <span
+                                    @click="duplicateMachine"
+                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
+                                    {{ __('Duplicate') }}
+                                </span>
+                                <span
+                                    @click="openDeleteModal"
+                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
+                                    {{ __('Delete') }}
+                                </span>
+                                </div>
+                        </div>
+
                         <div v-for="(pan, index) in tab.fields" class="my-4">
                             <component
                                 :is="pan.component"
@@ -37,6 +68,51 @@
                     </div>
                 </div>
             </div>
+        <portal
+            to="modals"
+            transition="fade-transition"
+            v-if="deleteModalOpen || duplicateModalOpen"
+        >
+            <delete-resource-modal
+                v-if="deleteModalOpen"
+                @confirm="confirmDelete"
+                @close="closeDeleteModal"
+                mode="delete"
+            >
+                <div slot-scope="{ uppercaseMode, mode }" class="p-8">
+                    <heading :level="2" class="mb-6">{{
+                            __(uppercaseMode + ' Resource')
+                        }}</heading>
+                    <p class="text-80 leading-normal">
+                        {{ __('Are you sure you want to ' + mode + ' this resource?') }}
+                    </p>
+                </div>
+            </delete-resource-modal>
+
+            <modal
+                v-if="duplicateModalOpen"
+                @modal-close="closeDuplicateModal"
+           >
+                <form @submit.prevent.stop="confirmDuplicateModal" class="bg-white rounded-lg shadow-lg overflow-hidden w-action">
+                    <div>
+                        <heading :level="2" class="border-b border-40 py-8 px-8">Confirm action</heading>
+                        <p class="text-80 px-8 my-8"> Are you sure you want to perform this action? </p>
+                    </div>
+                    <div class="bg-30 px-6 py-3 flex">
+                        <div class="flex items-center ml-auto">
+                            <button type="button" @click.prevent="closeDuplicateModal" class="btn btn-link dim cursor-pointer text-80 ml-auto mr-6">
+                                {{ __('Cancel') }}
+                            </button>
+                            <button :disabled="working" type="submit" class="btn btn-default btn-primary">
+                                <loader v-if="working" width="30"></loader>
+                                <span v-else>{{ __('Confirm') }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </modal>
+
+        </portal>
     </div>
 </template>
 
@@ -49,7 +125,11 @@ export default {
         return {
             tabs: null,
             activeTab: "",
-            pans: null
+            pans: null,
+            dropdownOpen: false,
+            deleteModalOpen: false,
+            duplicateModalOpen: false,
+            working: false
         };
     },
     mounted() {
@@ -117,7 +197,47 @@ export default {
                 default:
                     return 'panel'
             }
-        }
+        },
+
+        editMachine() {
+            this.$router.push(`/resources/machines/${this.resourceId}/edit`);
+        },
+
+        duplicateMachine() {
+            this.duplicateModalOpen = true;
+        },
+
+        async confirmDuplicateModal() {
+            this.working = true;
+            const { data } = await Nova.request().get(`/akka/panels/machines/${this.resourceId}/duplicate`);
+            this.working = false;
+            this.$router.push(`/resources/machines/${data.machine.id}/edit`);
+
+        },
+
+        closeDuplicateModal() {
+            this.duplicateModalOpen = false;
+        },
+
+        openDeleteModal() {
+            this.deleteModalOpen = true
+        },
+
+        async confirmDelete() {
+            await Nova.request().delete(`/nova-api/machines?`,
+                {
+                    params: {
+                        resources: [this.resourceId]
+                    }
+                }
+            )
+            this.closeDeleteModal();
+            this.$router.push('/resources/machines');
+        },
+
+        closeDeleteModal() {
+            this.deleteModalOpen = false
+        },
     }
 }
 </script>

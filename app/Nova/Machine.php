@@ -144,6 +144,7 @@ class Machine extends Resource
                     HasMany::make(__('Activities'), 'lastActivities', Activity::class),
 
                     Machines::make(),
+
                     HasMany::make(__('Components'), 'components', 'App\Nova\Component')
                         ->hideFromIndex()
                         ->hideWhenUpdating()

@@ -36,14 +36,10 @@ class createMaintenance extends Action
         foreach ($models as $model) {
             $resource = str_contains($model->activitable_type, 'Maintenance') ? 'maintenances' : 'control-plans';
             if($resource === "maintenances"){
-//                $maintenance = \App\Models\Maintenance::find($model->activitable_id);
-//                $maintenance->opening_date = Carbon::now();
-//                $maintenance->save();
                 return Action::push("/resources/{$resource}/{$model->activitable_id}/edit?viaResource=components&viaRelationship=maintenances&viaResourceId={$model->element_id}");
             } else {
                 return Action::push("/resources/machines/{$model->machine_id}?tab=2");
             }
-
         }
     }
 

@@ -152,7 +152,7 @@ class Activity extends Resource
             Date::make(__('Expiration'), 'expiration')->required()->onlyOnForms(),
             BelongsTo::make(__('Machine'), 'machine', Machine::class)->hideFromIndex(),
 
-            Text::make(__('Description'), 'description'),
+            Text::make(__('Description'), 'description')->required(),
             Select::make(__('Type'), 'type')->options([
                     'maintenance' => __('Ordinary Maintenance'),
                     'control_plan' => __('Planned Measurement'),
