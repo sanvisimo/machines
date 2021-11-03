@@ -123,6 +123,7 @@ export default {
 
         createConfigPlan() {
             this.showConfig = true;
+            this.isConfigPlan = true;
         },
 
         handleCreated() {

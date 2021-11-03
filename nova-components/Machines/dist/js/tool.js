@@ -14128,6 +14128,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     createConfigPlan: function createConfigPlan() {
       this.showConfig = true;
+      this.isConfigPlan = true;
     },
     handleCreated: function handleCreated() {
       this.showConfig = false;
