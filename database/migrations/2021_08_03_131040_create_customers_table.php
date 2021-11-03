@@ -17,7 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('customer_code', 10)->unique();
             $table->string('customer_name', 60);
-            $table->string('other_customer_name', 60);
+            $table->string('other_customer_name', 60)->nullable();
             $table->string('iso', 3);
             $table->string('vat_number', 16);
             $table->string('fiscal_code', 16)->nullable();
@@ -26,7 +26,7 @@ class CreateCustomersTable extends Migration
             $table->string('po_box')->nullable();
             $table->string('province', 3);
             $table->string('country', 3);
-            $table->string('crm_c4c_code', 20);
+            $table->string('crm_c4c_code', 20)->nullable();
             $table->enum('type', array('customer', 'factory', 'vendor','subcontractor'));
             $table->string('phone');
             $table->string('fax')->nullable();

@@ -6,6 +6,7 @@ use Akka\ControlPlanField\ControlPlanField;
 use Akka\Machines\Machines;
 use Akka\Machines\ControlPlan;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
@@ -68,6 +69,13 @@ class Machine extends Resource
     public static $group = 'Admin';
 
     /**
+     * Custom priority level of the resource.
+     *
+     * @var int
+     */
+    public static $priority = 4;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -77,19 +85,6 @@ class Machine extends Resource
     {
         return [
 
-//            ID::make(__('ID'), 'id')->sortable()->size('w-1/4')->stacked(false),
-//            Text::make(__('Name'), 'name')
-//                ->sortable()
-//                ->rules('required', 'max:255')->size('w-1/2')->stacked(false),
-//            HasMany::make(__('Components'), 'components', 'App\Nova\Component'),
-//            HasMany::make(__('Activities'), 'activities', 'App\Nova\Activity'),
-
-
-//            (new Panel('Info', [Text::make('Name')
-//                ->sortable()
-//                ->rules('required', 'max:255'),
-//            ]))->withToolbar(),
-
             (new APanels($this->title(), [
                 [
 
@@ -98,6 +93,9 @@ class Machine extends Resource
                         Text::make(__('Name'), 'name')
                             ->sortable()
                             ->rules('required', 'max:255'),
+                        BelongsTo::make(__('Plant'), 'plant', Plant::class)
+                            ->onlyOnForms()
+                            ->showCreateRelationButton(),
                         Select::make('state')->options([
                             'active' => __('Active'),
                             'suspended' => __('Suspended'),

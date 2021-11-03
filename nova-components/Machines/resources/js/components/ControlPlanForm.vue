@@ -8,7 +8,7 @@
             ref="form"
         >
             <div class="flex justify-end p-4 w-full gap-4">
-                <button type="submit" class="btn btn-default btn-primary">{{ __('Create Control Plan') }}</button>
+                <button type="submit" class="btn btn-default btn-primary">{{ __('Save') }}</button>
                 <span
                     @click="$emit('edit')"
                     class="btn btn-default cursor-pointer btn-white"
@@ -41,7 +41,7 @@
         </form>
         <component-config :resource-id="machine" ref="compos" :config="false" />
         <div class="flex justify-end p-4 w-full">
-            <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Create Control Plan') }}</button>
+            <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Save') }}</button>
         </div>
     </div>
 </template>

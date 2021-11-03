@@ -71,6 +71,13 @@ class Establishment extends Resource
     public static $group = 'Admin';
 
     /**
+     * Custom priority level of the resource.
+     *
+     * @var int
+     */
+    public static $priority = 2;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -97,7 +104,7 @@ class Establishment extends Resource
                     __('Max 60')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 60]])
-                ->rules( 'required', 'max:60'),
+                ->rules(  'max:60'),
             Text::make(__('ISO'),'iso')->required()
                 ->help(
                     __('Max 3')
@@ -136,7 +143,7 @@ class Establishment extends Resource
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 3]])
                 ->rules( 'max:3'),
-            Text::make(__('CRM C4C code'),'crm_c4c_code')->required()
+            Text::make(__('CRM C4C code'),'crm_c4c_code')
                 ->help(
                     __('Max 20')
                 )
@@ -155,7 +162,7 @@ class Establishment extends Resource
             HasOne::make(__('Maintenance contract'), 'maintenance_contract', Contract::class),
             HasOne::make(__('Fixfee contract'), 'fixfee_contract',Contract::class),
             HasOne::make(__('Monitoring contract'), 'monitoring_contract',Contract::class),
-            BelongsTo::make(__('Customer'), 'customer'),
+            BelongsTo::make(__('Customer'), 'customer')->showCreateRelationButton(),
             HasMany::make(__('Plants'), 'plants'),
         ];
     }

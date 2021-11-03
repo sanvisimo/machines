@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Akka\ButtonGroup\ButtonGroup;
+use Akka\NovaDependencyContainer\NovaDependencyContainer;
 use Carbon\Carbon;
 use Google\Service\HangoutsChat\Button;
 use Illuminate\Http\Request;
@@ -83,7 +84,12 @@ class Maintenance extends Resource
                 'maintenance_no' => __('Extraordinary Maintenance')
             ])->nullable()->default('maintenance_no'),
             DateTime::make(__('Opening Date'), 'opening_date')->nullable()->default(Carbon::now()),
-            Number::make(__('Periodicity'), 'periodicity')->nullable(),
+            NovaDependencyContainer::make([
+                Number::make(__('Periodicity'), 'periodicity')
+                    ->rules('min:1')
+                    ->withMeta(['extraAttributes' => ['min' => 0]])
+            ])
+                ->dependsOn('type', 'maintenance'),
             DateTime::make(__('Onsite intervention'), 'onsite_intervention')->nullable(),
             DateTime::make(__('Closed on'), 'closed_on')->nullable(),
             Number::make(__('Duration'), 'duration')->nullable(),

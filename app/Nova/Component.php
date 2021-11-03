@@ -60,10 +60,8 @@ class Component extends Resource
             BelongsTo::make(__('Machine'), 'machine', 'App\Nova\Machine'),
 
             NovaBelongsToDepend::make(__('Category'), 'componentCategory', 'App\Nova\ComponentCategory')
-                ->placeholder('Optional Placeholder') // Add this just if you want to customize the placeholder
                 ->options(\App\Models\ComponentCategory::all())->size('w-1/2')->stacked(false)->required(),
             NovaBelongsToDepend::make(__('Sub Category'), 'componentSubCategory', 'App\Nova\ComponentSubCategory')
-                ->placeholder('Optional Placeholder') // Add this just if you want to customize the placeholder
                 ->optionsResolve(function ($componentCategory) {
                     // Reduce the amount of unnecessary data sent
                     return $componentCategory->subs()->get(['id','name']);

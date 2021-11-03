@@ -40,6 +40,13 @@ class Plant extends Resource
     public static $group = 'Admin';
 
     /**
+     * Custom priority level of the resource.
+     *
+     * @var int
+     */
+    public static $priority = 3;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -65,7 +72,7 @@ class Plant extends Resource
             Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),
             Text::make(__('Internal notes'),'internal_note'),
             File::make(__('Document'),'documents'),
-            BelongsTo::make(__('Factory'), 'establishment', Establishment::class),
+            BelongsTo::make(__('Factory'), 'establishment', Establishment::class)->showCreateRelationButton(),
             HasMany::make(__('Machines'), 'machines', Machine::class)
         ];
     }

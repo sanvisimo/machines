@@ -43,6 +43,13 @@ class Customer extends Resource
     }
 
     /**
+     * Custom priority level of the resource.
+     *
+     * @var int
+     */
+    public static $priority = 1;
+
+    /**
      * The columns that should be searched.
      *
      * @var array
@@ -82,7 +89,7 @@ class Customer extends Resource
                     __('Max 60')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 60]])
-                ->rules( 'required', 'max:60'),
+                ->rules(  'max:60'),
             Text::make(__('ISO'),'iso')->required()
                 ->help(
                     __('Max 3')
@@ -121,7 +128,7 @@ class Customer extends Resource
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 3]])
                 ->rules( 'max:3'),
-            Text::make(__('CRM C4C code'),'crm_c4c_code')->required()
+            Text::make(__('CRM C4C code'),'crm_c4c_code')
                 ->help(
                     __('Max 20')
                 )

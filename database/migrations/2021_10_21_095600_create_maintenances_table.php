@@ -21,7 +21,7 @@ class CreateMaintenancesTable extends Migration
             $table->datetime('opening_date')->nullable();
             $table->datetime('onsite_intervention')->nullable();
             $table->datetime('closed_on')->nullable();
-            $table->integer('periodicity');
+            $table->integer('periodicity')->nullable();
             $table->integer('duration')->nullable();
             $table->float('indicative_cost', 10,2)->nullable();
             $table->string('drawing')->nullable();

@@ -22,6 +22,11 @@ class Activity extends Model
                 $element = $model->element_type::where('id', $model->element_id)->first();
                 $model->machine_id = $element->machine_id;
             }
+
+            if(!$model->element_id){
+                $model->element_id = $element->machine_id;
+                $model->element_type = "\App\Models\Machine";
+            }
         });
 
     }

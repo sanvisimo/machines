@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphTo;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -96,6 +97,12 @@ class Activity extends Resource
         return $query->where('machine_id', $resourceId);
     }
 
+    public static function relatableMachines(NovaRequest $request, $query)
+    {
+        $resourceId = $request->get('viaResourceId');
+        return $query->where('id', $resourceId);
+    }
+
     /**
      * Default ordering for index query.
      *
@@ -153,6 +160,14 @@ class Activity extends Resource
                     'control_plan_no' => __('Extraordinary Measurement'),
             ])->displayUsingLabels(),
 
+            NovaDependencyContainer::make([
+                Number::make(__('Periodicity'), 'periodicity')
+                    ->rules('min:1')
+                    ->withMeta(['extraAttributes' => ['min' => 0]])
+            ])
+                ->dependsOn('type', 'maintenance')
+                ->dependsOn('type', 'control_plan'),
+
             MorphTo::make(__('Element'), 'element')->types([
                 Component::class,
                 ManagedArticle::class,
@@ -162,6 +177,7 @@ class Activity extends Resource
                 MorphTo::make(__('Element'), 'element')->types([
                     Component::class,
                     ManagedArticle::class,
+                    Machine::class
                 ]),
             ])
                 ->dependsOn('type', 'maintenance')
