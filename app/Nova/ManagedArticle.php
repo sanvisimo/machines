@@ -69,42 +69,45 @@ class ManagedArticle extends Resource
             Text::make(__('Reference'),'reference'),
             Text::make(__('Customer part number'), 'customer_part_number'),
             Select::make(__('Measurement point'), 'measurement_point')
-                ->options(static::getOptions($request)),
+                ->options(static::getOptions($request))
+                ->showOnCreating(),
             Text::make(__('Note'), 'note'),
             File::make(__('Attachment'), 'attachment'),
         ];
     }
 
     static function getOptions(Request $request){
-        $id = $request->get('viaResourceId');
-        $component = \App\Models\Component::find($id);
-        $components =  $component->machine->components;
-        $index = $components->search(function($compo) use ($id){
-            return $compo->id == $id;
-        });
-        $c = $index + 1;
-
-        $articles =  $component->articles;
-
         $options = [];
-        for($i = 1; $i <= $component->vibrations; $i++){
-            $art = $articles->search(function($article) use ($c, $i){
-                return $article->measurement_point == "C{$c}-B{$i}";
+        $id = $request->get('viaResourceId');
+        if($id) {
+            $component = \App\Models\Component::find($id);
+            $components = $component->machine->components;
+            $index = $components->search(function ($compo) use ($id) {
+                return $compo->id == $id;
             });
-            if(!is_numeric($art)) {
-                $options["C{$c}-B{$i}"] = "C{$c}-B{$i}";
+            $c = $index + 1;
+
+            $articles = $component->articles;
+
+            for ($i = 1; $i <= $component->vibrations; $i++) {
+                $art = $articles->search(function ($article) use ($c, $i) {
+                    return $article->measurement_point == "C{$c}-B{$i}";
+                });
+                if (!is_numeric($art)) {
+                    $options["C{$c}-B{$i}"] = "C{$c}-B{$i}";
+                }
             }
-        }
-        $pos = $component->temperature + $component->pressure + $component->payload;
-        for($i = 1; $i <= $pos; $i++){
-            $art = $articles->search(function($article) use ($c, $i){
-                return $article->measurement_point == "C{$c}-P{$i}";
-            });
-            if(!is_numeric($art)) {
-                $options["C{$c}-P{$i}"] = "C{$c}-P{$i}";
+            $pos = $component->temperature + $component->pressure + $component->payload;
+            for ($i = 1; $i <= $pos; $i++) {
+                $art = $articles->search(function ($article) use ($c, $i) {
+                    return $article->measurement_point == "C{$c}-P{$i}";
+                });
+                if (!is_numeric($art)) {
+                    $options["C{$c}-P{$i}"] = "C{$c}-P{$i}";
+                }
             }
+            return $options;
         }
-        return $options;
     }
 
     /**
