@@ -70,7 +70,10 @@ class ManagedArticle extends Resource
             Text::make(__('Customer part number'), 'customer_part_number'),
             Select::make(__('Measurement point'), 'measurement_point')
                 ->options(static::getOptions($request))
-                ->showOnCreating(),
+                ->showOnCreating()
+                ->hideWhenUpdating(),
+            Text::make(__('Measurement point'), 'measurement_point')
+                ->hideWhenCreating(),
             Text::make(__('Note'), 'note'),
             File::make(__('Attachment'), 'attachment'),
         ];
