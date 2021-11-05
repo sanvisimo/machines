@@ -89,10 +89,18 @@ class Machine extends Resource
                 [
 
                     new Panel('Profile', [
-                        ID::make(__('ID'), 'id')->sortable(),
+                        ID::make(__('ID'), 'id')->sortable()->hideFromDetail(),
                         Text::make(__('Name'), 'name')
+                            ->hideFromDetail()
                             ->sortable()
-                            ->rules('required', 'max:255'),
+                            ->rules('required', 'max:255')
+                            ->displayUsing(function ($value) {
+                                return view('link', [
+                                    'id' => $this->id,
+                                    'value' => $value,
+                                    'slug' => $this->uriKey()
+                                ])->render();
+                            })->asHtml(),
                         BelongsTo::make(__('Plant'), 'plant', Plant::class)
                             ->onlyOnForms()
                             ->showCreateRelationButton(),
@@ -100,7 +108,8 @@ class Machine extends Resource
                             'active' => __('Active'),
                             'suspended' => __('Suspended'),
                             'not_operative' => __('Not Operative'),
-                        ])->size('w-1/2')->stacked(false),
+                        ])->size('w-1/2')->stacked(false)
+                        ->hideFromIndex(),
                     ]),
                     (new Panel ("Accordion", [
                         Text::make(__('Manufacturer code'), 'manufacturer_code')
@@ -117,26 +126,28 @@ class Machine extends Resource
                             ->rules( 'max:40'),
                         Text::make(__('Type'), 'type'),
                         Text::make(__('Serial number'), 'serial_number')
+                            ->hideFromIndex()
                             ->help(
                                 __('Max 20')
                             )
                             ->withMeta(['extraAttributes' => ['maxlength' => 20]])
                             ->rules( 'max:20'),
                         Text::make(__('Revision'), 'revision')
+                            ->hideFromIndex()
                             ->help(
                                 __('Max 5')
                             )
                             ->withMeta(['extraAttributes' => ['maxlength' => 5]])
                             ->rules( 'max:5'),
-                        Number::make(__('Power'), 'power')->step(0.01),
-                        Number::make(__('Engine side RMP'), 'engine_side_rpm'),
-                        Number::make(__('Process side RPM'), 'process_side_rpm'),
-                        Number::make(__('Pressure min'), 'pressure_min'),
-                        Number::make(__('Pressure max'), 'pressure_max'),
-                        Number::make(__('Temperature min'), 'temperature_min'),
-                        Number::make(__('Temperature max'), 'temperature_max'),
+                        Number::make(__('Power'), 'power')->step(0.01)->hideFromIndex(),
+                        Number::make(__('Engine side RMP'), 'engine_side_rpm')->hideFromIndex(),
+                        Number::make(__('Process side RPM'), 'process_side_rpm')->hideFromIndex(),
+                        Number::make(__('Pressure min'), 'pressure_min')->hideFromIndex(),
+                        Number::make(__('Pressure max'), 'pressure_max')->hideFromIndex(),
+                        Number::make(__('Temperature min'), 'temperature_min')->hideFromIndex(),
+                        Number::make(__('Temperature max'), 'temperature_max')->hideFromIndex(),
                         File::make(__('Documentation'), 'documentation'),
-                        Date::make(__('Activation date'), 'activation_date'),
+                        Date::make(__('Activation date'), 'activation_date')->hideFromIndex(),
                         Textarea::make(__('Note'), 'note'),
                         Textarea::make(__('Internal note'), 'internal_note'),
                     ]))->withComponent('akka-accordion'),

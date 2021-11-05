@@ -79,17 +79,24 @@ class Maintenance extends Resource
             BelongsTo::make(__('Component'), 'component', Component::class)->readonly(),
 //            BelongsTo::make(__('Activity'), 'activity', 'App\Nova\Activity'),
             MorphOne::make('Activity'),
-            Select::make(__('Type'), 'type')->options([
-                'maintenance' => __('Ordinary Maintenance'),
-                'maintenance_no' => __('Extraordinary Maintenance')
-            ])->nullable()->default('maintenance_no'),
+            Select::make(__('Type'), 'type')
+                ->options([
+                    'maintenance' => __('Ordinary Maintenance'),
+                    'maintenance_no' => __('Extraordinary Maintenance')
+                ])
+                ->nullable()
+                ->default('maintenance_no')
+                ->readonly(function() {
+                    return $this->resource->exists;
+                }),
             DateTime::make(__('Opening Date'), 'opening_date')->nullable()->default(Carbon::now()),
             NovaDependencyContainer::make([
                 Number::make(__('Periodicity'), 'periodicity')
                     ->rules('min:1')
                     ->withMeta(['extraAttributes' => ['min' => 0]])
             ])
-                ->dependsOn('type', 'maintenance'),
+                ->dependsOn('type', 'maintenance')
+                ->hideWhenUpdating(),
             DateTime::make(__('Onsite intervention'), 'onsite_intervention')->nullable(),
             DateTime::make(__('Closed on'), 'closed_on')->nullable(),
             Number::make(__('Duration'), 'duration')->nullable(),

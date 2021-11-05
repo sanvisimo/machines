@@ -28,10 +28,10 @@ class CreateEstablishmentsTable extends Migration
             $table->string('country', 3);
             $table->string('crm_c4c_code', 20)->nullable();
             $table->enum('type', array('customer', 'factory', 'vendor','subcontractor'));
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('fax')->nullable();
-            $table->string('email');
-            $table->string('contact_person');
+            $table->string('email')->nullable();
+            $table->string('contact_person')->nullable();
             $table->date('activation_date');
             $table->string('language')->nullable();
             $table->string('note')->nullable();

@@ -18,7 +18,7 @@ class CreateManagedArticlesTable extends Migration
             $table->foreignId('article_id');
             $table->string('reference');
             $table->string('customer_part_number',18);
-            $table->string('measurement_point');
+            $table->string('measurement_point')->nullable();
             $table->string('note')->nullable();
             $table->string('attachment')->nullable();
             $table->foreignId('component_id');

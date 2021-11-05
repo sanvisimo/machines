@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-full items-center"><span class="block alert w-1 h-full" :class="getColor"></span><span>{{ value }}{{ expired }}</span></div>
+    <div class="flex h-full items-center"><span class="block alert w-1 h-full mr-1" :class="getColor"></span><span>{{ value }}{{ expired }}</span></div>
 </template>
 
 <script>

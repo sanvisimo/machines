@@ -94,7 +94,12 @@ class Activity extends Resource
     public static function relatableManagedArticles(NovaRequest $request, $query)
     {
         $resourceId = $request->get('viaResourceId');
-        return $query->where('machine_id', $resourceId);
+
+
+        return $query->where('component_id', function($query) use ($resourceId) {
+          $query->select('id')->from(with(new \App\Models\Component)->getTable())
+          ->where('machine_id', $resourceId);
+        });
     }
 
     public static function relatableMachines(NovaRequest $request, $query)

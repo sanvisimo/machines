@@ -55,25 +55,35 @@ class Plant extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable()->onlyOnForms(),
             Text::make(__('Plant'),'plant')->rules('required','unique:plants,plant')
                 ->help(
                     __('Max 20')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 20]])
-                ->rules( 'max:20'),
-            Text::make(__('Description'),'description')
-                ->help(
-                    __('Max 40')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 40]])
-                ->rules( 'max:40'),
-            Textarea::make(__('Note'),'note'),
-            Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),
-            Text::make(__('Internal notes'),'internal_note'),
-            File::make(__('Document'),'documents'),
-            BelongsTo::make(__('Factory'), 'establishment', Establishment::class)->showCreateRelationButton(),
-            HasMany::make(__('Machines'), 'machines', Machine::class)
+                ->rules( 'max:20')
+                ->displayUsing(function ($value) {
+                    return view('link', [
+                        'id' => $this->id,
+                        'value' => $value,
+                        'slug' => $this->uriKey()
+                    ])->render();
+                })->asHtml(),
+            (new Panel (__('More Info'), [
+                Text::make(__('Description'),'description')
+                    ->help(
+                        __('Max 40')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 40]])
+                    ->rules( 'max:40'),
+                Textarea::make(__('Note'),'note'),
+                Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),
+                Text::make(__('Internal notes'),'internal_note'),
+                File::make(__('Document'),'documents'),
+            ]))->withComponent('akka-accordion'),
+            HasMany::make(__('Machines'), 'machines', Machine::class),
+            BelongsTo::make(__('Factory'), 'establishment', Establishment::class)->showCreateRelationButton()
+
         ];
     }
 

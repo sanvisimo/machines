@@ -60,4 +60,9 @@ class Machine extends Model
     {
         return $this->hasMany(ControlPlan::class);
     }
+
+    public function articles()
+    {
+        return $this->components()->with('articles');
+    }
 }

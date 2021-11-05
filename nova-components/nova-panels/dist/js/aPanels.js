@@ -150,6 +150,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova_src_mixins_BehavesAsPanel__WEBPACK_IMPORTED_MODULE_1__["default"]],
@@ -185,17 +188,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fields: {}
     }];
     this.panel.fields.forEach(function (field) {
-      if (!tabs[field.tab].fields.hasOwnProperty(field.pan)) {
-        tabs[field.tab].fields[field.pan] = {
-          name: field.pan,
-          init: false,
-          listable: field.listableTab,
-          component: _this.componentName(field),
-          fields: []
-        };
-      }
+      if (field.pan !== "Profile") {
+        if (!tabs[field.tab].fields.hasOwnProperty(field.pan)) {
+          tabs[field.tab].fields[field.pan] = {
+            name: field.pan,
+            init: false,
+            listable: field.listableTab,
+            component: _this.componentName(field),
+            fields: []
+          };
+        }
 
-      tabs[field.tab].fields[field.pan].fields.push(field);
+        tabs[field.tab].fields[field.pan].fields.push(field);
+      }
     });
     this.tabs = tabs;
 
@@ -264,7 +269,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 data = _yield$Nova$request$g.data;
                 _this2.working = false;
 
-                _this2.$router.push("/resources/machines/".concat(data.machine.id));
+                _this2.$router.push("/resources/machines/".concat(data.machine.id, "/edit"));
 
               case 7:
               case "end":
@@ -310,6 +315,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     closeDeleteModal: function closeDeleteModal() {
       this.deleteModalOpen = false;
+    },
+    getStatus: function getStatus() {
+      // const status = this.panel.fields.find(field => field.indexName === "state");
+      var status = {
+        value: "suspended"
+      };
+
+      switch (status.value) {
+        case 'suspended':
+          return 'bg-red-600';
+
+        case 'not_operative':
+          return 'bg-yellow-500';
+
+        case 'active':
+        default:
+          return 'bg-green-500';
+      }
+
+      return 'bg-green-500';
     }
   }
 });
@@ -1658,12 +1683,23 @@ var render = function() {
         [
           _c("div", { staticClass: "flex flex-row" }, [
             _c(
-              "h4",
+              "div",
               {
                 staticClass:
-                  "text-90 font-normal text-2xl title px-8 border-b-2 border-40"
+                  "flex justify-between gap-2 items-center px-8 border-b-2 border-40"
               },
-              [_vm._v(_vm._s(_vm.panel.name))]
+              [
+                _c(
+                  "h4",
+                  { staticClass: "text-90 font-normal text-2xl title" },
+                  [_vm._v(_vm._s(_vm.panel.name))]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "w-2 h-2 rounded-full block",
+                  class: _vm.getStatus()
+                })
+              ]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "flex-1 border-b-2 border-40" }),

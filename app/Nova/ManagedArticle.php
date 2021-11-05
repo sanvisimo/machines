@@ -24,7 +24,10 @@ class ManagedArticle extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public function title()
+    {
+        return $this->reference .' - '.$this->article->drawing;
+    }
 
     /**
      * The columns that should be searched.

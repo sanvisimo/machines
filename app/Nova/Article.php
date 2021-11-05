@@ -22,17 +22,20 @@ class Article extends Resource
      *
      * @var string
      */
-    public static $title = 'part_number';
+    public function title()
+    {
+        return $this->drawing ." - ". $this->description;
+    }
 
     /**
      * Get the search result subtitle for the resource.
      *
      * @return string
      */
-    public function subtitle()
-    {
-        return __('EB part').": ".$this->eb_part_number;
-    }
+//    public function subtitle()
+//    {
+//        return __('Description').": ". $this->description;
+//    }
 
 
     /**
@@ -43,6 +46,8 @@ class Article extends Resource
     public static $search = [
         'id',
         'part_number',
+        'description',
+        'drawing',
         'eb_part_number'
     ];
 
@@ -60,25 +65,25 @@ class Article extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Part number'), 'part_number')->rules('required', 'max:18', 'unique:articles,part_number'),
             Text::make(__('Description'), 'description')->rules('required','max:40'),
-        Text::make(__('Material'), 'material')->rules('required','max:40'),
-        Text::make(__('Drawing'), 'drawing')->rules('required','max:40'),
-        Text::make(__('EB part number'), 'eb_part_number')->rules('required','max:18'),
-        Text::make(__('Product type'), 'product_type')->rules('required','max:4'),
-        Select::make(__('State'), 'state')->options([
-            'active' => __('Active'),
-            'suspended' => __('Suspended'),
-            'blocked' => __('Blocked')
-            ])->required(),
-        Text::make(__('External part number'), 'external_part_number')->rules('required','max:18'),
-        Text::make(__('Supplier Code'), 'supplier_code')->rules( 'max:18'),
-        Text::make(__('Supplier Description'), 'supplier_description')->rules('max:40'),
-        Select::make(__('Mu'), "MU")->options([
-            'PZ' => __('PZ'),
-            'MT' => __('MT'),
-            'LT' => __('LT'),
-            'KT' => __('KT')
-            ])->required(),
-        ];
+            Text::make(__('Material'), 'material')->rules('required','max:40'),
+            Text::make(__('Drawing'), 'drawing')->rules('required','max:40'),
+            Text::make(__('EB part number'), 'eb_part_number')->rules('required','max:18'),
+            Text::make(__('Product type'), 'product_type')->rules('required','max:4'),
+            Select::make(__('State'), 'state')->options([
+                'active' => __('Active'),
+                'suspended' => __('Suspended'),
+                'blocked' => __('Blocked')
+                ])->required(),
+            Text::make(__('External part number'), 'external_part_number')->rules('required','max:18'),
+            Text::make(__('Supplier Code'), 'supplier_code')->rules( 'max:18'),
+            Text::make(__('Supplier Description'), 'supplier_description')->rules('max:40'),
+            Select::make(__('Mu'), "MU")->options([
+                'PZ' => __('PZ'),
+                'MT' => __('MT'),
+                'LT' => __('LT'),
+                'KT' => __('KT')
+                ])->required(),
+            ];
     }
 
     /**

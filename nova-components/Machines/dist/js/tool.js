@@ -44112,7 +44112,7 @@ var render = function() {
                     staticClass: "btn btn-default btn-primary",
                     attrs: { type: "submit" }
                   },
-                  [_vm._v(_vm._s(_vm.__("Create Control Plan")))]
+                  [_vm._v(_vm._s(_vm.__("Save")))]
                 ),
                 _vm._v(" "),
                 _c(
@@ -44178,7 +44178,7 @@ var render = function() {
             attrs: { type: "button" },
             on: { click: _vm.submitViaCreateResource }
           },
-          [_vm._v(_vm._s(_vm.__("Create Control Plan")))]
+          [_vm._v(_vm._s(_vm.__("Save")))]
         )
       ])
     ],
@@ -44260,7 +44260,13 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n              " + _vm._s(tab.name) + "\n          ")]
+              [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(tab.fields.category) +
+                    "\n          "
+                )
+              ]
             )
           }),
           _vm._v(" "),

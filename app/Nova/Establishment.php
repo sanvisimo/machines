@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
 
 class Establishment extends Resource
 {
@@ -63,7 +64,6 @@ class Establishment extends Resource
      * @var array
      */
     public static $search = [
-        'id',
         'customer_code',
         'customer_name'
     ];
@@ -92,14 +92,30 @@ class Establishment extends Resource
                     __('Max 10')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 10]])
-                ->rules('required', 'unique:establishments,customer_code', 'max:10'),
+                ->rules('required', 'unique:establishments,customer_code', 'max:10')
+                ->displayUsing(function ($value) {
+                    return view('link', [
+                        'id' => $this->id,
+                        'value' => $value,
+                        'slug' => $this->uriKey()
+                    ])->render();
+                })->asHtml(),
             Text::make(__('Customer name'), 'customer_name')->required()
                 ->help(
                     __('Max 60')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 60]])
-                ->rules( 'max:60'),
+                ->rules( 'max:60')
+                ->displayUsing(function ($value) {
+                    return view('link', [
+                        'id' => $this->id,
+                        'value' => $value,
+                        'slug' => $this->uriKey()
+                    ])->render();
+                })->asHtml(),
+            (new Panel (__('More Info'), [
             Text::make(__('Other customer Name'),'other_customer_name')
+                ->hideFromIndex()
                 ->help(
                     __('Max 60')
                 )
@@ -124,6 +140,7 @@ class Establishment extends Resource
                 ->withMeta(['extraAttributes' => ['maxlength' => 16]])
                 ->rules( 'max:16'),
             Text::make(__('Address'),'address')->nullable()
+                ->hideFromIndex()
                 ->help(
                     __('Max 40')
                 )
@@ -135,35 +152,44 @@ class Establishment extends Resource
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 40]])
                 ->rules( 'max:40'),
-            Text::make(__('PO box'),'po_box')->nullable(),
-            Text::make(__('Province'),'province')->required(),
+            Text::make(__('PO box'),'po_box')->nullable()->hideFromIndex(),
+            Text::make(__('Province'),'province')->required()->hideFromIndex(),
             Text::make(__('Country'),'country')->required()
+                ->hideFromIndex()
                 ->help(
                     __('Max 3')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 3]])
                 ->rules( 'max:3'),
             Text::make(__('CRM C4C code'),'crm_c4c_code')
+                ->hideFromIndex()
                 ->help(
                     __('Max 20')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 20]])
                 ->rules( 'max:20'),
-            Select::make(__('Type'), 'type')->options(['factory'])->default('factory')->required(),
+            Select::make(__('Type'), 'type')
+                ->options([
+                    'factory' => __('Factory')
+                ])
+                ->default('factory')
+                ->required(),
             Text::make(__('Phone'), 'phone')->required(),
             Text::make(__('Fax'),'fax'),
             Text::make(__('Email'),'email')->required(),
             Text::make(__('Contact person'),'contact_person')->required(),
-            Date::make(__('Activation date'),'activation_date')->required(),
-            Text::make(__('Language'),'language')->required(),
+            Date::make(__('Activation date'),'activation_date')->required()->hideFromIndex(),
+            Text::make(__('Language'),'language')->required()->hideFromIndex(),
             Textarea::make(__('Note'),'note')->nullable(),
             Text::make(__('Main activity'),'main_activity')->nullable(),
             Image::make(__('Image'), 'image')->nullable(),
+            ]))->withComponent('akka-accordion'),
+            HasMany::make(__('Plants'), 'plants'),
+            BelongsTo::make(__('Customer'), 'customer')->showCreateRelationButton(),
             HasOne::make(__('Maintenance contract'), 'maintenance_contract', Contract::class),
             HasOne::make(__('Fixfee contract'), 'fixfee_contract',Contract::class),
             HasOne::make(__('Monitoring contract'), 'monitoring_contract',Contract::class),
-            BelongsTo::make(__('Customer'), 'customer')->showCreateRelationButton(),
-            HasMany::make(__('Plants'), 'plants'),
+
         ];
     }
 

@@ -17,7 +17,7 @@ class CreateMeasurementsTable extends Migration
             $table->id();
             $table->boolean('anomaly')->nullable();
             $table->string('anomaly_notes')->nullable();
-            $table->boolean('lubricant_levels')->nullable();
+            $table->enum('lubricant_levels', array('low', 'medium', 'high'))->nullable();
             $table->string('lubricant_levels_notes')->nullable();
             $table->enum('lubricant_appearence', ['clear', 'turbid', 'dark'])->nullable();
             $table->string('lubricant_appearence_notes')->nullable();

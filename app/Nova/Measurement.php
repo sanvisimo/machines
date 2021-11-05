@@ -58,7 +58,12 @@ class Measurement extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             ButtonGroup::make(__('Anomaly'), 'anomaly')->size('w-2/3')->stacked(false),
             Text::make(__(''), 'anomaly_notes')->nullable()->size('w-1/3')->stacked(false),
-            Number::make(__('Lubricant levels'), 'lubricant_levels')
+            ButtonGroup::make(__('Lubricant appearence'), 'lubricant_appearence')
+                ->options([
+                    'low' => __('Low'),
+                    'medium' => __('Medium'),
+                    'high' => __('High')
+                ])
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_levels : false;
                 })->size('w-2/3')->stacked(false),

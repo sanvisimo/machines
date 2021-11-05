@@ -8,7 +8,7 @@
                 :key="key"
                 @click="handleTabClick(tab, $event)"
             >
-                {{ tab.name }}
+                {{ tab.fields.category }}
             </button>
 
             <div class="border-b-4 border-40 flex py-5 px-8">

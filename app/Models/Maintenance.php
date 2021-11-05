@@ -22,8 +22,15 @@ class Maintenance extends Model
 
         self::saving(function($model){
             if(!$model->machine_id) {
-                $element = Component::find($model->component_id);
-                $model->machine_id = $element->machine_id;
+                if($model->component_id) {
+                    $component = Component::find($model->component_id);
+                }
+                if($model->managed_article_id){
+                    $article = ManagedArticle::find($model->managed_article_id);
+                    $component = $article->component;
+                }
+
+                $model->machine_id = $component->machine_id;
             }
             if(!$model->closed_on) {
                 $model->closed_on = Carbon::now();

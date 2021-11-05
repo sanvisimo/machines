@@ -31,8 +31,8 @@ class CreateMachinesTable extends Migration
             $table->float('temperature_max');
             $table->string('documentation')->nullable();
             $table->date('activation_date');
-            $table->string('note');
-            $table->string('internal_note');
+            $table->string('note')->nullable();
+            $table->string('internal_note')->nullable();
             $table->foreignId('plant_id')->nullable();
             $table->foreignId('config_plan_config_id')->nullable();
             $table->timestamps();

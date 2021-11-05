@@ -28040,7 +28040,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex h-full items-center" }, [
-    _c("span", { staticClass: "block alert w-1 h-full", class: _vm.getColor }),
+    _c("span", {
+      staticClass: "block alert w-1 h-full mr-1",
+      class: _vm.getColor
+    }),
     _c("span", [_vm._v(_vm._s(_vm.value) + _vm._s(_vm.expired))])
   ])
 }

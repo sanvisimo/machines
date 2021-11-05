@@ -3,7 +3,10 @@
         <div class=""></div>
         <div>
             <div class="flex flex-row">
-                <h4 class="text-90 font-normal text-2xl title px-8 border-b-2 border-40">{{ panel.name }}</h4>
+                <div class="flex justify-between gap-2 items-center px-8 border-b-2 border-40">
+                    <h4 class="text-90 font-normal text-2xl title">{{ panel.name }}</h4>
+                    <div class="w-2 h-2 rounded-full block" :class="getStatus()" />
+                </div>
                 <div class="flex-1 border-b-2 border-40"></div>
                 <div class="flex flex-row">
                     <button
@@ -142,17 +145,19 @@ export default {
         ]
 
         this.panel.fields.forEach(field => {
-            if (!tabs[field.tab].fields.hasOwnProperty(field.pan)) {
-                tabs[field.tab].fields[field.pan] = {
-                    name: field.pan,
-                    init: false,
-                    listable: field.listableTab,
-                    component: this.componentName(field),
-                    fields: []
+            if(field.pan !== "Profile") {
+                if (!tabs[field.tab].fields.hasOwnProperty(field.pan)) {
+                    tabs[field.tab].fields[field.pan] = {
+                        name: field.pan,
+                        init: false,
+                        listable: field.listableTab,
+                        component: this.componentName(field),
+                        fields: []
+                    }
                 }
-            }
 
-            tabs[field.tab].fields[field.pan].fields.push(field);
+                tabs[field.tab].fields[field.pan].fields.push(field);
+            }
         })
 
         this.tabs = tabs;
@@ -238,6 +243,24 @@ export default {
         closeDeleteModal() {
             this.deleteModalOpen = false
         },
+
+        getStatus() {
+            // const status = this.panel.fields.find(field => field.indexName === "state");
+            const status = {
+                value: "suspended"
+            }
+            switch(status.value){
+                case 'suspended':
+                    return 'bg-red-600';
+                case 'not_operative':
+                    return 'bg-yellow-500';
+                case 'active':
+                default:
+                    return 'bg-green-500';
+
+            }
+            return 'bg-green-500';
+        }
     }
 }
 </script>
