@@ -86,7 +86,7 @@ class Establishment extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->sortable()->hideOnIndex(),
             Text::make(__('Customer code'), 'customer_code')
                 ->help(
                     __('Max 10')
@@ -127,7 +127,7 @@ class Establishment extends Resource
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 3]])
                 ->rules( 'max:3'),
-            Text::make(__('VAT number'),'vat_number')->required()
+            Text::make(__('VAT number'),'vat_number')
                 ->help(
                     __('Max 16')
                 )
@@ -153,7 +153,14 @@ class Establishment extends Resource
                 ->withMeta(['extraAttributes' => ['maxlength' => 40]])
                 ->rules( 'max:40'),
             Text::make(__('PO box'),'po_box')->nullable()->hideFromIndex(),
-            Text::make(__('Province'),'province')->required()->hideFromIndex(),
+            Text::make(__('Province'),'province')
+                ->required()
+                ->hideFromIndex()
+                ->help(
+                    __('Max 2')
+                )
+                ->withMeta(['extraAttributes' => ['maxlength' => 2]])
+                ->rules( 'max:2'),
             Text::make(__('Country'),'country')->required()
                 ->hideFromIndex()
                 ->help(
@@ -174,10 +181,10 @@ class Establishment extends Resource
                 ])
                 ->default('factory')
                 ->required(),
-            Text::make(__('Phone'), 'phone')->required(),
+            Text::make(__('Phone'), 'phone'),
             Text::make(__('Fax'),'fax'),
-            Text::make(__('Email'),'email')->required(),
-            Text::make(__('Contact person'),'contact_person')->required(),
+            Text::make(__('Email'),'email'),
+            Text::make(__('Contact person'),'contact_person'),
             Date::make(__('Activation date'),'activation_date')->required()->hideFromIndex(),
             Text::make(__('Language'),'language')->required()->hideFromIndex(),
             Textarea::make(__('Note'),'note')->nullable(),

@@ -8,6 +8,7 @@ use Day4\SwitchLocale\SwitchLocale;
 use Eolica\NovaLocaleSwitcher\LocaleSwitcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;

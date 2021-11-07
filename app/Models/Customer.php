@@ -37,4 +37,8 @@ class Customer extends Model
     {
         return $this->hasMany(Establishment::class);
     }
+
+    public function getName() {
+        return $this->customer_name;
+    }
 }

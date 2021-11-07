@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/activities/new/{resourceId}', 'ActivitiesController@new');
 Route::get('/activities/old/{resourceId}', 'ActivitiesController@old');
 Route::get('/machines/{resourceId}/duplicate', 'MachinesController@duplicate');
+Route::post('/breadcrumb', 'BreadcrumbController@index');

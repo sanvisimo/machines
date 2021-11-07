@@ -38,4 +38,12 @@ class ManagedArticle extends Model
     {
         return $this->belongsTo(Article::class);
     }
+
+    public function getParent() {
+        return $this->component;
+    }
+
+    public function getName() {
+        return $this->reference .' - '.$this->article->drawing;
+    }
 }

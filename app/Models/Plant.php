@@ -18,4 +18,12 @@ class Plant extends Model
     {
         return $this->hasMany(Machine::class);
     }
+
+    public function getParent() {
+        return $this->establishment;
+    }
+
+    public function getName() {
+        return $this->plant;
+    }
 }

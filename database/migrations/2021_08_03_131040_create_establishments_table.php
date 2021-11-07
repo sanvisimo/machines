@@ -19,7 +19,7 @@ class CreateEstablishmentsTable extends Migration
             $table->string('customer_name', 60);
             $table->string('other_customer_name', 60)->nullable();
             $table->string('iso', 3);
-            $table->string('vat_number', 16);
+            $table->string('vat_number', 16)->nullable();
             $table->string('fiscal_code', 16)->nullable();
             $table->string('address', 40)->nullable();
             $table->string('city', 40)->nullable();

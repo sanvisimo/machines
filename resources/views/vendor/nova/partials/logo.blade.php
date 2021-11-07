@@ -9,6 +9,7 @@
 {{--</svg>--}}
 
 <div class="w-full text-center">
-    <h3>Eagle Burgmann</h3>
-    <p>Maintenance Suite</p>
+    <img src="/storage/logo.png" alt="EagleBurgmann - Maintenance suite" title="EagleBurgmann - Maintenance suite" />
+{{--    <h3>Eagle Burgmann</h3>--}}
+{{--    <p>Maintenance Suite</p>--}}
 </div>

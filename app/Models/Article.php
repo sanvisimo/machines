@@ -13,4 +13,8 @@ class Article extends Model
     {
         return $this->hasMany(ManagedArticle::class);
     }
+
+    public function getName() {
+        return $this->reference .' - '.$this->article->drawing;
+    }
 }

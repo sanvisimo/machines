@@ -42,4 +42,12 @@ class Establishment extends Model
     {
         return $this->hasMany(Plant::class);
     }
+
+    public function getParent() {
+        return $this->customer;
+    }
+
+    public function getName() {
+        return $this->customer_name;
+    }
 }

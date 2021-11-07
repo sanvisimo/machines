@@ -48,4 +48,12 @@ class Component extends Model
     {
         return $this->morphMany(Attachment::class, 'attachmentable');
     }
+
+    public function getParent() {
+        return $this->machine;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
 }

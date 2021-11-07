@@ -17,9 +17,9 @@ class CreatePlantsTable extends Migration
             $table->id();
             $table->string('plant', 20)->unique();
             $table->string('description', 40);
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->enum('plant_state', array('active', 'suspended', 'cancel'));
-            $table->string('internal_note');
+            $table->string('internal_note')->nullable();
             $table->string('documents')->nullable();
             $table->foreignId('establishment_id');
             $table->timestamps();
