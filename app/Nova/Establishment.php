@@ -86,7 +86,7 @@ class Establishment extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable()->hideOnIndex(),
+            ID::make(__('ID'), 'id')->sortable()->onlyOnForms(),
             Text::make(__('Customer code'), 'customer_code')
                 ->help(
                     __('Max 10')
