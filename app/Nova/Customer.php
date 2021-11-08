@@ -44,6 +44,26 @@ class Customer extends Resource
     }
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Customers');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Customer');
+    }
+
+    /**
      * Custom priority level of the resource.
      *
      * @var int
@@ -60,7 +80,10 @@ class Customer extends Resource
         'customer_name'
     ];
 
-    public static $group = 'Admin';
+    public static function group()
+    {
+        return __('Admin');
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -122,7 +145,7 @@ class Customer extends Resource
                     )
                     ->withMeta(['extraAttributes' => ['maxlength' => 16]])
                     ->rules( 'max:16'),
-                Text::make(__('Fiscal Code'),'fiscal_code')
+                Text::make(__('Fiscal code'),'fiscal_code')
                     ->hideFromIndex()
                     ->help(
                         __('Max 16')
@@ -170,7 +193,7 @@ class Customer extends Resource
                 Text::make(__('Contact person'),'contact_person')->required(),
                 Date::make(__('Activation date'),'activation_date')->required()->hideFromIndex(),
                 Text::make(__('Language'),'language')->required(),
-                Textarea::make(__('Note'),'note')->nullable(),
+                Textarea::make(__('Notes'),'note')->nullable(),
                 Text::make(__('Main activity'),'main_activity')->nullable(),
                 Image::make(__('Image'), 'image')->nullable(),
             ]))->withComponent('akka-accordion'),

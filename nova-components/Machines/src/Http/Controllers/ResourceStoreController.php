@@ -120,7 +120,7 @@ class ResourceStoreController extends Controller
     public function updateComponent(CreateResourceRequest $request, $measurementId)
     {
 
-        $measurement = Measurement::findOrFail($measurementId);
+        $measurement = Measurement::find($measurementId);
 
         $input = $request->all();
 

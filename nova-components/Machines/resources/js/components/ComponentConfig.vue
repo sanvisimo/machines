@@ -33,6 +33,8 @@
                         :component-id="tab.id"
                         :ref="`vibration-C${tab.index}-B${vibration}`"
                         :position="`C${tab.index}-B${vibration}`"
+                        :control-plan="controlPlan"
+                        :update="update"
                     />
                 </div>
                 <div v-for="(article) in tab.articles" class="border-b-4 my-3 px-3">
@@ -46,9 +48,11 @@
                     />
                     <component-form
                         v-else
+                        :control-plan="controlPlan"
                         :component-id="tab.id"
                         :ref="`position-C${tab.index}-P${article}`"
                         :position="`C${tab.index}-P${article}`"
+                        :update="update"
                     />
                 </div>
             </div>
@@ -73,7 +77,7 @@ import Title from "./Title";
 import Create from '../../../../../nova/resources/js/views/Create'
 
 export default {
-    props: ['resourceName', 'resourceId', 'panel', 'config', 'update'],
+    props: ['resourceName', 'resourceId', 'panel', 'config', 'controlPlan'],
     components: {
         Title,
         Create

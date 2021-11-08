@@ -2,7 +2,7 @@
     <div>
         <div class="flex flex-row">
             <button
-                class="py-5 px-8 border-b-4 focus:outline-none tab self-center"
+                class="py-4 px-6 border-b-4 focus:outline-none tab self-center"
                 :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary-30%': 'text-grey font-semibold border-40']"
                 v-for="(tab, key) in tabs"
                 :key="key"
@@ -11,7 +11,7 @@
                 {{ tab.fields.category }}
             </button>
 
-            <div class="border-b-4 border-40 flex py-5 px-8">
+            <div class="border-b-4 border-40 flex py-4 px-6">
                 <create-relation-button
                   @click="openRelationModal"
                   class="ml-1"

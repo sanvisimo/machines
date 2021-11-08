@@ -46,7 +46,7 @@ class MaintenanceObserver
 
             $model = new Activity;
             $model->machine_id = $maintenance->machine_id;
-            $model->description = $maintenance->description;
+            $model->description = $activity->description;
             $model->expiration = Carbon::now()->addDays($maintenance->periodicity);
             $model->type = $maintenance->type;
             $model->periodicity = $maintenance->periodicity;

@@ -40,6 +40,26 @@ class Component extends Resource
     ];
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Components');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Component');
+    }
+
+    /**
      * Indicates if the resource should be displayed in the sidebar.
      *
      * @var bool

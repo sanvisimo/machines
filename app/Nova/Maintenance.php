@@ -53,6 +53,26 @@ class Maintenance extends Resource
     public static $displayInNavigation = false;
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Maintenances');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Maintenance');
+    }
+
+    /**
      * Return the location to redirect the user after update.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request

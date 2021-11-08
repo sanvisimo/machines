@@ -30,9 +30,18 @@ class ControlPlanController
         ]);
     }
 
-    public function getMeasurement(NovaRequest $request, $componentId, $position)
+    public function editControlPlan(NovaRequest $request, $controlPlanId)
     {
-        $measurement = Measurement::where('component_id', $componentId)
+        $controlPlan = ControlPlan::find($controlPlanId);
+
+        return response()->json([
+            'controlPlan' => $controlPlan
+        ]);
+    }
+
+    public function getMeasurement(NovaRequest $request, $controlPlanId, $position)
+    {
+        $measurement = Measurement::where('control_plan_id', $controlPlanId)
             ->where('position', $position)
             ->latest()
             ->first();

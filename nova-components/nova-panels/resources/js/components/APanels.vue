@@ -10,7 +10,7 @@
                 <div class="flex-1 border-b-2 border-40"></div>
                 <div class="flex flex-row">
                     <button
-                        class="py-5 px-8 border-b-2 focus:outline-none tab"
+                        class="py-4 px-6 border-b-2 focus:outline-none tab"
                         :class="[activeTab === tab.id ? 'text-grey-black font-bold border-primary': 'text-grey font-semibold border-40']"
                         v-for="(tab, key) in tabs"
                         :key="key"
@@ -267,7 +267,7 @@ export default {
 
 <style>
 .title  {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
+    padding-top: .125rem;
+    padding-bottom: .125rem;
 }
 </style>

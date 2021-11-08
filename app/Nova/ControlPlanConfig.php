@@ -72,7 +72,6 @@ class ControlPlanConfig extends Resource
             Boolean::make(__('Check cleaning junction box'), 'check_cleaning_junction_box')->size('w-1/3')->stacked(false),
             Boolean::make(__('Check integrity flexible electric'), 'check_integrity_flexible_electric')->size('w-1/3')->stacked(false),
             Boolean::make(__('Check ground connections'), 'check_ground_connections')->size('w-1/3')->stacked(false),
-            Boolean::make(__('Check ground connections notes'), 'check_ground_connections_notes')->size('w-1/3')->stacked(false),
             Boolean::make(__('Thermography'), 'thermography')->size('w-1/3')->stacked(false),
             Boolean::make(__('Laser alignment'), 'laser_alignment')->size('w-1/3')->stacked(false),
         ];

@@ -28,14 +28,24 @@ class Article extends Resource
     }
 
     /**
-     * Get the search result subtitle for the resource.
+     * Get the displayable label of the resource.
      *
      * @return string
      */
-//    public function subtitle()
-//    {
-//        return __('Description').": ". $this->description;
-//    }
+    public static function label()
+    {
+        return __('Articles');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Article');
+    }
 
 
     /**
@@ -51,7 +61,10 @@ class Article extends Resource
         'eb_part_number'
     ];
 
-    public static $group = "Utils";
+    public static function group()
+    {
+        return __('Utilities');
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -77,7 +90,7 @@ class Article extends Resource
             Text::make(__('External part number'), 'external_part_number')->rules('required','max:18'),
             Text::make(__('Supplier Code'), 'supplier_code')->rules( 'max:18'),
             Text::make(__('Supplier Description'), 'supplier_description')->rules('max:40'),
-            Select::make(__('Mu'), "MU")->options([
+            Select::make(__('MU'), "MU")->options([
                 'PZ' => __('PZ'),
                 'MT' => __('MT'),
                 'LT' => __('LT'),

@@ -27,9 +27,19 @@
     padding-top: 7.75rem;
 }
 
+.py-4 {
+    padding-top: .125rem;
+    padding-bottom: .125rem;
+}
+
 .py-view {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: .125rem;
+    padding-bottom: .125rem;
+}
+
+.px-view {
+    padding-top: 1.125rem;
+    padding-bottom: 1.125rem;
 }
 
 .w-sidebar {
@@ -52,3 +62,7 @@
     );
 }
 
+[dusk="control-plans-detail-component"]:nth-of-type(2) {
+    display: none !important;
+    /*background: red;*/
+}

@@ -10,6 +10,7 @@
             <div class="flex justify-end p-4 w-full gap-4">
                 <button type="submit" class="btn btn-default btn-primary">{{ __('Save') }}</button>
                 <span
+                    v-if="$route.params.resourceName === 'machines'"
                     @click="$emit('edit')"
                     class="btn btn-default cursor-pointer btn-white"
                 >
@@ -39,7 +40,7 @@
             />
 
         </form>
-        <component-config :resource-id="machine" ref="compos" :config="false" />
+        <component-config :resource-id="machine" ref="compos" :config="false" :control-plan="controlPlan" />
         <div class="flex justify-end p-4 w-full">
             <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Save') }}</button>
         </div>
@@ -72,6 +73,9 @@ export default {
         machine: {
             type: String,
         },
+        update: {
+            type: Boolean
+        }
     },
 
     data: () => ({
@@ -89,9 +93,11 @@ export default {
         if (Nova.missingResource('control-plans'))
             return this.$router.push({ name: '404' })
 
-        // If this create is via a relation index, then let's grab the field
-        // and use the label for that as the one we use for the title and buttons
-        const { data } = await Nova.request().get(`/nova-vendor/machines/control-plans/${this.machine}`)
+        let url = `/nova-vendor/machines/control-plans/${this.machine}`;
+        if(this.$route.params.resourceName === "control-plans"){
+            url = `/nova-vendor/machines/control-plans/${this.$route.params.resourceId}/edit`;
+        }
+        const { data } = await Nova.request().get(url)
         this.controlPlan = data.controlPlan;
 
         await this.getFields()
@@ -154,13 +160,15 @@ export default {
 
                     this.canLeave = true
 
-                    Nova.success(
-                        this.__('The Measurement was created!')
-                    )
-                    this.$router.go(`${this.$route.path}?tab=0`);
+                    const msg = this.update ? this.__('The Measurement was updated!') : this.__('The Measurement was created!');
+
+                    Nova.success(msg)
+                    if(!this.update) {
+                        this.$router.go(`${this.$route.path}?tab=0`);
+                    }
                 } catch (error) {
                     window.scrollTo(0, 0)
-
+                    console.log("err", error)
                     this.submittedViaCreateAndAddAnother = false
                     this.submittedViaCreateResource = true
                     this.isWorking = false

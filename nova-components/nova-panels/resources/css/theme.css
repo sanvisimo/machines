@@ -9,8 +9,13 @@
     --sidebar-icon: #486a86;
 }
 
+* {
+    border-style: solid;
+}
+
 .bg-logo {
-    background-color: #F2F6F9;
+    /* background-color: #F2F6F9;*/
+    background-color: #FFFFFF;
     border-bottom: 1px solid #FAFAFA;
 }
 
@@ -22,9 +27,19 @@
     padding-top: 7.75rem;
 }
 
+.py-4 {
+    padding-top: .125rem;
+    padding-bottom: .125rem;
+}
+
 .py-view {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: .125rem;
+    padding-bottom: .125rem;
+}
+
+.px-view {
+    padding-top: 1.125rem;
+    padding-bottom: 1.125rem;
 }
 
 .w-sidebar {
@@ -47,3 +62,7 @@
     );
 }
 
+div.mb-8:first-child[dusk="control-plans-detail-component"]{
+    /*display: none !important;*/
+    background: red;
+}

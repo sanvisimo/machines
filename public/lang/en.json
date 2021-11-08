@@ -1,1 +1,12 @@
-{}
+{
+    "constructor": "Constructor",
+    "category > subcategory": "Category > subcategory",
+    "name": "Name",
+    "serial_number": "Serial number",
+    "model": "Model",
+    "description": "Description",
+    "vibrations": "Vibration points",
+    "temperature": "Temperature points",
+    "pressure": "Pressure points",
+    "payload": "Payload points"
+}

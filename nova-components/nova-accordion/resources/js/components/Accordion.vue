@@ -1,5 +1,5 @@
 <template>
-        <div class="relationship-tabs-panel card accordion">
+        <div class="accordion">
             <div class="accordion__header">
                 <div class="accordion__link p-4 block flex justify-center cursor-pointer" @click.prevent="active = !active">
                     <div class="bg-blue-dark hover:bg-blue-darker no-underline border p-2">
@@ -7,7 +7,7 @@
                     </div>
                 </div>
             </div>
-            <div class="accordion__content p-4" v-show="active">
+            <div class="accordion__content py-3 card px-6" v-show="active">
                 <div class="grid grid-cols-2 gap-4">
                     <component
                         v-for="(field, index) in panel.fields"
@@ -61,10 +61,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.title  {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-}
-</style>

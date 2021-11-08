@@ -24,14 +24,12 @@ export default {
     },
     methods: {
         async getBreadcrumb() {
-            console.log('route', this.$route.query)
             const { data } = await Nova.request().post(`/akka/panels/breadcrumb`,
             {
                 params: this.$route.params,
                 query: this.$route.query,
             });
             this.breadcrumb = data.breadcrumb;
-            console.log('data', data)
         }
     }
 }

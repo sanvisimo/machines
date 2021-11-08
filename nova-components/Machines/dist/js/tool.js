@@ -12964,10 +12964,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['resourceName', 'resourceId', 'panel', 'config', 'update'],
+  props: ['resourceName', 'resourceId', 'panel', 'config', 'controlPlan'],
   components: {
     Title: _Title__WEBPACK_IMPORTED_MODULE_1__["default"],
     Create: _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -13741,13 +13745,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     position: {
       type: String
+    },
+    controlPlan: {
+      type: Object
     }
   },
   data: function data() {
     return {
       mode: 'form',
       measurement: {},
-      controlPlanConfig: null,
+      controlPlanId: null,
       shouldOverrideMeta: true,
       relationResponse: null,
       loading: true,
@@ -13776,7 +13783,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 2:
               _context.next = 4;
-              return Nova.request().get("/nova-vendor/machines/measurements/".concat(_this.componentId, "/").concat(_this.position));
+              return Nova.request().get("/nova-vendor/machines/measurements/".concat(_this.controlPlan.id, "/").concat(_this.position));
 
             case 4:
               _yield$Nova$request$g = _context.sent;
@@ -13802,7 +13809,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.controlPlan = id;
+                _this2.controlPlanId = id;
 
                 _this2.$refs.button.click();
 
@@ -13993,28 +14000,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -14082,10 +14067,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }));
 
             case 2:
-              _context.next = 4;
+              if (_this.$route.params.resourceName === "control-plans") {
+                _this.isUpdate = true;
+              }
+
+              _context.next = 5;
               return _this.getControlPlanConfig();
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -14618,6 +14607,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -14633,6 +14623,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     machine: {
       type: String
+    },
+    update: {
+      type: Boolean
     }
   },
   data: function data() {
@@ -14651,7 +14644,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var _yield$Nova$request$g, data;
+      var url, _yield$Nova$request$g, data;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
@@ -14667,17 +14660,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }));
 
             case 2:
-              _context.next = 4;
-              return Nova.request().get("/nova-vendor/machines/control-plans/".concat(_this.machine));
+              url = "/nova-vendor/machines/control-plans/".concat(_this.machine);
 
-            case 4:
+              if (_this.$route.params.resourceName === "control-plans") {
+                url = "/nova-vendor/machines/control-plans/".concat(_this.$route.params.resourceId, "/edit");
+              }
+
+              _context.next = 6;
+              return Nova.request().get(url);
+
+            case 6:
               _yield$Nova$request$g = _context.sent;
               data = _yield$Nova$request$g.data;
               _this.controlPlan = data.controlPlan;
-              _context.next = 9;
+              _context.next = 11;
               return _this.getFields();
 
-            case 9:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -14765,7 +14764,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var _yield$_this4$createR, _yield$_this4$createR2, redirect, id;
+        var _yield$_this4$createR, _yield$_this4$createR2, redirect, id, msg;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
@@ -14774,7 +14773,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this4.isWorking = true;
 
                 if (!_this4.$refs.form.reportValidity()) {
-                  _context4.next = 24;
+                  _context4.next = 26;
                   break;
                 }
 
@@ -14792,17 +14791,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 11:
                 _this4.canLeave = true;
-                Nova.success(_this4.__('The Measurement was created!'));
+                msg = _this4.update ? _this4.__('The Measurement was updated!') : _this4.__('The Measurement was created!');
+                Nova.success(msg);
 
-                _this4.$router.go("".concat(_this4.$route.path, "?tab=0"));
+                if (!_this4.update) {
+                  _this4.$router.go("".concat(_this4.$route.path, "?tab=0"));
+                }
 
-                _context4.next = 24;
+                _context4.next = 26;
                 break;
 
-              case 16:
-                _context4.prev = 16;
+              case 17:
+                _context4.prev = 17;
                 _context4.t0 = _context4["catch"](2);
                 window.scrollTo(0, 0);
+                console.log("err", _context4.t0);
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
                 _this4.isWorking = false;
@@ -14813,17 +14816,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this4.handleOnCreateResponseError(_context4.t0);
 
-              case 24:
+              case 26:
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
                 _this4.isWorking = false;
 
-              case 27:
+              case 29:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[2, 16]]);
+        }, _callee4, null, [[2, 17]]);
       }))();
     },
 
@@ -43315,7 +43318,9 @@ var render = function() {
                             refInFor: true,
                             attrs: {
                               "component-id": tab.id,
-                              position: "C" + tab.index + "-B" + vibration
+                              position: "C" + tab.index + "-B" + vibration,
+                              "control-plan": _vm.controlPlan,
+                              update: _vm.update
                             }
                           })
                     ],
@@ -43355,8 +43360,10 @@ var render = function() {
                             ref: "position-C" + tab.index + "-P" + article,
                             refInFor: true,
                             attrs: {
+                              "control-plan": _vm.controlPlan,
                               "component-id": tab.id,
-                              position: "C" + tab.index + "-P" + article
+                              position: "C" + tab.index + "-P" + article,
+                              update: _vm.update
                             }
                           })
                     ],
@@ -43570,7 +43577,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "accordion__link p-4 block flex justify-center cursor-pointer",
+                "accordion__link py-4 px-4 block flex justify-center cursor-pointer",
               on: {
                 click: function($event) {
                   $event.preventDefault()
@@ -43747,7 +43754,7 @@ var render = function() {
     _c("div", { staticClass: "flex border-b border-40" }, [
       _c("div", { staticClass: "py-4 w-1/4" }, [
         _c("h4", { staticClass: "font-normal text-80" }, [
-          _vm._v(_vm._s(_vm.label))
+          _vm._v(_vm._s(_vm.__(_vm.label)))
         ])
       ]),
       _vm._v(" "),
@@ -43869,7 +43876,7 @@ var render = function() {
           "div",
           [
             _c("control-plan-form", {
-              attrs: { machine: _vm.resourceId },
+              attrs: { machine: _vm.resourceId, update: _vm.isUpdate },
               on: { edit: _vm.editConfig }
             })
           ],
@@ -43894,9 +43901,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\n                " +
                             _vm._s(_vm.__("Configure Control Plan")) +
-                            "\n                "
+                            "\n            "
                         )
                       ]
                     )
@@ -44115,24 +44122,26 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.__("Save")))]
                 ),
                 _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    staticClass: "btn btn-default cursor-pointer btn-white",
-                    on: {
-                      click: function($event) {
-                        return _vm.$emit("edit")
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.__("Edit")) +
-                        "\n            "
+                _vm.$route.params.resourceName === "machines"
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "btn btn-default cursor-pointer btn-white",
+                        on: {
+                          click: function($event) {
+                            return _vm.$emit("edit")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.__("Edit")) +
+                            "\n            "
+                        )
+                      ]
                     )
-                  ]
-                )
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _vm._l(_vm.panelsWithFields, function(panel) {
@@ -44167,7 +44176,11 @@ var render = function() {
       _vm._v(" "),
       _c("component-config", {
         ref: "compos",
-        attrs: { "resource-id": _vm.machine, config: false }
+        attrs: {
+          "resource-id": _vm.machine,
+          config: false,
+          "control-plan": _vm.controlPlan
+        }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "flex justify-end p-4 w-full" }, [
@@ -44248,7 +44261,7 @@ var render = function() {
               {
                 key: key,
                 staticClass:
-                  "py-5 px-8 border-b-4 focus:outline-none tab self-center",
+                  "py-4 px-6 border-b-4 focus:outline-none tab self-center",
                 class: [
                   _vm.activeTab === tab.name
                     ? "text-grey-black font-bold border-primary-30%"
@@ -44272,7 +44285,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "border-b-4 border-40 flex py-5 px-8" },
+            { staticClass: "border-b-4 border-40 flex py-4 px-6" },
             [
               _c("create-relation-button", {
                 staticClass: "ml-1",

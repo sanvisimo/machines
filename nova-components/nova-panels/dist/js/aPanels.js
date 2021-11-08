@@ -394,20 +394,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log('route', _this.$route.query);
-                _context.next = 3;
+                _context.next = 2;
                 return Nova.request().post("/akka/panels/breadcrumb", {
                   params: _this.$route.params,
                   query: _this.$route.query
                 });
 
-              case 3:
+              case 2:
                 _yield$Nova$request$p = _context.sent;
                 data = _yield$Nova$request$p.data;
                 _this.breadcrumb = data.breadcrumb;
-                console.log('data', data);
 
-              case 7:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -456,7 +454,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.title  {\n    padding-top: 1.25rem;\n    padding-bottom: 1.25rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.title  {\n    padding-top: .125rem;\n    padding-bottom: .125rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1866,7 +1864,7 @@ var render = function() {
                   "button",
                   {
                     key: key,
-                    staticClass: "py-5 px-8 border-b-2 focus:outline-none tab",
+                    staticClass: "py-4 px-6 border-b-2 focus:outline-none tab",
                     class: [
                       _vm.activeTab === tab.id
                         ? "text-grey-black font-bold border-primary"

@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
@@ -27,6 +28,26 @@ class ManagedArticle extends Resource
     public function title()
     {
         return $this->reference .' - '.$this->article->drawing;
+    }
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Managed Articles');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Managed Article');
     }
 
     /**
@@ -67,8 +88,8 @@ class ManagedArticle extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make(__('Article'), 'article')->showCreateRelationButton(),
-            BelongsTo::make(__('Component'), 'component'),
+            BelongsTo::make(__('Article'), 'article', Article::class)->showCreateRelationButton(),
+            BelongsTo::make(__('Component'), 'component', Component::class),
             Text::make(__('Reference'),'reference'),
             Text::make(__('Customer part number'), 'customer_part_number'),
             Select::make(__('Measurement point'), 'measurement_point')
@@ -77,8 +98,11 @@ class ManagedArticle extends Resource
                 ->hideWhenUpdating(),
             Text::make(__('Measurement point'), 'measurement_point')
                 ->hideWhenCreating(),
-            Text::make(__('Note'), 'note'),
+            Text::make(__('Notes'), 'note'),
             File::make(__('Attachment'), 'attachment'),
+            Boolean::make(__('Attachment'), 'attachment', function (){
+                return $this->attachment;
+            })->onlyOnIndex(),
         ];
     }
 

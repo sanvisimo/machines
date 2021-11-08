@@ -33,7 +33,6 @@ class CreateControlPlanConfigsTable extends Migration
             $table->boolean('check_cleaning_junction_box');
             $table->boolean('check_integrity_flexible_electric');
             $table->boolean('check_ground_connections');
-            $table->boolean('check_ground_connections_notes');
             $table->boolean('thermography');
             $table->boolean('laser_alignment');
             $table->foreignId('machine_id');

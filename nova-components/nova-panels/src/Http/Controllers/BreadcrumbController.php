@@ -34,19 +34,11 @@ class BreadcrumbController
         $query = $request->get('query');
         if(!empty($params)) {
             if(isset($params['resourceId'])) {
-//                $key = array_search($params['resourceName'], $this->tree);
-//                $resource = Nova::resourceForKey($params['resourceName']);
-//                $model_name = str_replace('Nova', 'Models', $resource);
-//                $model_name = str_replace('App', '\App', $model_name);
-//                $element = $model_name::find($params['resourceId']);
-//                $this->breadcrumb[] = [
-//                    'url' => "/resources/{$params['resourceName']}/{$params['resourceId']}",
-//                    'label' => $element->getName()
-//                ];
 
                 $element = $this->getBreadcrumb($params['resourceName'], $params['resourceId']);
-
-                $this->getParents($element);
+                if($element && method_exists($element, 'getParent')) {
+                    $this->getParents($element);
+                }
             } elseif(isset($params['resourceName'])) {
                 $this->breadcrumb[] = [
                     'url' => "/resources/{$params['resourceName']}",
@@ -70,10 +62,12 @@ class BreadcrumbController
         $model_name = str_replace('Nova', 'Models', $resource);
         $model_name = str_replace('App', '\App', $model_name);
         $element = $model_name::find($resourceId);
-        $this->setBreadCrumb([
-            'url' => "/resources/{$resourceName}/{$resourceId}",
-            'label' => $element->getName()
-        ]);
+        if ($element && method_exists($element, 'getName')) {
+            $this->setBreadCrumb([
+                'url' => "/resources/{$resourceName}/{$resourceId}",
+                'label' => $element->getName()
+            ]);
+        }
         return $element;
     }
 
@@ -90,7 +84,7 @@ class BreadcrumbController
         for($i = $this->key; $i < count($this->tree) - 1 ; $i++){
             if($element && method_exists($element, 'getParent')) {
                 $element = $element->getParent();
-                if ($element) {
+                if ($element && method_exists($element, 'getName')) {
                     $this->setBreadCrumb([
                         'url' => "/resources/{$this->tree[$i+1]}/{$element->id}",
                         'label' => $element->getName()

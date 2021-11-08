@@ -59,4 +59,8 @@ class Maintenance extends Model
     {
         return $this->belongsTo(ManagedArticle::class);
     }
+
+    public function getName() {
+        return __($this->type);
+    }
 }

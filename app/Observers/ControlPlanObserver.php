@@ -29,33 +29,36 @@ class ControlPlanObserver
     public function updated(ControlPlan $controlPlan)
     {
         $controlPlanConfig = ControlPlanConfig::find($controlPlan->control_plan_config_id);
-
-        $model = new ControlPlan;
-        $model->machine_id = $controlPlan->machine_id;
-        $model->control_plan_config_id = $controlPlan->control_plan_config_id;
-        $model->contract = $controlPlanConfig->contract;
-        $model->cost = $controlPlanConfig->cost;
-        $model->periodicity = $controlPlanConfig->periodicity;
-        $model->save();
-
+//        $lastControlPlan = ControlPlan::where('control_plan_config_id', $controlPlanConfig->id)->latest()->first();
         $oldActivity = Activity::where('activitable_id', $controlPlan->id)
             ->where('activitable_type', 'App\Models\ControlPlan')->first();
-        $oldActivity->active = false;
-        $oldActivity->save();
+        if($oldActivity->active) {
+            $oldActivity->active = false;
+            $oldActivity->save();
+            $model = new ControlPlan;
+            $model->machine_id = $controlPlan->machine_id;
+            $model->control_plan_config_id = $controlPlan->control_plan_config_id;
+            $model->contract = $controlPlanConfig->contract;
+            $model->cost = $controlPlanConfig->cost;
+            $model->periodicity = $controlPlanConfig->periodicity;
+            $model->save();
 
-        $activity = new Activity;
-        $activity->expiration = Carbon::now()->addDays($controlPlanConfig->periodicity);
-        $activity->machine_id = $controlPlan->machine_id;
-        $activity->description = 'Control Plan';
-        $activity->type = 'control_plan';
-        $activity->contract = $controlPlanConfig->contract;
-        $activity->fix_fee = false;
-        $activity->active = true;
-        $activity->element_id = $controlPlanConfig->machine_id;
-        $activity->element_type = '\App\Models\Machine';
-        $activity->activitable_id = $model->id;
-        $activity->activitable_type = 'App\Models\ControlPlan';
-        $activity->save();
+
+
+            $activity = new Activity;
+            $activity->expiration = Carbon::now()->addDays($controlPlanConfig->periodicity);
+            $activity->machine_id = $controlPlan->machine_id;
+            $activity->description = 'Control Plan';
+            $activity->type = 'control_plan';
+            $activity->contract = $controlPlanConfig->contract;
+            $activity->fix_fee = false;
+            $activity->active = true;
+            $activity->element_id = $controlPlanConfig->machine_id;
+            $activity->element_type = '\App\Models\Machine';
+            $activity->activitable_id = $model->id;
+            $activity->activitable_type = 'App\Models\ControlPlan';
+            $activity->save();
+        }
     }
 
     /**

@@ -2,5 +2,22 @@
     "Overview": "Panoramica",
     "Calendar": "Calendario attività",
     "Control Plan": "Piano di controllo",
-    "check_cleaning_protective_grid": "Controllo griglia"
+    "check_cleaning_protective_grid": "Controllo griglia",
+    "Extraordinary manutention": "Manutenzione straordinaria",
+    "Create": "Crea",
+    "Show Info": "Mostra informazioni",
+    "Close Info": "Chiudi informazioni",
+    "constructor": "Costruttore",
+    "category > subcategory": "Categoria > sottocategoria",
+    "name": "Nome",
+    "serial_number": "Numero di serie",
+    "model": "Modello",
+    "description": "Descrizione",
+    "vibrations": "Punti di vibrazione",
+    "temperature": "Punti di Temperatura",
+    "pressure": "Punti di Pressione",
+    "payload": "Punti di Carico",
+    "Duplicate": "Duplica",
+    "Update configuration": "Aggiorna configurazione",
+    "Save": "Salva"
 }

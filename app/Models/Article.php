@@ -15,6 +15,6 @@ class Article extends Model
     }
 
     public function getName() {
-        return $this->reference .' - '.$this->article->drawing;
+        return $this->drawing ." - ". $this->description;
     }
 }

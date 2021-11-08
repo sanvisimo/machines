@@ -33,7 +33,7 @@
 
       <div class="accordion">
           <div class="accordion__header">
-              <div class="accordion__link p-4 block flex justify-center cursor-pointer" @click.prevent="active = !active">
+              <div class="accordion__link py-4 px-4 block flex justify-center cursor-pointer" @click.prevent="active = !active">
                   <div class="bg-blue-dark hover:bg-blue-darker no-underline border p-2">
                       <strong v-if="!active">{{ __('Show Info') }}</strong>
                       <strong v-if="active">{{ __('Close Info') }}</strong>

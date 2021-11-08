@@ -66,7 +66,10 @@ class Machine extends Resource
         'name'
     ];
 
-    public static $group = 'Admin';
+    public static function group()
+    {
+        return __('Admin');
+    }
 
     /**
      * Custom priority level of the resource.
@@ -89,7 +92,7 @@ class Machine extends Resource
                 [
 
                     new Panel('Profile', [
-                        ID::make(__('ID'), 'id')->sortable()->hideFromDetail(),
+                        ID::make(__('ID'), 'id')->sortable()->hideFromDetail()->hideFromIndex(),
                         Text::make(__('Name'), 'name')
                             ->hideFromDetail()
                             ->sortable()
@@ -146,10 +149,10 @@ class Machine extends Resource
                         Number::make(__('Pressure max'), 'pressure_max')->hideFromIndex(),
                         Number::make(__('Temperature min'), 'temperature_min')->hideFromIndex(),
                         Number::make(__('Temperature max'), 'temperature_max')->hideFromIndex(),
-                        File::make(__('Documentation'), 'documentation'),
+                        File::make(__('Documentation'), 'documentation')->storeOriginalName('documentation'),
                         Date::make(__('Activation date'), 'activation_date')->hideFromIndex(),
-                        Textarea::make(__('Note'), 'note'),
-                        Textarea::make(__('Internal note'), 'internal_note'),
+                        Textarea::make(__('Notes'), 'note'),
+                        Textarea::make(__('Internal notes'), 'internal_note'),
                     ]))->withComponent('akka-accordion'),
 
                     HasMany::make(__('Activities'), 'lastActivities', Activity::class),

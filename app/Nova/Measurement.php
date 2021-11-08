@@ -57,8 +57,8 @@ class Measurement extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             ButtonGroup::make(__('Anomaly'), 'anomaly')->size('w-2/3')->stacked(false),
-            Text::make(__(''), 'anomaly_notes')->nullable()->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Lubricant appearence'), 'lubricant_appearence')
+            Text::make(__('Notes'), 'anomaly_notes')->nullable()->size('w-1/3')->stacked(false),
+            ButtonGroup::make(__('Lubricant levels'), 'lubricant_levels')
                 ->options([
                     'low' => __('Low'),
                     'medium' => __('Medium'),
@@ -67,7 +67,7 @@ class Measurement extends Resource
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_levels : false;
                 })->size('w-2/3')->stacked(false),
-            Text::make(__(''),'lubricant_levels_notes')->nullable()
+            Text::make(__('Notes'),'lubricant_levels_notes')->nullable()
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_levels : false;
                 })->size('w-1/3')->stacked(false),
@@ -80,7 +80,7 @@ class Measurement extends Resource
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_appearence : false;
                 })->size('w-2/3')->stacked(false),
-            Text::make(__(''),'lubricant_appearence_notes')->nullable()
+            Text::make(__('Notes'),'lubricant_appearence_notes')->nullable()
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_appearence : false;
                 })->size('w-1/3')->stacked(false),
@@ -88,7 +88,7 @@ class Measurement extends Resource
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->leakage : false;
                 })->size('w-2/3')->stacked(false),
-            Text::make(__(''),'leakage_notes')->nullable()
+            Text::make(__('Notes'),'leakage_notes')->nullable()
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->leakage : false;
                 })->size('w-1/3')->stacked(false),

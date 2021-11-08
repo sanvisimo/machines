@@ -68,7 +68,10 @@ class Establishment extends Resource
         'customer_name'
     ];
 
-    public static $group = 'Admin';
+    public static function group()
+    {
+        return __('Admin');
+    }
 
     /**
      * Custom priority level of the resource.
@@ -133,7 +136,7 @@ class Establishment extends Resource
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 16]])
                 ->rules( 'max:16'),
-            Text::make(__('Fiscal Code'),'fiscal_code')
+            Text::make(__('Fiscal code'),'fiscal_code')
                 ->help(
                     __('Max 16')
                 )
@@ -187,12 +190,12 @@ class Establishment extends Resource
             Text::make(__('Contact person'),'contact_person'),
             Date::make(__('Activation date'),'activation_date')->required()->hideFromIndex(),
             Text::make(__('Language'),'language')->required()->hideFromIndex(),
-            Textarea::make(__('Note'),'note')->nullable(),
+            Textarea::make(__('Notes'),'note')->nullable(),
             Text::make(__('Main activity'),'main_activity')->nullable(),
-            Image::make(__('Image'), 'image')->nullable(),
+            Image::make(__('Image'), 'image')->nullable()->hideFromIndex(),
             ]))->withComponent('akka-accordion'),
-            HasMany::make(__('Plants'), 'plants'),
-            BelongsTo::make(__('Customer'), 'customer')->showCreateRelationButton(),
+            HasMany::make(__('Plants'), 'plants', Plant::class),
+            BelongsTo::make(__('Customer'), 'customer', Customer::class)->showCreateRelationButton(),
             HasOne::make(__('Maintenance contract'), 'maintenance_contract', Contract::class),
             HasOne::make(__('Fixfee contract'), 'fixfee_contract',Contract::class),
             HasOne::make(__('Monitoring contract'), 'monitoring_contract',Contract::class),

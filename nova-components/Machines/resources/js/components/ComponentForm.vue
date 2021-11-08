@@ -55,13 +55,17 @@ export default {
 
         position: {
             type: String
+        },
+
+        controlPlan: {
+            type: Object
         }
     },
 
     data: () => ({
         mode: 'form',
         measurement: {},
-        controlPlanConfig: null,
+        controlPlanId: null,
         shouldOverrideMeta: true,
         relationResponse: null,
         loading: true,
@@ -73,7 +77,7 @@ export default {
         if (Nova.missingResource('measurements'))
             return this.$router.push({ name: '404' })
 
-        const { data } = await Nova.request().get(`/nova-vendor/machines/measurements/${this.componentId}/${this.position}`)
+        const { data } = await Nova.request().get(`/nova-vendor/machines/measurements/${this.controlPlan.id}/${this.position}`)
         this.measurement = data.measurement;
 
         await this.getFields()
@@ -81,7 +85,7 @@ export default {
 
     methods: {
         async submitForm(id){
-            this.controlPlan = id;
+            this.controlPlanId = id;
             this.$refs.button.click();
         },
         /**

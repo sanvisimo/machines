@@ -38,7 +38,10 @@ class Plant extends Resource
         'id',
     ];
 
-    public static $group = 'Admin';
+    public static function group()
+    {
+        return __('Admin');
+    }
 
     /**
      * Custom priority level of the resource.
@@ -46,6 +49,26 @@ class Plant extends Resource
      * @var int
      */
     public static $priority = 3;
+
+    /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Plants');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Plant');
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -77,7 +100,7 @@ class Plant extends Resource
                     )
                     ->withMeta(['extraAttributes' => ['maxlength' => 40]])
                     ->rules( 'max:40'),
-                Textarea::make(__('Note'),'note'),
+                Textarea::make(__('Notes'),'note'),
                 Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),
                 Text::make(__('Internal notes'),'internal_note'),
                 File::make(__('Document'),'documents'),
