@@ -13,6 +13,11 @@ use App\Models\ComponentCategory;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/ciao', function () {
+    $user = auth()->user();
+    $machine = \App\Models\Machine::find(1);
+    return view('welcome' ,[
+        'user' => $user,
+        'machine' => $machine
+    ]);
 });

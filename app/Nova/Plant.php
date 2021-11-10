@@ -51,6 +51,30 @@ class Plant extends Resource
     public static $priority = 3;
 
     /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->hasPermissionTo('view any customers')) {
+            return $query;
+        }
+
+        if ($request->user()->hasPermissionTo('view customers')) {
+            return $query->whereHas('establishment', function ($query) use ($request) {
+                $query->whereHas('customer', function ($query) use ($request) {
+                    $query->whereHas('manutentors', function ($query) use ($request) {
+                        $query->whereIn('user_id', [$request->user()->id]);
+                    });
+                });
+            });
+        }
+    }
+
+    /**
      * Get the displayable label of the resource.
      *
      * @return string

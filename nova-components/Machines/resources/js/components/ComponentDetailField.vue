@@ -6,7 +6,7 @@
           </div>
           <div class="py-4 break-words w-3/4">
               <p class="text-90">
-                  {{ value}}
+                  {{ value }}
               </p>
           </div>
       </div>

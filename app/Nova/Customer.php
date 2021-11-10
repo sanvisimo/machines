@@ -7,6 +7,7 @@ use App\Nova\Lenses\HasAddress;
 use App\Nova\Metrics\ClientCount;
 use App\Nova\Metrics\ClientsPerDay;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
@@ -15,6 +16,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 
 class Customer extends Resource
@@ -80,6 +82,26 @@ class Customer extends Resource
         'customer_name'
     ];
 
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if($request->user()->hasPermissionTo('view any customers')) {
+            return $query;
+        }
+
+        if($request->user()->hasPermissionTo('view customers')) {
+            return $query->whereHas('manutentors', function ($query) use ($request) {
+                $query->whereIn('user_id', [$request->user()->id]);
+            });
+        }
+    }
+
     public static function group()
     {
         return __('Admin');
@@ -102,12 +124,12 @@ class Customer extends Resource
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 10]])
                 ->rules('required', 'unique:establishments,customer_code', 'max:10')
-                ->displayUsing(function ($value) {
-                    return view('link', [
-                        'id' => $this->id,
-                        'value' => $value,
-                        'slug' => $this->uriKey()
-                    ])->render();
+                ->displayUsing(function ($value) use ($request){
+                        return view('link', [
+                            'id' => $this->id,
+                            'value' => $value,
+                            'slug' => $this->uriKey()
+                        ])->render();
                 })->asHtml(),
             Text::make(__('Customer name'), 'customer_name')->required()
                 ->sortable()
@@ -116,12 +138,12 @@ class Customer extends Resource
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 60]])
                 ->rules( 'max:60')
-                ->displayUsing(function ($value) {
-                    return view('link', [
-                        'id' => $this->id,
-                        'value' => $value,
-                        'slug' => $this->uriKey()
-                    ])->render();
+                ->displayUsing(function ($value) use ($request){
+                        return view('link', [
+                            'id' => $this->id,
+                            'value' => $value,
+                            'slug' => $this->uriKey()
+                        ])->render();
                 })->asHtml(),
             (new Panel (__('More Info'), [
                 Text::make(__('Other customer Name'),'other_customer_name')
@@ -198,7 +220,7 @@ class Customer extends Resource
                 Image::make(__('Image'), 'image')->nullable(),
             ]))->withComponent('akka-accordion'),
             HasMany::make(__('Factory'), 'establishments', Establishment::class),
-
+            BelongsToMany::make(__('Manutentors'), 'manutentors', User::class),
             HasOne::make(__('Maintenance contract'), 'maintenance_contract', Contract::class),
             HasOne::make(__('Fixfee contract'), 'fixfee_contract',Contract::class),
             HasOne::make(__('Monitoring contract'), 'monitoring_contract',Contract::class)

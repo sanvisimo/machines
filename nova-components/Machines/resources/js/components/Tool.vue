@@ -13,6 +13,7 @@
 
             <div class="border-b-4 border-40 flex py-4 px-6">
                 <create-relation-button
+                    v-if="$attrs.resource.authorizedToCreate"
                   @click="openRelationModal"
                   class="ml-1"
                   :dusk="`component-inline-create`"

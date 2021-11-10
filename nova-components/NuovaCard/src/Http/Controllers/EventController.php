@@ -14,7 +14,21 @@ class EventController
         $start = date($request->get('start'));
         $end = date($request->get('end'));
 
-        $activities = Activity::whereBetween('expiration', [$start, $end])->get();
+        $query = Activity::whereBetween('expiration', [$start, $end]);
+        if($request->user()->hasPermissionTo('view customers') && !$request->user()->hasPermissionTo('view any customers')) {
+            $query->whereHas('machine', function ($query) use ($request) {
+                $query->whereHas('plant', function ($query) use ($request) {
+                    $query->whereHas('establishment', function ($query) use ($request) {
+                        $query->whereHas('customer', function ($query) use ($request) {
+                            $query->whereHas('manutentors', function ($query) use ($request) {
+                                $query->whereIn('user_id', [$request->user()->id]);
+                            });
+                        });
+                    });
+                });
+            });
+        }
+          $activities = $query->get();
 
         $events = $activities->map(function ($item) {
            $item['title'] = $item['description'];

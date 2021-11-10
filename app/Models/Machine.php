@@ -73,4 +73,9 @@ class Machine extends Model
     public function getName() {
         return $this->name;
     }
+
+    public function customer()
+    {
+        return $this->plant->establishment->customer;
+    }
 }

@@ -13,6 +13,7 @@ use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Pktharindu\NovaPermissions\NovaPermissions;
 use Sloveniangooner\LocaleAnywhere\LocaleAnywhere;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -100,7 +101,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new NovaGridSystem,
-//            new \Czemu\NovaCalendarTool\NovaCalendarTool,
+            new NovaPermissions(),
             LocaleSwitcher::make()
                 ->setLocales(config('nova.locales'))
                 ->onSwitchLocale(function (Request $request) {

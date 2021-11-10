@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Component;
 use App\Models\ManagedArticle;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,8 +16,13 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        'App\Models\Customer' => 'App\Policies\MaintainerPolicy'
+        'App\Models\Article' => 'App\Policies\ArticlePolicy',
+        'Pktharindu\NovaPermissions\Role' => '\App\Policies\RolePolicy',
+        'App\Models\Customer' => 'App\Policies\CustomerPolicy',
+        'App\Models\Establishment' => 'App\Policies\EstablishmentPolicy',
+        'App\Models\Plant' => 'App\Policies\PlantPolicy',
+        'App\Models\Machine' => 'App\Policies\MachinePolicy',
+        'App\Models\ManagedArticle' => 'App\Policies\ManagedArticlePolicy'
     ];
 
     /**
@@ -26,11 +32,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+           $this->registerPolicies();
+           foreach (config('nova-permissions.permissions') as $key => $permissions) {
+                Gate::define($key, function (User $user) use ($key) {
+                    if ($this->nobodyHasAccess($key)) {
+                        return true;
+                    }
 
-//
-//        Gate::define('create-managed_article', function (User $user, ManagedArticle $article) {
-//            dd($article->component->id);
-//        });
+                    return $user->hasPermissionTo($key);
+                });
+            }
     }
 }

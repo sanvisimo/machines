@@ -41,4 +41,12 @@ class Customer extends Model
     public function getName() {
         return $this->customer_name;
     }
+
+    /**
+     * The users that belong to the role.
+     */
+    public function manutentors()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

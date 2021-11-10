@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Pktharindu\NovaPermissions\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +45,14 @@ class User extends Authenticatable
 
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * The customers that belong to the user.
+     */
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class);
     }
 }
 

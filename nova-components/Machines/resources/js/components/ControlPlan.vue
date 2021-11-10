@@ -1,9 +1,9 @@
 <template>
     <loading-view :loading="loading">
         <div v-if="!isConfigPlan">
-           <control-plan-form :machine="resourceId" @edit="editConfig" :update="isUpdate" />
+           <control-plan-form :machine="resourceId" @edit="editConfig" :update="isUpdate" :canEdit="canEdit" />
         </div>
-        <div v-else>
+        <div v-else-if="canEdit">
             <card class="mb-6 py-3 px-6 flex justify-center items-center border border-dashed" v-if="!showConfig">
                 <button @click="createConfigPlan" class="btn btn-default btn-primary">
                     {{ __('Configure Control Plan') }}
@@ -88,6 +88,12 @@ export default {
            this.isUpdate = true;
         }
         await this.getControlPlanConfig();
+    },
+
+    computed: {
+        canEdit() {
+            return this.$attrs.resource.authorizedToCreate || this.$attrs.resource.authorizedToUpdate;
+        }
     },
 
     methods: {

@@ -10,7 +10,7 @@
             <div class="flex justify-end p-4 w-full gap-4">
                 <button type="submit" class="btn btn-default btn-primary">{{ __('Save') }}</button>
                 <span
-                    v-if="$route.params.resourceName === 'machines'"
+                    v-if="$route.params.resourceName === 'machines' && canEdit"
                     @click="$emit('edit')"
                     class="btn btn-default cursor-pointer btn-white"
                 >
@@ -74,6 +74,9 @@ export default {
             type: String,
         },
         update: {
+            type: Boolean
+        },
+        canEdit: {
             type: Boolean
         }
     },

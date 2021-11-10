@@ -57,18 +57,22 @@ class BreadcrumbController
     }
 
     public function getBreadcrumb($resourceName, $resourceId) {
-        $this->setKey(array_search($resourceName, $this->tree));
-        $resource = Nova::resourceForKey($resourceName);
-        $model_name = str_replace('Nova', 'Models', $resource);
-        $model_name = str_replace('App', '\App', $model_name);
-        $element = $model_name::find($resourceId);
-        if ($element && method_exists($element, 'getName')) {
-            $this->setBreadCrumb([
-                'url' => "/resources/{$resourceName}/{$resourceId}",
-                'label' => $element->getName()
-            ]);
+        if($resourceName !== 'roles') {
+            $this->setKey(array_search($resourceName, $this->tree));
+            $resource = Nova::resourceForKey($resourceName);
+            $model_name = str_replace('Nova', 'Models', $resource);
+            $model_name = str_replace('App', '\App', $model_name);
+            $element = $model_name::find($resourceId);
+            if ($element && method_exists($element, 'getName')) {
+                $this->setBreadCrumb([
+                    'url' => "/resources/{$resourceName}/{$resourceId}",
+                    'label' => $element->getName()
+                ]);
+            }
+            return $element;
         }
-        return $element;
+
+        return null;
     }
 
     public function setKey($value){

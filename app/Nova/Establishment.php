@@ -74,6 +74,28 @@ class Establishment extends Resource
     }
 
     /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->hasPermissionTo('view any customers')) {
+            return $query;
+        }
+
+        if ($request->user()->hasPermissionTo('view customers')) {
+            return $query->whereHas('customer', function ($query) use ($request) {
+                $query->whereHas('manutentors', function ($query) use ($request) {
+                    $query->whereIn('user_id', [$request->user()->id]);
+                });
+            });
+        }
+    }
+
+    /**
      * Custom priority level of the resource.
      *
      * @var int

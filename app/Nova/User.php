@@ -2,13 +2,13 @@
 
 namespace App\Nova;
 
-use Day4\SwitchLocale\SwitchLocale;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BooleanGroup;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
+use Pktharindu\NovaPermissions\Nova\Role;
 
 class User extends Resource
 {
@@ -93,7 +93,8 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
-            BooleanGroup::make(__('Allowed Locale'), 'locale')->options(SwitchLocale::getLocales()),
+            BelongsToMany::make(__('Customers'), 'customers', Customer::class),
+            BelongsToMany::make(__('Roles'), 'roles', Role::class),
         ];
     }
 

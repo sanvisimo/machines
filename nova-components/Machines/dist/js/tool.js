@@ -14082,6 +14082,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
+  computed: {
+    canEdit: function canEdit() {
+      return this.$attrs.resource.authorizedToCreate || this.$attrs.resource.authorizedToUpdate;
+    }
+  },
   methods: {
     /*
     * Check if control plan configuration exist
@@ -14626,6 +14631,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     update: {
       type: Boolean
+    },
+    canEdit: {
+      type: Boolean
     }
   },
   data: function data() {
@@ -14947,6 +14955,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -43876,13 +43885,18 @@ var render = function() {
           "div",
           [
             _c("control-plan-form", {
-              attrs: { machine: _vm.resourceId, update: _vm.isUpdate },
+              attrs: {
+                machine: _vm.resourceId,
+                update: _vm.isUpdate,
+                canEdit: _vm.canEdit
+              },
               on: { edit: _vm.editConfig }
             })
           ],
           1
         )
-      : _c(
+      : _vm.canEdit
+      ? _c(
           "div",
           [
             !_vm.showConfig
@@ -43934,6 +43948,7 @@ var render = function() {
           ],
           1
         )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -44122,7 +44137,7 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.__("Save")))]
                 ),
                 _vm._v(" "),
-                _vm.$route.params.resourceName === "machines"
+                _vm.$route.params.resourceName === "machines" && _vm.canEdit
                   ? _c(
                       "span",
                       {
@@ -44287,11 +44302,13 @@ var render = function() {
             "div",
             { staticClass: "border-b-4 border-40 flex py-4 px-6" },
             [
-              _c("create-relation-button", {
-                staticClass: "ml-1",
-                attrs: { dusk: "component-inline-create" },
-                on: { click: _vm.openRelationModal }
-              })
+              _vm.$attrs.resource.authorizedToCreate
+                ? _c("create-relation-button", {
+                    staticClass: "ml-1",
+                    attrs: { dusk: "component-inline-create" },
+                    on: { click: _vm.openRelationModal }
+                  })
+                : _vm._e()
             ],
             1
           ),
