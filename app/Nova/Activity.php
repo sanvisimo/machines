@@ -135,6 +135,8 @@ class Activity extends Resource
         return $query;
     }
 
+    public static $perPageOptions = [1,2,5];
+
     /**
      * Indicates if the resource should be displayed in the sidebar.
      *

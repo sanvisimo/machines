@@ -33,6 +33,7 @@ class ControlPlanObserver
         $oldActivity = Activity::where('activitable_id', $controlPlan->id)
             ->where('activitable_type', 'App\Models\ControlPlan')->first();
         if($oldActivity->active) {
+            $oldActivity->expiration = Carbon::now();
             $oldActivity->active = false;
             $oldActivity->save();
             $model = new ControlPlan;

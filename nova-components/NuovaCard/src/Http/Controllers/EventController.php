@@ -35,13 +35,15 @@ class EventController
            $item['start'] = Carbon::instance($item['expiration'])->format("Y-m-d");
 
            $color = "";
-            if (Carbon::now()->gt($item['expiration'])) {
-                $color = "#dc2626";
-            }
+           if($item['active']) {
+               if (Carbon::now()->gt($item['expiration'])) {
+                   $color = "#dc2626";
+               }
 
-            if (Carbon::now()->addDays(5)->gte($item['expiration'])) {
-                $color = "#f59e0b";
-            }
+               if (Carbon::now()->addDays(5)->gte($item['expiration'])) {
+                   $color = "#f59e0b";
+               }
+           }
 
            $item['color'] = $color;
            return $item;

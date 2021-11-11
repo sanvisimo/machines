@@ -203,15 +203,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     });
     this.tabs = tabs;
-
-    if (this.$route.query.measurement) {
-      this.handleTabClick(tabs[Object.keys(tabs)[2]]);
-    } else {
-      this.handleTabClick(tabs[Object.keys(tabs)[0]]);
-    }
+    var tabIndex = this.$route.query.tab ? this.$route.query.tab : 0;
+    this.handleTabClick(tabs[Object.keys(tabs)[tabIndex]]);
   },
   watch: {
-    $route: function $route(newValue) {
+    $route: function $route(newValue, oldValue) {
+      console.log("inio", newValue.query, oldValue.query);
+
       if (newValue.query.tab) {
         this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
       }

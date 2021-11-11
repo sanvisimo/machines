@@ -12,8 +12,9 @@
         <div class="card py-6 px-6">
             <FullCalendar ref="fullCalendar" :options="calendarOptions" >
                 <template v-slot:eventContent='arg'>
-                    <font-awesome-icon :icon="`fa-solid ${getIcon(arg.event)}`" /><i class="mx-2">{{ arg.event.title }}</i>
-                    <button class="btn btn-default btn-primary bg-primary-30%" @click="goTo(arg.event.extendedProps)">{{ __('Take Charge') }}</button>
+                    <font-awesome-icon :icon="`fa-solid ${getIcon(arg.event)}`" class="text-primary" />
+                    <i class="mx-2 text-primary">{{ arg.event.title }}</i>
+                    <button class="btn rounded-full  btn-primary px-3 py-2 bg-primary-30%" @click="goTo(arg.event.extendedProps)">{{ __('Take Charge') }}</button>
                 </template>
             </FullCalendar>
         </div>
@@ -54,8 +55,8 @@ export default {
                     center: 'today prev,next',
                     right: 'listWeek,listMonth,dayGridMonth'
                 },
-                // dayMaxEvents: 0,
-                dayMaxEventRows: true,
+                dayMaxEvents: 1,
+                // dayMaxEventRows: true,
                 events: '/nova-vendor/agenda/events',
                 eventColor: "#ddd"
             }
@@ -78,13 +79,18 @@ export default {
             if(activity.type.includes('maintenance')){
                 this.$router.push(`/resources/maintenances/${activity.activitable_id}/edit?viaResource=components&viaRelationship=maintenances&viaResourceId=${activity.element_id}`);
             } else {
-                this.$router.push(`/resources/machines/${activity.machine_id}?tab=2`);
+                if(activity.active) {
+                    this.$router.push(`/resources/machines/${activity.machine_id}?tab=2`);
+                } else {
+                    this.$router.push(`/resources/control-plans/${activity.activitable_id}`);
+                }
             }
         },
         getIcon(event) {
           return event.extendedProps.type.includes('maintenance') ? 'fa-screwdriver-wrench' : 'fa-temperature-half';
         },
         getColor(event) {
+            console.log("event", event.start, event)
             if(event.active) {
                 if (moment().isAfter(moment(event.start))) {
                     return "bg-red-600"
@@ -100,7 +106,3 @@ export default {
     }
 }
 </script>
-
-<style>
-/* Scoped Styles */
-</style>

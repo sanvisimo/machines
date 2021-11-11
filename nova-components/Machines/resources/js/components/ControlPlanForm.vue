@@ -222,10 +222,11 @@ export default {
 
     computed: {
         panelsWithFields() {
+            const regex = /: \d+/;
             return _.map(this.panels, panel => {
                 return {
                     ...panel,
-                    name: this.__('Control Plan'),
+                    name: panel.name.replace(regex, ''),
                     fields: _.filter(this.fields, field => field.panel == panel.name),
                 }
             })

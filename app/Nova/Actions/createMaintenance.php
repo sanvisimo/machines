@@ -39,7 +39,7 @@ class createMaintenance extends Action
                 return Action::push("/resources/{$resource}/{$model->activitable_id}/edit?viaResource=components&viaRelationship=maintenances&viaResourceId={$model->element_id}");
             } else {
                 if($model->active) {
-                    return Action::push("/resources/machines/{$model->machine_id}?tab=2");
+                    return Action::push("/resources/machines/{$model->machine_id}?measurement=true");
                 } else {
                     return Action::push("/resources/{$resource}/{$model->activitable_id}");
                 }

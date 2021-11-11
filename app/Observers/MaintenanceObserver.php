@@ -41,6 +41,7 @@ class MaintenanceObserver
             $model->element_type = '\App\Models\Component';
             $model->save();
         } else {
+            $activity->expiration = Carbon::now();
             $activity->active = false;
             $activity->save();
 

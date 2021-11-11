@@ -12966,12 +12966,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['resourceName', 'resourceId', 'panel', 'config', 'controlPlan'],
+  props: ['resourceName', 'resourceId', 'panel', 'config', 'controlPlan', 'update'],
   components: {
     Title: _Title__WEBPACK_IMPORTED_MODULE_1__["default"],
     Create: _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -14886,9 +14884,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     panelsWithFields: function panelsWithFields() {
       var _this7 = this;
 
+      var regex = /: \d+/;
       return _.map(this.panels, function (panel) {
         return _objectSpread(_objectSpread({}, panel), {}, {
-          name: _this7.__('Control Plan'),
+          name: panel.name.replace(regex, ''),
           fields: _.filter(_this7.fields, function (field) {
             return field.panel == panel.name;
           })
@@ -43328,8 +43327,7 @@ var render = function() {
                             attrs: {
                               "component-id": tab.id,
                               position: "C" + tab.index + "-B" + vibration,
-                              "control-plan": _vm.controlPlan,
-                              update: _vm.update
+                              "control-plan": _vm.controlPlan
                             }
                           })
                     ],
@@ -43371,8 +43369,7 @@ var render = function() {
                             attrs: {
                               "control-plan": _vm.controlPlan,
                               "component-id": tab.id,
-                              position: "C" + tab.index + "-P" + article,
-                              update: _vm.update
+                              position: "C" + tab.index + "-P" + article
                             }
                           })
                     ],
