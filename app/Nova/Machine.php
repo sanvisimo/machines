@@ -176,15 +176,8 @@ class Machine extends Resource
                         Number::make(__('Temperature min'), 'temperature_min')->hideFromIndex(),
                         Number::make(__('Temperature max'), 'temperature_max')->hideFromIndex(),
                         File::make(__('Documentation'), 'documentation')
-                            ->disk('public')
-                            ->store(function (Request $request, $model) {
-                                $filename = $request->documentation->getClientOriginalName();
-                                $request->documentation->storeAs('machines', $filename, 'public');
-                                return [
-                                    'documentation' => $filename,
-                                    'documentation_name' => $request->documentation->getClientOriginalName()
-
-                                ];
+                            ->storeAs(function (Request $request) {
+                                return ($request->documentation->getClientOriginalName());
                             })
                             ->storeOriginalName('documentation_name')
                             ->hideFromIndex(),

@@ -157,14 +157,8 @@ class ControlPlan extends Resource
                     return $controlPlanConfig ? $controlPlanConfig->thermography : false;
                 })->size('w-1/3')->stacked(false)
                 ->disk('public')
-                ->store(function (Request $request, $model) {
-                    $filename = $request->thermography_documentation->getClientOriginalName();
-                    $request->thermography_documentation->storeAs('control_plans', $filename, 'public');
-                    return [
-                        'thermography_documentation' => $filename,
-                        'thermography_documentation_name' => $request->thermography_documentation->getClientOriginalName()
-
-                    ];
+                ->storeAs(function (Request $request) {
+                    return ($request->thermography_documentation->getClientOriginalName());
                 })
                 ->storeOriginalName('thermography_documentation_name')
                 ->hideFromIndex(),
@@ -177,14 +171,8 @@ class ControlPlan extends Resource
                     return $controlPlanConfig ? $controlPlanConfig->laser_alignment : false;
                 })->size('w-1/3')->stacked(false)
                 ->disk('public')
-                ->store(function (Request $request, $model) {
-                    $filename = $request->laser_alignment_documentation->getClientOriginalName();
-                    $request->laser_alignment_documentation->storeAs('control_plans', $filename, 'public');
-                    return [
-                        'laser_alignment_documentation' => $filename,
-                        'laser_alignment_documentation_name' => $request->laser_alignment_documentation->getClientOriginalName()
-
-                    ];
+                ->storeAs(function (Request $request) {
+                    return ($request->laser_alignment_documentation->getClientOriginalName());
                 })
                 ->storeOriginalName('attachment_name')
                 ->hideFromIndex(),

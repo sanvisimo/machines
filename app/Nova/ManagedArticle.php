@@ -101,14 +101,8 @@ class ManagedArticle extends Resource
             Text::make(__('Notes'), 'note'),
             File::make(__('Attachment'), 'attachment')
                 ->disk('public')
-                ->store(function (Request $request, $model) {
-                    $filename = $request->attachment->getClientOriginalName();
-                    $request->attachment->storeAs('articles', $filename, 'public');
-                    return [
-                        'attachment' => $filename,
-                        'attachment_name' => $request->attachment->getClientOriginalName()
-
-                    ];
+                ->storeAs(function (Request $request) {
+                    return ($request->attachment->getClientOriginalName());
                 })
                 ->storeOriginalName('attachment_name')
                 ->hideFromIndex(),

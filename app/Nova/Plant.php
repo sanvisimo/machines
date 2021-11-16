@@ -129,14 +129,8 @@ class Plant extends Resource
                 Text::make(__('Internal notes'),'internal_note'),
                 File::make(__('Document'),'documents')
                     ->disk('public')
-                    ->store(function (Request $request, $model) {
-                        $filename = $request->documents->getClientOriginalName();
-                        $request->documents->storeAs('articles', $filename, 'public');
-                        return [
-                            'documents' => $filename,
-                            'documents_name' => $request->documents->getClientOriginalName()
-
-                        ];
+                    ->storeAs(function (Request $request) {
+                        return ($request->documents->getClientOriginalName());
                     })
                     ->storeOriginalName('attachment_name')
                     ->hideFromIndex(),
