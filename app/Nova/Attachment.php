@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphTo;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -52,13 +53,21 @@ class Attachment extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make('name'),
-            Text::make('type'),
-            File::make('file_path')->disk('public'),
-            MorphTo::make('attachmentable')->types([
+            Text::make(__('Name'), 'name')->rules('required'),
+            Select::make(__('Type'), 'type')->options([
+                'manual' => __('Manual'),
+                'drawing' => __('Drawing'),
+                'photo' => __('Photo'),
+                'technical_data' => __('Technical data'),
+                'schema' => __('Schema')
+            ])->rules('required'),
+            File::make(('Document'), 'file_path')
+                ->disk('public')
+                ->hideFromIndex()->rules('required'),
+            MorphTo::make(__('Link'), 'attachmentable')->types([
                 Component::class,
                 ManagedArticle::class,
-            ])
+            ])->rules('required')
         ];
     }
 

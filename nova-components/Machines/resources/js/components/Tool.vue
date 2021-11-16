@@ -30,7 +30,7 @@
           :label="tab.name"
           :key="'related-tabs-fields' + index"
       >
-          <component-detail :component="tab.fields" />
+          <component-detail :component="tab.fields" :attrs="$attrs" />
       </div>
       <portal to="modals" transition="fade-transition">
           <modal

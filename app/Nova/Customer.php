@@ -131,13 +131,13 @@ class Customer extends Resource
                             'slug' => $this->uriKey()
                         ])->render();
                 })->asHtml(),
-            Text::make(__('Customer name'), 'customer_name')->required()
+            Text::make(__('Customer name'), 'customer_name')
                 ->sortable()
                 ->help(
                     __('Max 60')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 60]])
-                ->rules( 'max:60')
+                ->rules( 'required','max:60')
                 ->displayUsing(function ($value) use ($request){
                         return view('link', [
                             'id' => $this->id,
@@ -153,20 +153,20 @@ class Customer extends Resource
                     )
                     ->withMeta(['extraAttributes' => ['maxlength' => 60]])
                     ->rules(  'max:60'),
-                Text::make(__('ISO'),'iso')->required()
+                Text::make(__('ISO'),'iso')
                     ->hideFromIndex()
                     ->help(
                         __('Max 3')
                     )
                     ->withMeta(['extraAttributes' => ['maxlength' => 3]])
-                    ->rules( 'max:3'),
-                Text::make(__('VAT number'),'vat_number')->required()
+                    ->rules( 'required','max:3'),
+                Text::make(__('VAT number'),'vat_number')
                     ->hideFromIndex()
                     ->help(
                         __('Max 16')
                     )
                     ->withMeta(['extraAttributes' => ['maxlength' => 16]])
-                    ->rules( 'max:16'),
+                    ->rules( 'required','max:16'),
                 Text::make(__('Fiscal code'),'fiscal_code')
                     ->hideFromIndex()
                     ->help(
@@ -189,13 +189,13 @@ class Customer extends Resource
                 Text::make(__('PO box'),'po_box')
                     ->nullable()
                     ->hideFromIndex(),
-                Text::make(__('Province'),'province')->required(),
-                Text::make(__('Country'),'country')->required()
+                Text::make(__('Province'),'province')->rules('required'),
+                Text::make(__('Country'),'country')
                     ->help(
                         __('Max 3')
                     )
                     ->withMeta(['extraAttributes' => ['maxlength' => 3]])
-                    ->rules( 'max:3'),
+                    ->rules( 'required','max:3'),
                 Text::make(__('CRM C4C code'),'crm_c4c_code')
                     ->hideFromIndex()
                     ->help(
@@ -208,13 +208,13 @@ class Customer extends Resource
                         'customer' => __('Customer'),
                         'vendor' => __('Vendor'),
                         'subcontractor' => __('SubContractor')
-                    ])->required(),
-                Text::make(__('Phone'), 'phone')->required()->hideFromIndex(),
+                    ])->rules('required'),
+                Text::make(__('Phone'), 'phone')->rules('required')->hideFromIndex(),
                 Text::make(__('Fax'),'fax')->hideFromIndex(),
-                Text::make(__('Email'),'email')->required()->hideFromIndex(),
-                Text::make(__('Contact person'),'contact_person')->required(),
-                Date::make(__('Activation date'),'activation_date')->required()->hideFromIndex(),
-                Text::make(__('Language'),'language')->required(),
+                Text::make(__('Email'),'email')->rules('required')->hideFromIndex(),
+                Text::make(__('Contact person'),'contact_person')->rules('required'),
+                Date::make(__('Activation date'),'activation_date')->rules('required')->hideFromIndex(),
+                Text::make(__('Language'),'language')->nullable(),
                 Textarea::make(__('Notes'),'note')->nullable(),
                 Text::make(__('Main activity'),'main_activity')->nullable(),
                 Image::make(__('Image'), 'image')->nullable(),

@@ -76,21 +76,21 @@ class Component extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Name'), 'name')->required(),
+            Text::make(__('Name'), 'name')->rules('required'),
             BelongsTo::make(__('Machine'), 'machine', 'App\Nova\Machine'),
 
             NovaBelongsToDepend::make(__('Category'), 'componentCategory', 'App\Nova\ComponentCategory')
-                ->options(\App\Models\ComponentCategory::all())->size('w-1/2')->stacked(false)->required(),
+                ->options(\App\Models\ComponentCategory::all())->size('w-1/2')->stacked(false)->rules('required'),
             NovaBelongsToDepend::make(__('Sub Category'), 'componentSubCategory', 'App\Nova\ComponentSubCategory')
                 ->optionsResolve(function ($componentCategory) {
                     // Reduce the amount of unnecessary data sent
                     return $componentCategory->subs()->get(['id','name']);
                 })
-                ->dependsOn('componentCategory')->size('w-1/2')->stacked(false)->required(),
+                ->dependsOn('componentCategory')->size('w-1/2')->stacked(false)->rules('required'),
 
-            Text::make(__('Constructor'),'constructor')->size('w-1/3')->required(),
-            Text::make(__('Model'),'model')->size('w-1/3')->required(),
-            Text::make(__('Serial number'),'serial_number')->size('w-1/3')->required(),
+            Text::make(__('Constructor'),'constructor')->size('w-1/3')->rules('required'),
+            Text::make(__('Model'),'model')->size('w-1/3')->rules('required'),
+            Text::make(__('Serial number'),'serial_number')->size('w-1/3')->rules('required'),
             Textarea::make(__('Description'),'description')->stacked(),
             Number::make(__('Point of Vibrations'), 'vibrations')->size('w-1/4'),
             Number::make(__('Point of Temperature'), 'temperature')->size('w-1/4'),

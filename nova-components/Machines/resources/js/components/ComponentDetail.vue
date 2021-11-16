@@ -57,7 +57,15 @@
               </card>
 
               <card class="mb-6 py-3 px-6 flex gap-40">
-                  <h3>{{__('Documents') }}</h3>
+                  <div class="flex items-start">
+                      <h3>{{__('Documents') }}</h3>
+                      <create-relation-button
+                          v-if="attrs.resource.authorizedToCreate"
+                          @click="openDocumentModal"
+                          class="ml-1"
+                          :dusk="`attachments-inline-create`"
+                      />
+                  </div>
                   <div class="w-full">
                       <div v-for="(group, index) in attachments" :key="`attachment-C${component.id}-${index}`" class="border-b border-40 flex justify-between pb-4 mb-4">
                           <h4 class="font-normal text-80">{{ __(index) }}</h4>
@@ -83,15 +91,51 @@
               />
           </div>
       </div>
+      <portal to="modals" transition="fade-transition">
+          <modal
+              v-if="documentModalOpen"
+              dusk="new-relation-modal"
+              tabindex="-1"
+              role="dialog"
+              @modal-close="closeDocumentModal"
+              :classWhitelist="[
+                              'flatpickr-current-month',
+                              'flatpickr-next-month',
+                              'flatpickr-prev-month',
+                              'flatpickr-weekday',
+                              'flatpickr-weekdays',
+                              'flatpickr-calendar',
+                              'form-file-input',
+                            ]"
+          >
+              <div
+                  class="bg-40 rounded-lg shadow-lg overflow-hidden p-8"
+                  style="width: 1000px"
+              >
+                  <Create
+                      mode="modal"
+                      @refresh="handleSetResource"
+                      @cancelled-create="closeDocumentModal"
+                      resource-name="attachments"
+                      resource-id=""
+                      via-resource="components"
+                      :via-resource-id="component.id"
+                      via-relationship="attachments"
+                  />
+              </div>
+          </modal>
+      </portal>
   </div>
 </template>
 
 <script>
 import ComponentDetailField from "./ComponentDetailField";
+import Create from '../../../../../nova/resources/js/views/Create'
+
 export default {
     name: "ComponentDetail",
-    components: {ComponentDetailField},
-    props: ['component'],
+    components: { ComponentDetailField, Create },
+    props: ['component', 'attrs'],
     data() {
       return {
           active: false,
@@ -99,7 +143,8 @@ export default {
           info: {},
           attachments: {},
           resource: {},
-          panel: {}
+          panel: {},
+          documentModalOpen: false
       }
     },
     mounted() {
@@ -158,7 +203,21 @@ export default {
                     return 'fa-file-pdf';
             }
 
-        }
+        },
+        openDocumentModal() {
+            this.documentModalOpen = true
+        },
+
+        closeDocumentModal() {
+            this.documentModalOpen = false
+        },
+
+        handleSetResource() {
+            this.getInfo();
+            this.fetchAttachments();
+            this.fetchArticles();
+            this.closeDocumentModal();
+        },
     }
 }
 </script>

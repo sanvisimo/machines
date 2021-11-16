@@ -125,12 +125,12 @@ class Establishment extends Resource
                         'slug' => $this->uriKey()
                     ])->render();
                 })->asHtml(),
-            Text::make(__('Customer name'), 'customer_name')->required()
+            Text::make(__('Customer name'), 'customer_name')
                 ->help(
                     __('Max 60')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 60]])
-                ->rules( 'max:60')
+                ->rules( 'required','max:60')
                 ->displayUsing(function ($value) {
                     return view('link', [
                         'id' => $this->id,
@@ -139,82 +139,81 @@ class Establishment extends Resource
                     ])->render();
                 })->asHtml(),
             (new Panel (__('More Info'), [
-            Text::make(__('Other customer Name'),'other_customer_name')
-                ->hideFromIndex()
-                ->help(
-                    __('Max 60')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 60]])
-                ->rules(  'max:60'),
-            Text::make(__('ISO'),'iso')->required()
-                ->help(
-                    __('Max 3')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 3]])
-                ->rules( 'max:3'),
-            Text::make(__('VAT number'),'vat_number')
-                ->help(
-                    __('Max 16')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 16]])
-                ->rules( 'max:16'),
-            Text::make(__('Fiscal code'),'fiscal_code')
-                ->help(
-                    __('Max 16')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 16]])
-                ->rules( 'max:16'),
-            Text::make(__('Address'),'address')->nullable()
-                ->hideFromIndex()
-                ->help(
-                    __('Max 40')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 40]])
-                ->rules( 'max:40'),
-            Text::make(__('City'),'city')->nullable()
-                ->help(
-                    __('Max 40')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 40]])
-                ->rules( 'max:40'),
-            Text::make(__('PO box'),'po_box')->nullable()->hideFromIndex(),
-            Text::make(__('Province'),'province')
-                ->required()
-                ->hideFromIndex()
-                ->help(
-                    __('Max 2')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 2]])
-                ->rules( 'max:2'),
-            Text::make(__('Country'),'country')->required()
-                ->hideFromIndex()
-                ->help(
-                    __('Max 3')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 3]])
-                ->rules( 'max:3'),
-            Text::make(__('CRM C4C code'),'crm_c4c_code')
-                ->hideFromIndex()
-                ->help(
-                    __('Max 20')
-                )
-                ->withMeta(['extraAttributes' => ['maxlength' => 20]])
-                ->rules( 'max:20'),
-            Select::make(__('Type'), 'type')
-                ->options([
-                    'factory' => __('Factory')
-                ])
-                ->default('factory')
-                ->required(),
-            Text::make(__('Phone'), 'phone'),
-            Text::make(__('Fax'),'fax'),
-            Text::make(__('Email'),'email'),
-            Text::make(__('Contact person'),'contact_person'),
-            Date::make(__('Activation date'),'activation_date')->required()->hideFromIndex(),
-            Text::make(__('Language'),'language')->required()->hideFromIndex(),
-            Textarea::make(__('Notes'),'note')->nullable(),
-            Text::make(__('Main activity'),'main_activity')->nullable(),
-            Image::make(__('Image'), 'image')->nullable()->hideFromIndex(),
+                Text::make(__('Other customer Name'),'other_customer_name')
+                    ->hideFromIndex()
+                    ->help(
+                        __('Max 60')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 60]])
+                    ->rules(  'max:60'),
+                Text::make(__('ISO'),'iso')
+                    ->help(
+                        __('Max 3')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 3]])
+                    ->rules( 'required','max:3'),
+                Text::make(__('VAT number'),'vat_number')
+                    ->help(
+                        __('Max 16')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 16]])
+                    ->rules( 'max:16'),
+                Text::make(__('Fiscal code'),'fiscal_code')
+                    ->help(
+                        __('Max 16')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 16]])
+                    ->rules( 'max:16'),
+                Text::make(__('Address'),'address')->nullable()
+                    ->hideFromIndex()
+                    ->help(
+                        __('Max 40')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 40]])
+                    ->rules( 'max:40'),
+                Text::make(__('City'),'city')->nullable()
+                    ->help(
+                        __('Max 40')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 40]])
+                    ->rules( 'max:40'),
+                Text::make(__('PO box'),'po_box')->nullable()->hideFromIndex(),
+                Text::make(__('Province'),'province')
+                    ->hideFromIndex()
+                    ->help(
+                        __('Max 2')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 2]])
+                    ->rules( 'required','max:2'),
+                Text::make(__('Country'),'country')
+                    ->hideFromIndex()
+                    ->help(
+                        __('Max 3')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 3]])
+                    ->rules( 'required','max:3'),
+                Text::make(__('CRM C4C code'),'crm_c4c_code')
+                    ->hideFromIndex()
+                    ->help(
+                        __('Max 20')
+                    )
+                    ->withMeta(['extraAttributes' => ['maxlength' => 20]])
+                    ->rules( 'max:20'),
+                Select::make(__('Type'), 'type')
+                    ->options([
+                        'factory' => __('Factory')
+                    ])
+                    ->default('factory')
+                    ->rules('required'),
+                Text::make(__('Phone'), 'phone'),
+                Text::make(__('Fax'),'fax'),
+                Text::make(__('Email'),'email'),
+                Text::make(__('Contact person'),'contact_person'),
+                Date::make(__('Activation date'),'activation_date')->rules('required')->hideFromIndex(),
+                Text::make(__('Language'),'language')->hideFromIndex(),
+                Textarea::make(__('Notes'),'note')->nullable(),
+                Text::make(__('Main activity'),'main_activity')->nullable(),
+                Image::make(__('Image'), 'image')->nullable()->hideFromIndex(),
             ]))->withComponent('akka-accordion'),
             HasMany::make(__('Plants'), 'plants', Plant::class),
             BelongsTo::make(__('Customer'), 'customer', Customer::class)->showCreateRelationButton(),

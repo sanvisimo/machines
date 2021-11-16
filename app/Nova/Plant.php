@@ -104,12 +104,12 @@ class Plant extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable()->onlyOnForms(),
-            Text::make(__('Plant'),'plant')->rules('required','unique:plants,plant')
+            Text::make(__('Plant'),'plant')
                 ->help(
                     __('Max 20')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 20]])
-                ->rules( 'max:20')
+                ->rules( 'required', 'max:20','unique:plants,plant')
                 ->displayUsing(function ($value) {
                     return view('link', [
                         'id' => $this->id,
@@ -125,9 +125,21 @@ class Plant extends Resource
                     ->withMeta(['extraAttributes' => ['maxlength' => 40]])
                     ->rules( 'max:40'),
                 Textarea::make(__('Notes'),'note'),
-                Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel']),
+                Select::make(__('Plant state'),'plant_state')->options(['active', 'suspended', 'cancel'])->rules('required'),
                 Text::make(__('Internal notes'),'internal_note'),
-                File::make(__('Document'),'documents'),
+                File::make(__('Document'),'documents')
+                    ->disk('public')
+                    ->store(function (Request $request, $model) {
+                        $filename = $request->documents->getClientOriginalName();
+                        $request->documents->storeAs('articles', $filename, 'public');
+                        return [
+                            'documents' => $filename,
+                            'documents_name' => $request->documents->getClientOriginalName()
+
+                        ];
+                    })
+                    ->storeOriginalName('attachment_name')
+                    ->hideFromIndex(),
             ]))->withComponent('akka-accordion'),
             HasMany::make(__('Machines'), 'machines', Machine::class),
             BelongsTo::make(__('Factory'), 'establishment', Establishment::class)->showCreateRelationButton()

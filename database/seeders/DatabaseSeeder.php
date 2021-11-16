@@ -60,6 +60,41 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
+            'locale' => 'it'
         ]);
+
+        $roles = [
+            ['id' => 1, 'slug' => 'admin', 'name' => 'Admin'],
+            ['id' => 2, 'slug' => 'manutentore', 'name' => 'Manutentore']
+        ];
+        DB::table('roles')->insert($roles);
+
+        DB::table('role_user')->insert(['role_id' => 1, 'user_id' => 1] );
+
+        $role_permission = [
+            ['role_id' => 1, 'permission_slug' => 'create roles'],
+            ['role_id' => 1, 'permission_slug' => 'create users'],
+            ['role_id' => 1, 'permission_slug' => 'edit users'],
+            ['role_id' => 1, 'permission_slug' => 'delete roles'],
+            ['role_id' => 1, 'permission_slug' => 'delete users'],
+            ['role_id' => 1, 'permission_slug' => 'edit roles'],
+            ['role_id' => 1, 'permission_slug' => 'edit '],
+            ['role_id' => 1, 'permission_slug' => 'manage any customers'],
+            ['role_id' => 1, 'permission_slug' => 'manage any machine'],
+            ['role_id' => 1, 'permission_slug' => 'manage any manutention'],
+            ['role_id' => 1, 'permission_slug' => 'manage articles'],
+            ['role_id' => 1, 'permission_slug' => 'view any customers'],
+            ['role_id' => 1, 'permission_slug' => 'view any machine'],
+            ['role_id' => 1, 'permission_slug' => 'view any manutention'],
+            ['role_id' => 1, 'permission_slug' => 'view articles'],
+            ['role_id' => 1, 'permission_slug' => 'view roles'],
+            ['role_id' => 1, 'permission_slug' => 'view users'],
+            ['role_id' => 2, 'permission_slug' => 'manage manutention'],
+            ['role_id' => 2, 'permission_slug' => 'view customers'],
+            ['role_id' => 2, 'permission_slug' => 'view machine'],
+            ['role_id' => 2, 'permission_slug' => 'view manutention']
+        ];
+
+        DB::table('role_permission')->insert($role_permission);
     }
 }

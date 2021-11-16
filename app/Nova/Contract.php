@@ -55,7 +55,19 @@ class Contract extends Resource
             Text::make(__('Name'), 'name'),
             Text::make(__('Reference'), 'reference'),
             Date::make(__('Expiration date'), 'expiration_date'),
-            File::make(__('Attachment'), 'attachment'),
+            File::make(__('Attachment'), 'attachment')
+                ->disk('public')
+                ->store(function (Request $request, $model) {
+                    $filename = $request->attachment->getClientOriginalName();
+                    $request->attachment->storeAs('articles', $filename, 'public');
+                    return [
+                        'attachment' => $filename,
+                        'attachment_name' => $request->documentation->getClientOriginalName()
+
+                    ];
+                })
+                ->storeOriginalName('attachment_name')
+                ->hideFromIndex(),
         ];
     }
 

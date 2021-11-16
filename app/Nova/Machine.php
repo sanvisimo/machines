@@ -175,7 +175,19 @@ class Machine extends Resource
                         Number::make(__('Pressure max'), 'pressure_max')->hideFromIndex(),
                         Number::make(__('Temperature min'), 'temperature_min')->hideFromIndex(),
                         Number::make(__('Temperature max'), 'temperature_max')->hideFromIndex(),
-                        File::make(__('Documentation'), 'documentation')->storeOriginalName('documentation'),
+                        File::make(__('Documentation'), 'documentation')
+                            ->disk('public')
+                            ->store(function (Request $request, $model) {
+                                $filename = $request->documentation->getClientOriginalName();
+                                $request->documentation->storeAs('machines', $filename, 'public');
+                                return [
+                                    'documentation' => $filename,
+                                    'documentation_name' => $request->documentation->getClientOriginalName()
+
+                                ];
+                            })
+                            ->storeOriginalName('documentation_name')
+                            ->hideFromIndex(),
                         Date::make(__('Activation date'), 'activation_date')->hideFromIndex(),
                         Textarea::make(__('Notes'), 'note'),
                         Textarea::make(__('Internal notes'), 'internal_note'),

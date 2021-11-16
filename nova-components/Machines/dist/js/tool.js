@@ -13417,6 +13417,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ComponentDetailField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ComponentDetailField */ "./resources/js/components/ComponentDetailField.vue");
+/* harmony import */ var _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../nova/resources/js/views/Create */ "../../nova/resources/js/views/Create.vue");
 var _excluded = ["constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"];
 
 
@@ -13516,13 +13517,57 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ComponentDetail",
   components: {
-    ComponentDetailField: _ComponentDetailField__WEBPACK_IMPORTED_MODULE_1__["default"]
+    ComponentDetailField: _ComponentDetailField__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Create: _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: ['component'],
+  props: ['component', 'attrs'],
   data: function data() {
     return {
       active: false,
@@ -13530,7 +13575,8 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
       info: {},
       attachments: {},
       resource: {},
-      panel: {}
+      panel: {},
+      documentModalOpen: false
     };
   },
   mounted: function mounted() {
@@ -13630,6 +13676,18 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
         default:
           return 'fa-file-pdf';
       }
+    },
+    openDocumentModal: function openDocumentModal() {
+      this.documentModalOpen = true;
+    },
+    closeDocumentModal: function closeDocumentModal() {
+      this.documentModalOpen = false;
+    },
+    handleSetResource: function handleSetResource() {
+      this.getInfo();
+      this.fetchAttachments();
+      this.fetchArticles();
+      this.closeDocumentModal();
     }
   }
 });
@@ -43645,7 +43703,22 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("card", { staticClass: "mb-6 py-3 px-6 flex gap-40" }, [
-              _c("h3", [_vm._v(_vm._s(_vm.__("Documents")))]),
+              _c(
+                "div",
+                { staticClass: "flex items-start" },
+                [
+                  _c("h3", [_vm._v(_vm._s(_vm.__("Documents")))]),
+                  _vm._v(" "),
+                  _vm.attrs.resource.authorizedToCreate
+                    ? _c("create-relation-button", {
+                        staticClass: "ml-1",
+                        attrs: { dusk: "attachments-inline-create" },
+                        on: { click: _vm.openDocumentModal }
+                      })
+                    : _vm._e()
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "div",
@@ -43728,7 +43801,64 @@ var render = function() {
           ],
           1
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "portal",
+        { attrs: { to: "modals", transition: "fade-transition" } },
+        [
+          _vm.documentModalOpen
+            ? _c(
+                "modal",
+                {
+                  attrs: {
+                    dusk: "new-relation-modal",
+                    tabindex: "-1",
+                    role: "dialog",
+                    classWhitelist: [
+                      "flatpickr-current-month",
+                      "flatpickr-next-month",
+                      "flatpickr-prev-month",
+                      "flatpickr-weekday",
+                      "flatpickr-weekdays",
+                      "flatpickr-calendar",
+                      "form-file-input"
+                    ]
+                  },
+                  on: { "modal-close": _vm.closeDocumentModal }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "bg-40 rounded-lg shadow-lg overflow-hidden p-8",
+                      staticStyle: { width: "1000px" }
+                    },
+                    [
+                      _c("Create", {
+                        attrs: {
+                          mode: "modal",
+                          "resource-name": "attachments",
+                          "resource-id": "",
+                          "via-resource": "components",
+                          "via-resource-id": _vm.component.id,
+                          "via-relationship": "attachments"
+                        },
+                        on: {
+                          refresh: _vm.handleSetResource,
+                          "cancelled-create": _vm.closeDocumentModal
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      )
     ],
     1
   )
@@ -44331,7 +44461,11 @@ var render = function() {
                 key: "related-tabs-fields" + index,
                 attrs: { label: tab.name }
               },
-              [_c("component-detail", { attrs: { component: tab.fields } })],
+              [
+                _c("component-detail", {
+                  attrs: { component: tab.fields, attrs: _vm.$attrs }
+                })
+              ],
               1
             )
           : _vm._e()

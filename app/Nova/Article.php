@@ -86,7 +86,7 @@ class Article extends Resource
                 'active' => __('Active'),
                 'suspended' => __('Suspended'),
                 'blocked' => __('Blocked')
-                ])->required(),
+                ])->rules('required'),
             Text::make(__('External part number'), 'external_part_number')->rules('required','max:18'),
             Text::make(__('Supplier Code'), 'supplier_code')->rules( 'max:18'),
             Text::make(__('Supplier Description'), 'supplier_description')->rules('max:40'),
@@ -95,7 +95,7 @@ class Article extends Resource
                 'MT' => __('MT'),
                 'LT' => __('LT'),
                 'KT' => __('KT')
-                ])->required(),
+                ])->rules('required'),
             ];
     }
 

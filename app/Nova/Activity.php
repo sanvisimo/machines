@@ -156,16 +156,16 @@ class Activity extends Resource
             ID::make(__('ID'), 'id')->onlyOnDetail(),
 
             AkkaDate::make(__('Expiration'), 'expiration')->onlyOnIndex(),
-            Date::make(__('Expiration'), 'expiration')->required()->onlyOnForms(),
+            Date::make(__('Expiration'), 'expiration')->rules('required')->onlyOnForms(),
             BelongsTo::make(__('Machine'), 'machine', Machine::class)->hideFromIndex(),
 
-            Text::make(__('Description'), 'description')->required(),
+            Text::make(__('Description'), 'description')->rules('required'),
             Select::make(__('Type'), 'type')->options([
                     'maintenance' => __('Ordinary Maintenance'),
                     'control_plan' => __('Planned Measurement'),
                     'maintenance_no' => __('Extraordinary Maintenance'),
                     'control_plan_no' => __('Extraordinary Measurement'),
-            ])->displayUsingLabels(),
+            ])->displayUsingLabels()->rules('required'),
 
             NovaDependencyContainer::make([
                 Number::make(__('Periodicity'), 'periodicity')
@@ -173,7 +173,7 @@ class Activity extends Resource
                     ->withMeta(['extraAttributes' => ['min' => 0]])
             ])
                 ->dependsOn('type', 'maintenance')
-                ->dependsOn('type', 'control_plan'),
+                ->dependsOn('type', 'control_plan')->rules('required'),
 
             MorphTo::make(__('Element'), 'element')->types([
                 Component::class,

@@ -155,7 +155,19 @@ class ControlPlan extends Resource
             File::make(__('Notes'),'thermography_documentation')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->thermography : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/3')->stacked(false)
+                ->disk('public')
+                ->store(function (Request $request, $model) {
+                    $filename = $request->thermography_documentation->getClientOriginalName();
+                    $request->thermography_documentation->storeAs('control_plans', $filename, 'public');
+                    return [
+                        'thermography_documentation' => $filename,
+                        'thermography_documentation_name' => $request->thermography_documentation->getClientOriginalName()
+
+                    ];
+                })
+                ->storeOriginalName('thermography_documentation_name')
+                ->hideFromIndex(),
             Text::make(__('Laser Alignment'),'laser_alignment')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->laser_alignment : false;
@@ -163,7 +175,19 @@ class ControlPlan extends Resource
             File::make(__('Notes'),'laser_alignment_documentation')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->laser_alignment : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/3')->stacked(false)
+                ->disk('public')
+                ->store(function (Request $request, $model) {
+                    $filename = $request->laser_alignment_documentation->getClientOriginalName();
+                    $request->laser_alignment_documentation->storeAs('control_plans', $filename, 'public');
+                    return [
+                        'laser_alignment_documentation' => $filename,
+                        'laser_alignment_documentation_name' => $request->laser_alignment_documentation->getClientOriginalName()
+
+                    ];
+                })
+                ->storeOriginalName('attachment_name')
+                ->hideFromIndex(),
 
             \Akka\Machines\ControlPlan::make(__('Control Plan')),
         ];

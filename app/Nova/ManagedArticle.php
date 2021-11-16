@@ -99,7 +99,19 @@ class ManagedArticle extends Resource
             Text::make(__('Measurement point'), 'measurement_point')
                 ->hideWhenCreating(),
             Text::make(__('Notes'), 'note'),
-            File::make(__('Attachment'), 'attachment'),
+            File::make(__('Attachment'), 'attachment')
+                ->disk('public')
+                ->store(function (Request $request, $model) {
+                    $filename = $request->attachment->getClientOriginalName();
+                    $request->attachment->storeAs('articles', $filename, 'public');
+                    return [
+                        'attachment' => $filename,
+                        'attachment_name' => $request->attachment->getClientOriginalName()
+
+                    ];
+                })
+                ->storeOriginalName('attachment_name')
+                ->hideFromIndex(),
             Boolean::make(__('Attachment'), 'attachment', function (){
                 return $this->attachment;
             })->onlyOnIndex(),
