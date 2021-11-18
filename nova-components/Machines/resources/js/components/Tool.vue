@@ -120,7 +120,7 @@ export default {
             })
 
             this.tabs = tabs
-            if(!this.activeTab) this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+            if(!this.activeTab && tabs[Object.keys(tabs)[0]]) this.handleTabClick(tabs[Object.keys(tabs)[0]]);
         },
         handleTabClick(tab, event) {
             tab.init = true

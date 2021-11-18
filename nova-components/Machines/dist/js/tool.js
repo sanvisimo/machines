@@ -15214,7 +15214,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   tabs[component.name].fields = _objectSpread(_objectSpread({}, tabs[component.name].fields), component);
                 });
                 _this.tabs = tabs;
-                if (!_this.activeTab) _this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+                if (!_this.activeTab && tabs[Object.keys(tabs)[0]]) _this.handleTabClick(tabs[Object.keys(tabs)[0]]);
 
               case 8:
               case "end":
