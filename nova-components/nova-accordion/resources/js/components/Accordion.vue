@@ -1,5 +1,6 @@
 <template>
         <div class="accordion">
+            <h1>Accordion</h1>
             <div class="accordion__header">
                 <div class="accordion__link p-4 block flex justify-center cursor-pointer" @click.prevent="active = !active">
                     <div class="bg-blue-dark hover:bg-blue-darker no-underline border p-2">
