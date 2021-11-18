@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
@@ -175,16 +176,21 @@ class Machine extends Resource
                         Number::make(__('Pressure max'), 'pressure_max')->hideFromIndex(),
                         Number::make(__('Temperature min'), 'temperature_min')->hideFromIndex(),
                         Number::make(__('Temperature max'), 'temperature_max')->hideFromIndex(),
-                        File::make(__('Documentation'), 'documentation')
-                            ->storeAs(function (Request $request) {
-                                return ($request->documentation->getClientOriginalName());
-                            })
-                            ->storeOriginalName('documentation_name')
-                            ->hideFromIndex(),
+//                        File::make(__('Documentation'), 'documentation')
+//                            ->storeAs(function (Request $request) {
+//                                return ($request->documentation->getClientOriginalName());
+//                            })
+//                            ->storeOriginalName('documentation_name')
+//                            ->hideFromIndex(),
+
                         Date::make(__('Activation date'), 'activation_date')->hideFromIndex(),
                         Textarea::make(__('Notes'), 'note'),
                         Textarea::make(__('Internal notes'), 'internal_note'),
                     ]))->withComponent('akka-accordion'),
+
+                    MorphMany::make(__('Documents'), 'attachments', Attachment::class)
+                        ->hideFromIndex()
+                        ->hideFromDetail(),
 
                     HasMany::make(__('Activities'), 'lastActivities', Activity::class),
 

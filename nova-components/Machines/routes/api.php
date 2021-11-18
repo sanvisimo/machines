@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
+ * Machines
+ */
+Route::get('/machines/{resourceId}/attachments', 'MachinesController@attachments');
+
+/**
  * Components
  */
 Route::get('/components/{resourceId}', 'ComponentsController@index');

@@ -83,6 +83,15 @@ class Customer extends Resource
     ];
 
     /**
+     * Default ordering for index query.
+     *
+     * @var array
+     */
+    public static $sort = [
+        'customer_code' => 'asc'
+    ];
+
+    /**
      * Build an "index" query for the given resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
@@ -91,6 +100,12 @@ class Customer extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
+        if (empty($request->get('orderBy'))) {
+            $query->getQuery()->orders = [];
+
+            $query->orderBy(key(static::$sort), reset(static::$sort));
+        }
+
         if($request->user()->hasPermissionTo('view any customers')) {
             return $query;
         }

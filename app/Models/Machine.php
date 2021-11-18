@@ -78,4 +78,9 @@ class Machine extends Model
     {
         return $this->plant->establishment->customer;
     }
+
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachmentable');
+    }
 }

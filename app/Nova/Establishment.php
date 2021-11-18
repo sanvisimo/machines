@@ -74,6 +74,15 @@ class Establishment extends Resource
     }
 
     /**
+     * Default ordering for index query.
+     *
+     * @var array
+     */
+    public static $sort = [
+        'customer_code' => 'asc'
+    ];
+
+    /**
      * Build an "index" query for the given resource.
      *
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
@@ -82,6 +91,13 @@ class Establishment extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
+        if (empty($request->get('orderBy'))) {
+            $query->getQuery()->orders = [];
+
+            $query->orderBy(key(static::$sort), reset(static::$sort));
+        }
+
+
         if ($request->user()->hasPermissionTo('view any customers')) {
             return $query;
         }
@@ -113,6 +129,7 @@ class Establishment extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable()->onlyOnForms(),
             Text::make(__('Customer code'), 'customer_code')
+                ->sortable()
                 ->help(
                     __('Max 10')
                 )
@@ -126,6 +143,7 @@ class Establishment extends Resource
                     ])->render();
                 })->asHtml(),
             Text::make(__('Customer name'), 'customer_name')
+                ->sortable()
                 ->help(
                     __('Max 60')
                 )

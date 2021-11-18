@@ -65,6 +65,7 @@ class Attachment extends Resource
                 ->disk('public')
                 ->hideFromIndex()->rules('required'),
             MorphTo::make(__('Link'), 'attachmentable')->types([
+                Machine::class,
                 Component::class,
                 ManagedArticle::class,
             ])->rules('required')

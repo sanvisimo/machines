@@ -35,17 +35,7 @@
 
       <!-- Update Button -->
       <div class="flex items-center">
-        <cancel-button @click="$router.back()" />
-
-        <progress-button
-          class="mr-3"
-          dusk="update-and-continue-editing-button"
-          @click.native="submitViaUpdateResourceAndContinueEditing"
-          :disabled="isWorking"
-          :processing="wasSubmittedViaUpdateResourceAndContinueEditing"
-        >
-          {{ __('Update & Continue Editing') }}
-        </progress-button>
+        <cancel-button @click="$emit('cancelled')" />
 
         <progress-button
           dusk="update-button"
@@ -67,8 +57,8 @@ import {
   InteractsWithResourceInformation,
   PreventsFormAbandonment,
 } from 'laravel-nova'
-import HandlesFormRequest from '../mixins/HandlesFormRequest'
-import HandlesUploads from '../mixins/HandlesUploads'
+import HandlesFormRequest from '../../../../../nova/resources/js/mixins/HandlesFormRequest'
+import HandlesUploads from '../../../../../nova/resources/js/mixins/HandlesUploads'
 
 export default {
   mixins: [
@@ -77,6 +67,8 @@ export default {
     HandlesUploads,
     PreventsFormAbandonment,
   ],
+
+    name: "UpdateMachines",
 
   metaInfo() {
     if (this.resourceInformation && this.title) {
@@ -204,7 +196,7 @@ export default {
       if (this.$refs.form.reportValidity()) {
         try {
           const {
-            data: { redirect, id },
+            data: { redirect, id, resource},
           } = await this.updateRequest()
 
           Nova.success(
@@ -216,10 +208,13 @@ export default {
           await this.updateLastRetrievedAtTimestamp()
 
           if (this.submittedViaUpdateResource) {
-            this.$router.push({ path: redirect }, () => {
-              window.scrollTo(0, 0)
-            })
+              console.log("eee")
+            // this.$router.push({ path: redirect }, () => {
+            //   window.scrollTo(0, 0)
+            // })
+              this.$emit('refresh', resource);
           } else {
+              console.log("aaa")
             if (id != this.resourceId) {
               this.$router.push({
                 name: 'edit',

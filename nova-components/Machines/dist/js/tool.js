@@ -13418,7 +13418,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ComponentDetailField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ComponentDetailField */ "./resources/js/components/ComponentDetailField.vue");
 /* harmony import */ var _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../nova/resources/js/views/Create */ "../../nova/resources/js/views/Create.vue");
-var _excluded = ["constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"];
+/* harmony import */ var _Update__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Update */ "./resources/js/components/Update.vue");
+/* harmony import */ var _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesFormRequest */ "../../nova/resources/js/mixins/HandlesFormRequest.js");
+/* harmony import */ var _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesUploads */ "../../nova/resources/js/mixins/HandlesUploads.js");
+var _excluded = ["constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"],
+    _excluded2 = ["constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"];
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -13559,13 +13563,56 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ComponentDetail",
   components: {
     ComponentDetailField: _ComponentDetailField__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Create: _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Create: _nova_resources_js_views_Create__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Update: _Update__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: ['component', 'attrs'],
   data: function data() {
@@ -13576,7 +13623,8 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
       attachments: {},
       resource: {},
       panel: {},
-      documentModalOpen: false
+      documentModalOpen: false,
+      editModalOpen: false
     };
   },
   mounted: function mounted() {
@@ -13682,6 +13730,31 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
     },
     closeDocumentModal: function closeDocumentModal() {
       this.documentModalOpen = false;
+    },
+    openEditModal: function openEditModal() {
+      this.editModalOpen = true;
+    },
+    closeEditModal: function closeEditModal() {
+      this.editModalOpen = false;
+    },
+    handleUpdate: function handleUpdate(resource) {
+      var constructor = resource.constructor,
+          category = resource.category,
+          subcategory = resource.subcategory,
+          component_category_id = resource.component_category_id,
+          id = resource.id,
+          machine_id = resource.machine_id,
+          component_sub_category_id = resource.component_sub_category_id,
+          created_at = resource.created_at,
+          updated_at = resource.updated_at,
+          info = _objectWithoutProperties(resource, _excluded2);
+
+      this.heading = {
+        constructor: constructor,
+        "category > subcategory": "".concat(category, " > ").concat(subcategory)
+      };
+      this.info = info;
+      this.closeEditModal();
     },
     handleSetResource: function handleSetResource() {
       this.getInfo();
@@ -15164,6 +15237,463 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     handleSetResource: function handleSetResource() {
       this.closeRelationModal();
       this.fetchData();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Update.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Update.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesFormRequest */ "../../nova/resources/js/mixins/HandlesFormRequest.js");
+/* harmony import */ var _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesUploads */ "../../nova/resources/js/mixins/HandlesUploads.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_1__.InteractsWithResourceInformation, _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_2__["default"], _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_3__["default"], laravel_nova__WEBPACK_IMPORTED_MODULE_1__.PreventsFormAbandonment],
+  name: "UpdateMachines",
+  metaInfo: function metaInfo() {
+    if (this.resourceInformation && this.title) {
+      return {
+        title: this.__('Update :resource: :title', {
+          resource: this.resourceInformation.singularLabel,
+          title: this.title
+        })
+      };
+    }
+  },
+  props: (0,laravel_nova__WEBPACK_IMPORTED_MODULE_1__.mapProps)(['resourceName', 'resourceId', 'viaResource', 'viaResourceId', 'viaRelationship']),
+  data: function data() {
+    return {
+      relationResponse: null,
+      loading: true,
+      submittedViaUpdateResourceAndContinueEditing: false,
+      submittedViaUpdateResource: false,
+      title: null,
+      fields: [],
+      panels: [],
+      lastRetrievedAt: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _yield$Nova$request, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!Nova.missingResource(_this.resourceName)) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return", _this.$router.push({
+                name: '404'
+              }));
+
+            case 2:
+              if (!_this.isRelation) {
+                _context.next = 8;
+                break;
+              }
+
+              _context.next = 5;
+              return Nova.request("/nova-api/".concat(_this.viaResource, "/field/").concat(_this.viaRelationship));
+
+            case 5:
+              _yield$Nova$request = _context.sent;
+              data = _yield$Nova$request.data;
+              _this.relationResponse = data;
+
+            case 8:
+              _this.getFields();
+
+              _this.updateLastRetrievedAtTimestamp();
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  watch: {
+    $route: function $route(to, from) {
+      if (from.params.resourceName === to.params.resourceName && from.params.resourceId !== to.params.resourceId) {
+        this.getFields();
+        this.validationErrors = new laravel_nova__WEBPACK_IMPORTED_MODULE_1__.Errors();
+        this.submittedViaUpdateResource = false;
+        this.submittedViaUpdateResourceAndContinueEditing = false;
+        this.isWorking = false;
+      }
+    }
+  },
+  methods: {
+    /**
+     * Get the available fields for the resource.
+     */
+    getFields: function getFields() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var _yield$Nova$request$g, _yield$Nova$request$g2, title, panels, fields;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.loading = true;
+                _this2.panels = [];
+                _this2.fields = [];
+                _context2.next = 5;
+                return Nova.request().get("/nova-api/".concat(_this2.resourceName, "/").concat(_this2.resourceId, "/update-fields"), {
+                  params: {
+                    editing: true,
+                    editMode: 'update',
+                    viaResource: _this2.viaResource,
+                    viaResourceId: _this2.viaResourceId,
+                    viaRelationship: _this2.viaRelationship
+                  }
+                })["catch"](function (error) {
+                  if (error.response.status == 404) {
+                    _this2.$router.push({
+                      name: '404'
+                    });
+
+                    return;
+                  }
+                });
+
+              case 5:
+                _yield$Nova$request$g = _context2.sent;
+                _yield$Nova$request$g2 = _yield$Nova$request$g.data;
+                title = _yield$Nova$request$g2.title;
+                panels = _yield$Nova$request$g2.panels;
+                fields = _yield$Nova$request$g2.fields;
+                _this2.title = title;
+                _this2.panels = panels;
+                _this2.fields = fields;
+                _this2.loading = false;
+                Nova.$emit('resource-loaded');
+
+              case 15:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    submitViaUpdateResource: function submitViaUpdateResource(e) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                e.preventDefault();
+                _this3.submittedViaUpdateResource = true;
+                _this3.submittedViaUpdateResourceAndContinueEditing = false;
+                _this3.canLeave = true;
+                _context3.next = 6;
+                return _this3.updateResource();
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    submitViaUpdateResourceAndContinueEditing: function submitViaUpdateResourceAndContinueEditing() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.submittedViaUpdateResourceAndContinueEditing = true;
+                _this4.submittedViaUpdateResource = false;
+                _this4.canLeave = true;
+                _context4.next = 5;
+                return _this4.updateResource();
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+
+    /**
+     * Update the resource using the provided data.
+     */
+    updateResource: function updateResource() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var _yield$_this5$updateR, _yield$_this5$updateR2, redirect, id, resource;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _this5.isWorking = true;
+
+                if (!_this5.$refs.form.reportValidity()) {
+                  _context5.next = 30;
+                  break;
+                }
+
+                _context5.prev = 2;
+                _context5.next = 5;
+                return _this5.updateRequest();
+
+              case 5:
+                _yield$_this5$updateR = _context5.sent;
+                _yield$_this5$updateR2 = _yield$_this5$updateR.data;
+                redirect = _yield$_this5$updateR2.redirect;
+                id = _yield$_this5$updateR2.id;
+                resource = _yield$_this5$updateR2.resource;
+                Nova.success(_this5.__('The :resource was updated!', {
+                  resource: _this5.resourceInformation.singularLabel.toLowerCase()
+                }));
+                _context5.next = 13;
+                return _this5.updateLastRetrievedAtTimestamp();
+
+              case 13:
+                if (!_this5.submittedViaUpdateResource) {
+                  _context5.next = 18;
+                  break;
+                }
+
+                console.log("eee"); // this.$router.push({ path: redirect }, () => {
+                //   window.scrollTo(0, 0)
+                // })
+
+                _this5.$emit('refresh', resource);
+
+                _context5.next = 21;
+                break;
+
+              case 18:
+                console.log("aaa");
+
+                if (id != _this5.resourceId) {
+                  _this5.$router.push({
+                    name: 'edit',
+                    params: {
+                      resourceId: id,
+                      resourceName: _this5.resourceName
+                    }
+                  });
+                } else {
+                  // Reset the form by refetching the fields
+                  _this5.getFields();
+
+                  _this5.validationErrors = new laravel_nova__WEBPACK_IMPORTED_MODULE_1__.Errors();
+                  _this5.submittedViaUpdateResource = false;
+                  _this5.submittedViaUpdateResourceAndContinueEditing = false;
+                  _this5.isWorking = false;
+                }
+
+                return _context5.abrupt("return");
+
+              case 21:
+                _context5.next = 30;
+                break;
+
+              case 23:
+                _context5.prev = 23;
+                _context5.t0 = _context5["catch"](2);
+                window.scrollTo(0, 0);
+                _this5.submittedViaUpdateResource = false;
+                _this5.submittedViaUpdateResourceAndContinueEditing = false;
+
+                if (_this5.resourceInformation.preventFormAbandonment) {
+                  _this5.canLeave = false;
+                }
+
+                _this5.handleOnUpdateResponseError(_context5.t0);
+
+              case 30:
+                _this5.submittedViaUpdateResource = false;
+                _this5.submittedViaUpdateResourceAndContinueEditing = false;
+                _this5.isWorking = false;
+
+              case 33:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, null, [[2, 23]]);
+      }))();
+    },
+
+    /**
+     * Send an update request for this resource
+     */
+    updateRequest: function updateRequest() {
+      return Nova.request().post("/nova-api/".concat(this.resourceName, "/").concat(this.resourceId), this.updateResourceFormData, {
+        params: {
+          viaResource: this.viaResource,
+          viaResourceId: this.viaResourceId,
+          viaRelationship: this.viaRelationship,
+          editing: true,
+          editMode: 'update'
+        }
+      });
+    },
+
+    /**
+     * Update the last retrieved at timestamp to the current UNIX timestamp.
+     */
+    updateLastRetrievedAtTimestamp: function updateLastRetrievedAtTimestamp() {
+      this.lastRetrievedAt = Math.floor(new Date().getTime() / 1000);
+    },
+
+    /**
+     * Prevent accidental abandonment only if form was changed.
+     */
+    onUpdateFormStatus: function onUpdateFormStatus() {
+      if (this.resourceInformation.preventFormAbandonment) {
+        this.updateFormStatus();
+      }
+    }
+  },
+  computed: {
+    wasSubmittedViaUpdateResourceAndContinueEditing: function wasSubmittedViaUpdateResourceAndContinueEditing() {
+      return this.isWorking && this.submittedViaUpdateResourceAndContinueEditing;
+    },
+    wasSubmittedViaUpdateResource: function wasSubmittedViaUpdateResource() {
+      return this.isWorking && this.submittedViaUpdateResource;
+    },
+
+    /**
+     * Create the form data for creating the resource.
+     */
+    updateResourceFormData: function updateResourceFormData() {
+      var _this6 = this;
+
+      return _.tap(new FormData(), function (formData) {
+        _(_this6.fields).each(function (field) {
+          field.fill(formData);
+        });
+
+        formData.append('_method', 'PUT');
+        formData.append('_retrieved_at', _this6.lastRetrievedAt);
+      });
+    },
+    singularName: function singularName() {
+      if (this.relationResponse) {
+        return this.relationResponse.singularLabel;
+      }
+
+      return this.resourceInformation.singularLabel;
+    },
+    updateButtonLabel: function updateButtonLabel() {
+      return this.resourceInformation.updateButtonLabel;
+    },
+    isRelation: function isRelation() {
+      return Boolean(this.viaResourceId && this.viaRelationship);
+    },
+    panelsWithFields: function panelsWithFields() {
+      var _this7 = this;
+
+      return _.map(this.panels, function (panel) {
+        return _objectSpread(_objectSpread({}, panel), {}, {
+          fields: _.filter(_this7.fields, function (field) {
+            return field.panel == panel.name;
+          })
+        });
+      });
     }
   }
 });
@@ -42880,6 +43410,45 @@ component.options.__file = "resources/js/components/Tool.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Update.vue":
+/*!********************************************!*\
+  !*** ./resources/js/components/Update.vue ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Update_vue_vue_type_template_id_68dc5a74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Update.vue?vue&type=template&id=68dc5a74& */ "./resources/js/components/Update.vue?vue&type=template&id=68dc5a74&");
+/* harmony import */ var _Update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Update.vue?vue&type=script&lang=js& */ "./resources/js/components/Update.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Update_vue_vue_type_template_id_68dc5a74___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Update_vue_vue_type_template_id_68dc5a74___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Update.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "../../nova/resources/js/views/Create.vue":
 /*!************************************************!*\
   !*** ../../nova/resources/js/views/Create.vue ***!
@@ -43079,6 +43648,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Update.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/Update.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Update.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Update.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Update_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "../../nova/resources/js/views/Create.vue?vue&type=script&lang=js&":
 /*!*************************************************************************!*\
   !*** ../../nova/resources/js/views/Create.vue?vue&type=script&lang=js& ***!
@@ -43261,6 +43846,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tool_vue_vue_type_template_id_68ff5483___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tool_vue_vue_type_template_id_68ff5483___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Tool.vue?vue&type=template&id=68ff5483& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Tool.vue?vue&type=template&id=68ff5483&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Update.vue?vue&type=template&id=68dc5a74&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Update.vue?vue&type=template&id=68dc5a74& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Update_vue_vue_type_template_id_68dc5a74___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Update_vue_vue_type_template_id_68dc5a74___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Update_vue_vue_type_template_id_68dc5a74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Update.vue?vue&type=template&id=68dc5a74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Update.vue?vue&type=template&id=68dc5a74&");
 
 
 /***/ }),
@@ -43620,7 +44222,21 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("div", [_vm._v("\n             \n        ")])
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-white btn-default",
+              attrs: { type: "button" },
+              on: { click: _vm.openEditModal }
+            },
+            [
+              _vm._v(
+                "\n              " + _vm._s(_vm.__("Edit")) + "\n            "
+              )
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -43848,6 +44464,56 @@ var render = function() {
                         on: {
                           refresh: _vm.handleSetResource,
                           "cancelled-create": _vm.closeDocumentModal
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.editModalOpen
+            ? _c(
+                "modal",
+                {
+                  attrs: {
+                    dusk: "edit-relation-modal",
+                    tabindex: "-1",
+                    role: "dialog",
+                    classWhitelist: [
+                      "flatpickr-current-month",
+                      "flatpickr-next-month",
+                      "flatpickr-prev-month",
+                      "flatpickr-weekday",
+                      "flatpickr-weekdays",
+                      "flatpickr-calendar",
+                      "form-file-input"
+                    ]
+                  },
+                  on: { "modal-close": _vm.closeEditModal }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "bg-40 rounded-lg shadow-lg overflow-hidden p-8",
+                      staticStyle: { width: "1000px" }
+                    },
+                    [
+                      _c("Update", {
+                        attrs: {
+                          mode: "modal",
+                          "resource-name": "components",
+                          "resource-id": _vm.component.id,
+                          "via-resource": "machines",
+                          "via-resource-id": _vm.component.machine_id,
+                          "via-relationship": "components"
+                        },
+                        on: {
+                          refresh: _vm.handleUpdate,
+                          cancelled: _vm.closeEditModal
                         }
                       })
                     ],
@@ -44529,6 +45195,120 @@ var render = function() {
       )
     ],
     2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Update.vue?vue&type=template&id=68dc5a74&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Update.vue?vue&type=template&id=68dc5a74& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "loading-view",
+    { attrs: { loading: _vm.loading } },
+    [
+      _c("custom-update-header", {
+        staticClass: "mb-3",
+        attrs: {
+          "resource-name": _vm.resourceName,
+          "resource-id": _vm.resourceId
+        }
+      }),
+      _vm._v(" "),
+      _vm.panels
+        ? _c(
+            "form",
+            {
+              ref: "form",
+              attrs: { autocomplete: "off" },
+              on: {
+                submit: _vm.submitViaUpdateResource,
+                change: _vm.onUpdateFormStatus
+              }
+            },
+            [
+              _vm._l(_vm.panelsWithFields, function(panel) {
+                return _c("form-panel", {
+                  key: panel.name,
+                  staticClass: "mb-8",
+                  attrs: {
+                    panel: panel,
+                    name: panel.name,
+                    "resource-id": _vm.resourceId,
+                    "resource-name": _vm.resourceName,
+                    fields: panel.fields,
+                    mode: "form",
+                    "validation-errors": _vm.validationErrors,
+                    "via-resource": _vm.viaResource,
+                    "via-resource-id": _vm.viaResourceId,
+                    "via-relationship": _vm.viaRelationship
+                  },
+                  on: {
+                    "update-last-retrieved-at-timestamp":
+                      _vm.updateLastRetrievedAtTimestamp,
+                    "field-changed": _vm.onUpdateFormStatus,
+                    "file-upload-started": _vm.handleFileUploadStarted,
+                    "file-upload-finished": _vm.handleFileUploadFinished
+                  }
+                })
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "flex items-center" },
+                [
+                  _c("cancel-button", {
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("cancelled")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "progress-button",
+                    {
+                      attrs: {
+                        dusk: "update-button",
+                        type: "submit",
+                        disabled: _vm.isWorking,
+                        processing: _vm.wasSubmittedViaUpdateResource
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(_vm.updateButtonLabel) +
+                          "\n      "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            2
+          )
+        : _vm._e()
+    ],
+    1
   )
 }
 var staticRenderFns = []

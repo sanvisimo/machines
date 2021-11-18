@@ -23,7 +23,13 @@
               </router-link>
           </div>
           <div>
-              &nbsp;
+              <button
+                  type="button"
+                  class="btn btn-white btn-default"
+                  @click="openEditModal"
+              >
+                {{ __('Edit') }}
+              </button>
           </div>
       </div>
 
@@ -124,6 +130,39 @@
                   />
               </div>
           </modal>
+          <modal
+              v-if="editModalOpen"
+              dusk="edit-relation-modal"
+              tabindex="-1"
+              role="dialog"
+              @modal-close="closeEditModal"
+              :classWhitelist="[
+                                'flatpickr-current-month',
+                                'flatpickr-next-month',
+                                'flatpickr-prev-month',
+                                'flatpickr-weekday',
+                                'flatpickr-weekdays',
+                                'flatpickr-calendar',
+                                'form-file-input',
+                              ]"
+          >
+            <div
+                class="bg-40 rounded-lg shadow-lg overflow-hidden p-8"
+                style="width: 1000px"
+            >
+              <Update
+                  mode="modal"
+                  @refresh="handleUpdate"
+                  @cancelled="closeEditModal"
+                  resource-name="components"
+                  :resource-id="component.id"
+                  via-resource="machines"
+                  :via-resource-id="component.machine_id"
+                  via-relationship="components"
+              />
+            </div>
+          </modal>
+
       </portal>
   </div>
 </template>
@@ -131,10 +170,13 @@
 <script>
 import ComponentDetailField from "./ComponentDetailField";
 import Create from '../../../../../nova/resources/js/views/Create'
+import Update from './Update'
+import HandlesFormRequest from '../../../../../nova/resources/js/mixins/HandlesFormRequest'
+import HandlesUploads from '../../../../../nova/resources/js/mixins/HandlesUploads'
 
 export default {
     name: "ComponentDetail",
-    components: { ComponentDetailField, Create },
+    components: { ComponentDetailField, Create, Update },
     props: ['component', 'attrs'],
     data() {
       return {
@@ -144,7 +186,8 @@ export default {
           attachments: {},
           resource: {},
           panel: {},
-          documentModalOpen: false
+          documentModalOpen: false,
+          editModalOpen: false
       }
     },
     mounted() {
@@ -210,6 +253,36 @@ export default {
 
         closeDocumentModal() {
             this.documentModalOpen = false
+        },
+
+        openEditModal() {
+            this.editModalOpen = true;
+        },
+
+        closeEditModal() {
+          this.editModalOpen = false;
+        },
+
+        handleUpdate(resource) {
+          const {
+            constructor,
+            category,
+            subcategory,
+            component_category_id,
+            id,
+            machine_id,
+            component_sub_category_id,
+            created_at,
+            updated_at,
+            ...info
+          } = resource;
+          this.heading = {
+            constructor,
+            "category > subcategory": `${category} > ${subcategory}`
+          }
+
+          this.info = info;
+            this.closeEditModal()
         },
 
         handleSetResource() {
