@@ -14699,7 +14699,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 panels = _yield$Nova$request$g3.panels;
                 fields = _yield$Nova$request$g3.fields;
                 _this3.panels = panels;
-                _this3.fields = fields;
+                _this3.fields = fields.map(function (field) {
+                  if (field.attribute === 'image') {
+                    return _objectSpread(_objectSpread({}, field), {}, {
+                      attribute: 'image' + _this3.position,
+                      sortableUriKey: 'image' + _this3.position,
+                      validationKey: 'image' + _this3.position
+                    });
+                  }
+
+                  return field;
+                });
                 _this3.loading = false;
 
               case 19:
@@ -14771,6 +14781,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           field.fill(formData);
         });
 
+        formData.set('image', formData.get('image' + _this6.position));
+        formData["delete"]('image' + _this6.position);
         formData.append('control_plan_config_id', _this6.controlPlanConfig);
         formData.append('component_id', _this6.componentId);
         formData.append('position', _this6.position);

@@ -116,7 +116,17 @@ export default {
             )
 
             this.panels = panels
-            this.fields = fields
+            this.fields = fields.map(field => {
+                if(field.attribute === 'image'){
+                    return {
+                        ...field,
+                        attribute: 'image' + this.position,
+                        sortableUriKey: 'image' + this.position,
+                        validationKey: 'image' + this.position,
+                    }
+                }
+                return field;
+            })
             this.loading = false
         },
 
@@ -129,7 +139,6 @@ export default {
          * Send a create request for this resource
          */
         async createRequest() {
-
             let url = `/nova-vendor/machines/components-config`;
             if(this.update) {
                 url = `/nova-vendor/machines/components-config/${this.componentConfigId}`;
@@ -150,6 +159,8 @@ export default {
                     field.fill(formData)
                 })
 
+                formData.set('image', formData.get('image'+this.position));
+                formData.delete('image'+this.position);
                 formData.append('control_plan_config_id', this.controlPlanConfig);
                 formData.append('component_id', this.componentId);
                 formData.append('position', this.position);

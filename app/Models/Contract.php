@@ -9,6 +9,10 @@ class Contract extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'expiration_date' => 'date'
+    ];
+
     public function customer()
     {
         return $this->belongsToMany(Customer::class, 'customer_contract');
