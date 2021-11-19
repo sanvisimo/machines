@@ -19,6 +19,7 @@ class CreateContractsTable extends Migration
             $table->string('reference', 20);
             $table->date('expiration_date');
             $table->string('attachment');
+            $table->string('type');
             $table->timestamps();
         });
     }

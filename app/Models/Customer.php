@@ -18,19 +18,9 @@ class Customer extends Model
         return $this->hasOne(Customer::class, 'leader_code');
     }
 
-    public function maintenance_contract()
+    public function contracts()
     {
-        return $this->hasOne(Contract::class,'id', 'maintenance_contract');
-    }
-
-    public function fixfee_contract()
-    {
-        return $this->hasOne(Contract::class, 'id', 'fixfee_contract');
-    }
-
-    public function monitoring_contract()
-    {
-        return $this->hasOne(Contract::class, 'id', 'monitoring_contract');
+        return $this->morphToMany(Contract::class,'contractable');
     }
 
     public function establishments()

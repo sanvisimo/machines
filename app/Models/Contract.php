@@ -13,8 +13,13 @@ class Contract extends Model
         'expiration_date' => 'date'
     ];
 
-    public function customer()
+    public function customers()
     {
-        return $this->belongsToMany(Customer::class, 'customer_contract');
+        return $this->morphedByMany(Customer::class, 'contractable');
+    }
+
+    public function establishments()
+    {
+        return $this->morphedByMany(Establishment::class, 'contractable');
     }
 }

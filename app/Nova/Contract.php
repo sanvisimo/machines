@@ -3,9 +3,14 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphedByMany;
+use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -26,22 +31,41 @@ class Contract extends Resource
     public static $title = 'name';
 
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        return __('Contracts');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        return __('Contract');
+    }
+
+    /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
         'id',
-        'name'
+        'name',
+        'reference'
     ];
 
-    /**
-     * Indicates if the resource should be displayed in the sidebar.
-     *
-     * @var bool
-     */
-    public static $displayInNavigation = false;
-
+    public static function group()
+    {
+        return __('Utilities');
+    }
+    
     /**
      * Get the fields displayed by the resource.
      *
@@ -54,6 +78,12 @@ class Contract extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name'),
             Text::make(__('Reference'), 'reference'),
+            Select::make(__('Type'), 'type')
+                ->options([
+                    'maintenance' => __('Maintenance contract'),
+                    'fixfee' => __('Fixfee contract'),
+                    'monitoring' => __('Monitoring contract')
+                ]),
             Date::make(__('Expiration date'), 'expiration_date'),
             File::make(__('Attachment'), 'attachment')
                 ->disk('public')
@@ -62,6 +92,8 @@ class Contract extends Resource
                 })
                 ->storeOriginalName('attachment_name')
                 ->hideFromIndex(),
+            MorphedByMany::make(__('Customers'), 'customers', Customer::class),
+            MorphedByMany::make(__('Establishments'), 'establishments', Establishment::class)
         ];
     }
 

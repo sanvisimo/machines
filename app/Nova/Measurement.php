@@ -132,7 +132,7 @@ class Measurement extends Resource
         return __('Temperature')." (min: ".$config->temperature_min." - max: ".$config->temperature_max.")";
     }
     static function pressureLabel($config) {
-        return __('Temperature')." (min: ".$config->temperature_min." - max: ".$config->temperature_max.")";
+        return __('Pressure')." (min: ".$config->pressure_min." - max: ".$config->pressure_max.")";
     }
 
     /**

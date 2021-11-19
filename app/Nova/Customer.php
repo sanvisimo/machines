@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -138,7 +139,8 @@ class Customer extends Resource
                     __('Max 10')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 10]])
-                ->rules('required', 'unique:establishments,customer_code', 'max:10')
+                ->creationRules('required', 'unique:customers,customer_code', 'max:10')
+                ->updateRules('unique:customers,customer_code,{{resourceId}}','required','max:10')
                 ->displayUsing(function ($value) use ($request){
                         return view('link', [
                             'id' => $this->id,
@@ -236,9 +238,7 @@ class Customer extends Resource
             ]))->withComponent('akka-accordion'),
             HasMany::make(__('Factory'), 'establishments', Establishment::class),
             BelongsToMany::make(__('Manutentors'), 'manutentors', User::class),
-            HasOne::make(__('Maintenance contract'), 'maintenance_contract', Contract::class),
-            HasOne::make(__('Fixfee contract'), 'fixfee_contract',Contract::class),
-            HasOne::make(__('Monitoring contract'), 'monitoring_contract',Contract::class)
+            MorphToMany::make(__('Contracts'), 'contracts', Contract::class),
         ];
     }
 

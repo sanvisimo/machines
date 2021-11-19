@@ -134,7 +134,8 @@ class Establishment extends Resource
                     __('Max 10')
                 )
                 ->withMeta(['extraAttributes' => ['maxlength' => 10]])
-                ->rules('required', 'unique:establishments,customer_code', 'max:10')
+                ->creationRules('required', 'unique:establishments,customer_code', 'max:10')
+                ->updateRules('unique:establishments,customer_code,{{resourceId}}','required','max:10')
                 ->displayUsing(function ($value) {
                     return view('link', [
                         'id' => $this->id,
