@@ -62,7 +62,12 @@
     );
 }
 
-div.mb-8:first-child[dusk="control-plans-detail-component"]{
-    /*display: none !important;*/
-    background: red;
+[dusk="control-plans-detail-component"]:nth-of-type(2) {
+    display: none !important;
+    /*background: red;*/
 }
+
+.sidebar .trigger {
+    top: 104px !important;
+}
+

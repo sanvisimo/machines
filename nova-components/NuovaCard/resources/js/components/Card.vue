@@ -12,9 +12,10 @@
         <div class="card py-6 px-6">
             <FullCalendar ref="fullCalendar" :options="calendarOptions" >
                 <template v-slot:eventContent='arg'>
+                    <button class="btn rounded-full btn-primary px-3 py-2 bg-primary-30% mr-3" @click="goTo(arg.event.extendedProps)">{{ __('Take Charge') }}</button>
                     <font-awesome-icon :icon="`fa-solid ${getIcon(arg.event)}`" class="text-primary" />
                     <i class="mx-2 text-primary">{{ arg.event.title }}</i>
-                    <button class="btn rounded-full  btn-primary px-3 py-2 bg-primary-30%" @click="goTo(arg.event.extendedProps)">{{ __('Take Charge') }}</button>
+
                 </template>
             </FullCalendar>
         </div>

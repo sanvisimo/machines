@@ -17,3 +17,7 @@
 .akka-agenda .fc-list-event-graphic {
     vertical-align: middle;
 }
+
+.akka-agenda .fc-toolbar-title {
+    width: 250px;
+}

@@ -25163,6 +25163,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -26310,20 +26311,11 @@ var render = function () {
               key: "eventContent",
               fn: function (arg) {
                 return [
-                  _c("font-awesome-icon", {
-                    staticClass: "text-primary",
-                    attrs: { icon: "fa-solid " + _vm.getIcon(arg.event) },
-                  }),
-                  _vm._v(" "),
-                  _c("i", { staticClass: "mx-2 text-primary" }, [
-                    _vm._v(_vm._s(arg.event.title)),
-                  ]),
-                  _vm._v(" "),
                   _c(
                     "button",
                     {
                       staticClass:
-                        "btn rounded-full  btn-primary px-3 py-2 bg-primary-30%",
+                        "btn rounded-full btn-primary px-3 py-2 bg-primary-30% mr-3",
                       on: {
                         click: function ($event) {
                           return _vm.goTo(arg.event.extendedProps)
@@ -26332,6 +26324,15 @@ var render = function () {
                     },
                     [_vm._v(_vm._s(_vm.__("Take Charge")))]
                   ),
+                  _vm._v(" "),
+                  _c("font-awesome-icon", {
+                    staticClass: "text-primary",
+                    attrs: { icon: "fa-solid " + _vm.getIcon(arg.event) },
+                  }),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "mx-2 text-primary" }, [
+                    _vm._v(_vm._s(arg.event.title)),
+                  ]),
                 ]
               },
             },

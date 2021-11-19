@@ -65,7 +65,7 @@ class Contract extends Resource
     {
         return __('Utilities');
     }
-    
+
     /**
      * Get the fields displayed by the resource.
      *
