@@ -3,7 +3,6 @@
         <form
             v-if="panels"
             @submit.prevent="submitViaCreateResource"
-            @change="onUpdateFormStatus"
             autocomplete="off"
             ref="form"
         >
@@ -11,7 +10,6 @@
             <form-panel
                 class="mb-8"
                 v-for="panel in panelsWithFields"
-                @field-changed="onUpdateFormStatus"
                 :shown-via-new-relation-modal="false"
                 :panel="panel"
                 :name="panel.name"
@@ -156,15 +154,6 @@ export default {
                 formData.append('component_id', this.componentId);
                 formData.append('position', this.position);
             })
-        },
-
-        /**
-         * Prevent accidental abandonment only if form was changed.
-         */
-        onUpdateFormStatus() {
-            if (this.resourceInformation.preventFormAbandonment) {
-                this.updateFormStatus()
-            }
         },
     },
 

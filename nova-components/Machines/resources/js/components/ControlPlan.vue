@@ -81,7 +81,7 @@ export default {
         panels: [],
     }),
 
-    async created() {
+    async mounted() {
         if (Nova.missingResource('control-plan-configs'))
             return this.$router.push({ name: '404' })
         if(this.$route.params.resourceName === "control-plans"){
@@ -112,7 +112,8 @@ export default {
             this.showConfig = true;
         },
 
-        handleCreated() {
+        async handleCreated() {
+            await this.getControlPlanConfig();
             this.showConfig = false;
             this.isConfigPlan = false;
         },

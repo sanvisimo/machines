@@ -3,7 +3,6 @@
         <form
             v-if="panels"
             @submit="submitViaCreateResource"
-            @change="onUpdateFormStatus"
             autocomplete="off"
             ref="form"
         >
@@ -21,7 +20,6 @@
             <form-panel
                 class="mb-8"
                 v-for="panel in panelsWithFields"
-                @field-changed="onUpdateFormStatus"
                 :shown-via-new-relation-modal="false"
                 :panel="panel"
                 :name="panel.name"
@@ -242,15 +240,6 @@ export default {
                 formData.append('viaResourceId', this.resourceId)
                 formData.append('viaRelationship', 'controlPlanConfig')
             })
-        },
-
-        /**
-         * Prevent accidental abandonment only if form was changed.
-         */
-        onUpdateFormStatus() {
-            if (this.resourceInformation.preventFormAbandonment) {
-                this.updateFormStatus()
-            }
         },
     },
 

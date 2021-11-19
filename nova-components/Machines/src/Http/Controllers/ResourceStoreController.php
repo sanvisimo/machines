@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Http\Requests\CreateResourceRequest;
 use Laravel\Nova\Nova;
 
@@ -26,6 +27,10 @@ class ResourceStoreController extends Controller
 
         $input = $request->all();
 
+        $uploadedFile = $request->file('image');
+        if($uploadedFile) {
+            $input['image'] = $this->uploadFile($uploadedFile);
+        }
         $config = MeasurementConfig::create($input);
 
         return response()->json([
@@ -102,6 +107,11 @@ class ResourceStoreController extends Controller
         unset($input['machine']);
         unset($input['machine_trashed']);
 
+        $uploadedFile = $request->file('image');
+        if($uploadedFile) {
+            $input['image'] = $this->uploadFile($uploadedFile);
+        }
+
         $controlPlan->fill($input);
         $controlPlan->save();
 
@@ -159,5 +169,18 @@ class ResourceStoreController extends Controller
         }
 
         $relation->save($model);
+    }
+
+    protected function uploadFile($uploadedFile)
+    {
+        $filename = $uploadedFile->getClientOriginalName();
+
+        Storage::disk('public')->putFileAs(
+            'measurement_images',
+            $uploadedFile,
+            $filename
+        );
+
+        return 'measurement_images/'.$filename;
     }
 }

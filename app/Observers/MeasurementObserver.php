@@ -32,7 +32,7 @@ class MeasurementObserver
         $controlPlan = ControlPlan::where('control_plan_config_id', $config->control_plan_config_id)->latest()->first();
         $oldActivity = Activity::where('activitable_id', $measurement->control_plan_id)
             ->where('activitable_type', 'App\Models\ControlPlan')->first();
-        if($oldActivity->active) {
+        if(!$oldActivity->active) {
             $model = new Measurement();
             $model->component_id = $measurement->component_id;
             $model->measurement_config_id = $measurement->measurement_config_id;

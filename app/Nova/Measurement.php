@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Akka\AkkaDate\AkkaImage;
 use Akka\ButtonGroup\ButtonGroup;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
@@ -56,8 +57,14 @@ class Measurement extends Resource
 
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            ButtonGroup::make(__('Anomaly'), 'anomaly')->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'), 'anomaly_notes')->nullable()->size('w-1/3')->stacked(false),
+            ButtonGroup::make(__('Anomaly'), 'anomaly')->size('w-1/2')->stacked(false)->removeBottomBorderOnForms(),
+            Text::make(__('Notes'), 'anomaly_notes')->nullable()->size('w-1/3')->stacked(false)->removeBottomBorderOnForms(),
+            AkkaImage::make(__('Image'), 'image')
+                ->onlyOnForms()
+                ->size('w-1/6')
+                ->disk('public')
+                ->path('measurement_images')
+                ->removeBottomBorderOnForms(),
             ButtonGroup::make(__('Lubricant levels'), 'lubricant_levels')
                 ->options([
                     'low' => __('Low'),
@@ -66,11 +73,12 @@ class Measurement extends Resource
                 ])
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_levels : false;
-                })->size('w-2/3')->stacked(false),
+                })->size('w-1/2')->stacked(false)
+                ->removeBottomBorderOnForms(),
             Text::make(__('Notes'),'lubricant_levels_notes')->nullable()
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_levels : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/3')->stacked(false)->removeBottomBorderOnForms(),
             ButtonGroup::make(__('Lubricant appearence'), 'lubricant_appearence')
                 ->options([
                     'clear' => __('Clear'),
@@ -79,19 +87,19 @@ class Measurement extends Resource
                 ])
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_appearence : false;
-                })->size('w-2/3')->stacked(false),
+                })->size('w-1/2')->stacked(false)->removeBottomBorderOnForms(),
             Text::make(__('Notes'),'lubricant_appearence_notes')->nullable()
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->lubricant_appearence : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/3')->stacked(false)->removeBottomBorderOnForms(),
             ButtonGroup::make(__('Leakage'), 'leakage')
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->leakage : false;
-                })->size('w-2/3')->stacked(false),
+                })->size('w-1/2')->stacked(false)->removeBottomBorderOnForms(),
             Text::make(__('Notes'),'leakage_notes')->nullable()
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->leakage : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/3')->stacked(false)->removeBottomBorderOnForms(),
             Number::make(static::temperatureLabel($measurementConfig), 'temperature')
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->temperature : false;
@@ -116,6 +124,7 @@ class Measurement extends Resource
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->vibrations_type_SISM : false;
                 }),
+
         ];
     }
 

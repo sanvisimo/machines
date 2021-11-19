@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -66,6 +67,12 @@ class MeasurementConfig extends Resource
             Boolean::make(__('Vibration type SISM'),'vibrations_type_SISM'),
             BelongsTo::make('controlPlanConfig')->onlyOnDetail(),
             BelongsTo::make('component')->onlyOnDetail(),
+            Image::make(__('Image'), 'image')
+                ->disk('public')
+                ->path('measurement_images')
+                ->storeAs(function (Request $request) {
+                    return ($request->image->getClientOriginalName());
+                })
         ];
     }
 

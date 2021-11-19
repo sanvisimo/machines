@@ -40,7 +40,7 @@
             />
 
         </form>
-        <component-config :resource-id="machine" ref="compos" :config="false" :control-plan="controlPlan" />
+        <component-config :resource-id="machine" ref="compos" :config="false" :control-plan="controlPlan" v-if="controlPlan" />
         <div class="flex justify-end p-4 w-full">
             <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Save') }}</button>
         </div>
@@ -92,7 +92,8 @@ export default {
         submitted: false
     }),
 
-    async created() {
+    async mounted() {
+        console.log("monato")
         if (Nova.missingResource('control-plans'))
             return this.$router.push({ name: '404' })
 

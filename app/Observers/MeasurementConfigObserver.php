@@ -23,6 +23,7 @@ class MeasurementConfigObserver
         $model->measurement_config_id = $measurementConfig->id;
         $model->position = $measurementConfig->position;
         $model->control_plan_id = $controlPlan->id;
+        $model->image = $measurementConfig->image;
         $model->save();
     }
 
@@ -34,7 +35,9 @@ class MeasurementConfigObserver
      */
     public function updated(MeasurementConfig $measurementConfig)
     {
-        //
+        $measurement = Measurement::where('measurement_config_id', $measurementConfig->id)->latest()->first();
+        $measurement->image = $measurementConfig->image;
+        $measurement->save();
     }
 
     /**
