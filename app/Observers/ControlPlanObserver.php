@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Activity;
 use App\Models\ControlPlan;
 use App\Models\ControlPlanConfig;
+use App\Models\Measurement;
 use Illuminate\Support\Carbon;
 
 class ControlPlanObserver
@@ -44,7 +45,14 @@ class ControlPlanObserver
             $model->periodicity = $controlPlanConfig->periodicity;
             $model->save();
 
-
+            $controlPlan->measurements->map(function($measurement) use($model){
+                $meas = new Measurement();
+                $meas->component_id = $measurement->component_id;
+                $meas->measurement_config_id = $measurement->measurement_config_id;
+                $meas->position = $measurement->position;
+                $meas->control_plan_id = $model->getKey();
+                $meas->save();
+            });
 
             $activity = new Activity;
             $activity->expiration = Carbon::now()->addDays($controlPlanConfig->periodicity);

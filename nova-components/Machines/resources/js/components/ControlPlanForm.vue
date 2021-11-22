@@ -10,7 +10,7 @@
             <div class="flex justify-end p-4 w-full gap-4">
                 <button type="submit" class="btn btn-default btn-primary">{{ __('Save') }}</button>
                 <span
-                    v-if="$route.params.resourceName === 'machines' && canEdit"
+                    v-if="resourceName === 'machines' && canEdit"
                     @click="$emit('edit')"
                     class="btn btn-default cursor-pointer btn-white"
                 >
@@ -35,12 +35,12 @@
                 class="mb-8"
                 :validation-errors="validationErrors"
                 via-resource="machines"
-                :via-resource-id="machine"
+                :via-resource-id="machine_id"
                 via-relationship="controlPlans"
             />
 
         </form>
-        <component-config :resource-id="machine" ref="compos" :config="false" :control-plan="controlPlan" v-if="controlPlan" />
+        <component-config :resource-id="machine_id" ref="compos" :config="false" :control-plan="controlPlan" v-if="controlPlan" />
         <div class="flex justify-end p-4 w-full">
             <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Save') }}</button>
         </div>
@@ -89,20 +89,25 @@ export default {
         loading: true,
         fields: [],
         panels: [],
-        submitted: false
+        submitted: false,
+        machine_id: null
     }),
 
     async mounted() {
-        console.log("monato")
         if (Nova.missingResource('control-plans'))
             return this.$router.push({ name: '404' })
 
         let url = `/nova-vendor/machines/control-plans/${this.machine}`;
-        if(this.$route.params.resourceName === "control-plans"){
-            url = `/nova-vendor/machines/control-plans/${this.$route.params.resourceId}/edit`;
+        this.machine_id = this.machine;
+        if(this.resourceName === "control-plans"){
+            url = `/nova-vendor/machines/control-plans/${this.machine}/edit`;
         }
         const { data } = await Nova.request().get(url)
         this.controlPlan = data.controlPlan;
+
+        if(this.resourceName === "control-plans") {
+            this.machine_id = data.controlPlan.machine_id
+        }
 
         await this.getFields()
     },
@@ -131,7 +136,7 @@ export default {
                         editing: true,
                         editMode: 'update',
                         viaResource: 'machines',
-                        viaResourceId:this.machine,
+                        viaResourceId: this.machine_id,
                         viaRelationship: 'controlPlans'
                     },
                 }

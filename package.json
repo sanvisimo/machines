@@ -36,6 +36,7 @@
         "watch-control-plan-field": "cd nova-components/ControlPlanField && npm run watch",
         "build-control-plan-field": "cd nova-components/ControlPlanField && npm run dev",
         "build-control-plan-field-prod": "cd nova-components/ControlPlanField && npm run prod",
+        "watch-button-group": "cd nova-components/ButtonGroup && npm run watch",
         "build-button-group": "cd nova-components/ButtonGroup && npm run dev",
         "build-button-group-prod": "cd nova-components/ButtonGroup && npm run prod"
     },

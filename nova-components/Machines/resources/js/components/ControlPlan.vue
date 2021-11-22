@@ -1,7 +1,7 @@
 <template>
     <loading-view :loading="loading">
         <div v-if="!isConfigPlan">
-           <control-plan-form :machine="resourceId" @edit="editConfig" :update="isUpdate" :canEdit="canEdit" />
+           <control-plan-form :resourceName="resourceName" :machine="resourceId" @edit="editConfig" :update="isUpdate" :canEdit="canEdit" />
         </div>
         <div v-else-if="canEdit">
             <card class="mb-6 py-3 px-6 flex justify-center items-center border border-dashed" v-if="!showConfig">
@@ -101,11 +101,17 @@ export default {
         * Check if control plan configuration exist
          */
         async getControlPlanConfig() {
-            const { data } = await Nova.request().get(`/nova-vendor/machines/control-plan-configs/${this.resourceId}`);
-            this.configPlan = data.controlPlan;
-            this.isConfigPlan = !data.controlPlan;
-            this.showConfig = !!data.controlPlan;
-            this.loading = false;
+            if(this.resourceName !== 'control-plans') {
+                const {data} = await Nova.request().get(`/nova-vendor/machines/control-plan-configs/${this.resourceId}`);
+                this.configPlan = data.controlPlan;
+                this.isConfigPlan = !data.controlPlan;
+                this.showConfig = !!data.controlPlan;
+                this.loading = false;
+            } else {
+                this.isConfigPlan = false;
+                this.showConfig = false;
+                this.loading = false;
+            }
         },
 
         createConfigPlan() {

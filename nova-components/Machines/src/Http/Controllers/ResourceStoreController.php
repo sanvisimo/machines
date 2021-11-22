@@ -53,6 +53,9 @@ class ResourceStoreController extends Controller
         $input = $request->all();
         unset($input['machine']);
         unset($input['machine_trashed']);
+        if(!$input['contract']){
+            $input['contract'] = false;
+        }
 
         $controlPlan->fill($input);
         $controlPlan->save();

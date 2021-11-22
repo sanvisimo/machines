@@ -12946,7 +12946,7 @@ __webpack_require__.r(__webpack_exports__);
      * Set the initial, internal value for the field.
      */
     setInitialValue: function setInitialValue() {
-      this.value = this.field.value || '';
+      this.value = this.field.value !== null ? this.field.value : '';
     },
     getOptions: function getOptions() {
       var options = [{

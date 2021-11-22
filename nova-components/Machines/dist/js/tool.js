@@ -15712,18 +15712,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                if (!(_this2.resourceName !== 'control-plans')) {
+                  _context2.next = 11;
+                  break;
+                }
+
+                _context2.next = 3;
                 return Nova.request().get("/nova-vendor/machines/control-plan-configs/".concat(_this2.resourceId));
 
-              case 2:
+              case 3:
                 _yield$Nova$request$g = _context2.sent;
                 data = _yield$Nova$request$g.data;
                 _this2.configPlan = data.controlPlan;
                 _this2.isConfigPlan = !data.controlPlan;
                 _this2.showConfig = !!data.controlPlan;
                 _this2.loading = false;
+                _context2.next = 14;
+                break;
 
-              case 8:
+              case 11:
+                _this2.isConfigPlan = false;
+                _this2.showConfig = false;
+                _this2.loading = false;
+
+              case 14:
               case "end":
                 return _context2.stop();
             }
@@ -16264,7 +16276,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loading: true,
       fields: [],
       panels: [],
-      submitted: false
+      submitted: false,
+      machine_id: null
     };
   },
   mounted: function mounted() {
@@ -16277,10 +16290,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log("monato");
-
               if (!Nova.missingResource('control-plans')) {
-                _context.next = 3;
+                _context.next = 2;
                 break;
               }
 
@@ -16288,11 +16299,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 name: '404'
               }));
 
-            case 3:
+            case 2:
               url = "/nova-vendor/machines/control-plans/".concat(_this.machine);
+              _this.machine_id = _this.machine;
 
-              if (_this.$route.params.resourceName === "control-plans") {
-                url = "/nova-vendor/machines/control-plans/".concat(_this.$route.params.resourceId, "/edit");
+              if (_this.resourceName === "control-plans") {
+                url = "/nova-vendor/machines/control-plans/".concat(_this.machine, "/edit");
               }
 
               _context.next = 7;
@@ -16302,10 +16314,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _yield$Nova$request$g = _context.sent;
               data = _yield$Nova$request$g.data;
               _this.controlPlan = data.controlPlan;
-              _context.next = 12;
+
+              if (_this.resourceName === "control-plans") {
+                _this.machine_id = data.controlPlan.machine_id;
+              }
+
+              _context.next = 13;
               return _this.getFields();
 
-            case 12:
+            case 13:
             case "end":
               return _context.stop();
           }
@@ -16342,7 +16359,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     editing: true,
                     editMode: 'update',
                     viaResource: 'machines',
-                    viaResourceId: _this2.machine,
+                    viaResourceId: _this2.machine_id,
                     viaRelationship: 'controlPlans'
                   }
                 });
@@ -46330,6 +46347,7 @@ var render = function() {
           [
             _c("control-plan-form", {
               attrs: {
+                resourceName: _vm.resourceName,
                 machine: _vm.resourceId,
                 update: _vm.isUpdate,
                 canEdit: _vm.canEdit
@@ -46577,7 +46595,7 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.__("Save")))]
                 ),
                 _vm._v(" "),
-                _vm.$route.params.resourceName === "machines" && _vm.canEdit
+                _vm.resourceName === "machines" && _vm.canEdit
                   ? _c(
                       "span",
                       {
@@ -46612,7 +46630,7 @@ var render = function() {
                     mode: "form",
                     "validation-errors": _vm.validationErrors,
                     "via-resource": "machines",
-                    "via-resource-id": _vm.machine,
+                    "via-resource-id": _vm.machine_id,
                     "via-relationship": "controlPlans"
                   },
                   on: {
@@ -46633,7 +46651,7 @@ var render = function() {
         ? _c("component-config", {
             ref: "compos",
             attrs: {
-              "resource-id": _vm.machine,
+              "resource-id": _vm.machine_id,
               config: false,
               "control-plan": _vm.controlPlan
             }

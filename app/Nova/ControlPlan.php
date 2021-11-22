@@ -54,8 +54,8 @@ class ControlPlan extends Resource
 
             ButtonGroup::make(__('Contract'),'contract')->default(1)
                 ->options([
-                    0 => __('NO'),
-                    1 => __('YES'),
+                    false => __('NO'),
+                    true => __('YES'),
                 ])
                 ->hideFromDetail(),
             Currency::make(__('Cost'), 'cost')->hideWhenUpdating(),
