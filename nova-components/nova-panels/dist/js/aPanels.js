@@ -374,7 +374,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       breadcrumb: ""
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     this.getBreadcrumb();
   },
   watch: {

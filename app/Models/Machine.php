@@ -66,7 +66,7 @@ class Machine extends Model
         return $this->components()->with('articles');
     }
 
-    public function getparent() {
+    public function getParent() {
         return $this->plant;
     }
 

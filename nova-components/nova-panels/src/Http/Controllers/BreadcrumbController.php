@@ -32,22 +32,25 @@ class BreadcrumbController
     {
         $params = $request->get('params');
         $query = $request->get('query');
+
+        $exist = false;
         if(!empty($params)) {
             if(isset($params['resourceId'])) {
-
+                $exist = in_array($params['resourceName'], $this->tree);
                 $element = $this->getBreadcrumb($params['resourceName'], $params['resourceId']);
                 if($element && method_exists($element, 'getParent')) {
                     $this->getParents($element);
                 }
             } elseif(isset($params['resourceName'])) {
+                $exist = in_array($params['resourceName'], $this->tree);
                 $this->breadcrumb[] = [
                     'url' => "/resources/{$params['resourceName']}",
                     'label' => $params['resourceName']
                 ];
             }
-
         }
-        if(!empty($query) && isset($query['viaResource'])) {
+
+        if(!empty($query) && isset($query['viaResource']) && !$exist) {
             $element = $this->getBreadcrumb($query['viaResource'], $query['viaResourceId']);
             $this->getParents($element);
         }

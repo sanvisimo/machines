@@ -15,7 +15,7 @@ export default {
           breadcrumb: ""
       }
     },
-    created() {
+    mounted() {
         this.getBreadcrumb();
     },
     watch: {
