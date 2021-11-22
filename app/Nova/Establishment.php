@@ -128,7 +128,7 @@ class Establishment extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable()->onlyOnForms(),
-            Text::make(__('Customer code'), 'customer_code')
+            Text::make(__('Establishment code'), 'customer_code')
                 ->sortable()
                 ->help(
                     __('Max 10')
@@ -143,7 +143,7 @@ class Establishment extends Resource
                         'slug' => $this->uriKey()
                     ])->render();
                 })->asHtml(),
-            Text::make(__('Customer name'), 'customer_name')
+            Text::make(__('Establishment name'), 'customer_name')
                 ->sortable()
                 ->help(
                     __('Max 60')

@@ -14828,7 +14828,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesFormRequest */ "../../nova/resources/js/mixins/HandlesFormRequest.js");
 /* harmony import */ var _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesUploads */ "../../nova/resources/js/mixins/HandlesUploads.js");
 var _excluded = ["name", "constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"],
-    _excluded2 = ["name", "constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"];
+    _excluded2 = ["vibrations", "temperature", "pressure", "payload"],
+    _excluded3 = ["name", "constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"];
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -14839,6 +14840,17 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15058,6 +15070,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
       heading: {},
       name: "",
       info: {},
+      points: {},
       attachments: {},
       resource: {},
       panel: {},
@@ -15085,8 +15098,20 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
           component_sub_category_id = _this$component.component_sub_category_id,
           created_at = _this$component.created_at,
           updated_at = _this$component.updated_at,
-          info = _objectWithoutProperties(_this$component, _excluded);
+          others = _objectWithoutProperties(_this$component, _excluded);
 
+      var vibrations = others.vibrations,
+          temperature = others.temperature,
+          pressure = others.pressure,
+          payload = others.payload,
+          info = _objectWithoutProperties(others, _excluded2);
+
+      this.points = {
+        vibrations: vibrations,
+        temperature: temperature,
+        pressure: pressure,
+        payload: payload
+      };
       this.heading = {
         constructor: constructor,
         "category > subcategory": "".concat(category, " > ").concat(subcategory)
@@ -15192,7 +15217,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
           component_sub_category_id = resource.component_sub_category_id,
           created_at = resource.created_at,
           updated_at = resource.updated_at,
-          info = _objectWithoutProperties(resource, _excluded2);
+          info = _objectWithoutProperties(resource, _excluded3);
 
       this.name = name;
       this.heading = {
@@ -45922,6 +45947,20 @@ var render = function() {
                 "div",
                 { staticClass: "grid grid-cols-2 gap-4" },
                 _vm._l(_vm.info, function(field, index) {
+                  return _c("component-detail-field", {
+                    key: "accordion-" + index,
+                    attrs: { label: index, value: field }
+                  })
+                }),
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("card", { staticClass: "mb-6 py-3 px-6" }, [
+              _c(
+                "div",
+                { staticClass: "grid grid-cols-2 gap-4" },
+                _vm._l(_vm.points, function(field, index) {
                   return _c("component-detail-field", {
                     key: "accordion-" + index,
                     attrs: { label: index, value: field }

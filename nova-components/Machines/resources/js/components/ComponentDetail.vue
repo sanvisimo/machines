@@ -75,6 +75,17 @@
               </card>
 
               <card class="mb-6 py-3 px-6">
+                  <div class="grid grid-cols-2 gap-4">
+                      <component-detail-field
+                          v-for="(field, index) in points"
+                          :key="'accordion-' + index"
+                          :label="index"
+                          :value="field"
+                      />
+                  </div>
+              </card>
+
+              <card class="mb-6 py-3 px-6">
                   <h3>{{ __('Report') }} </h3>
               </card>
 
@@ -215,6 +226,7 @@ export default {
           heading: {},
           name: "",
           info: {},
+          points: {},
           attachments: {},
           resource: {},
           panel: {},
@@ -242,8 +254,24 @@ export default {
                 component_sub_category_id,
                 created_at,
                 updated_at,
-                ...info
+                ...others
             } = this.component
+
+            const {
+                vibrations,
+                temperature,
+                pressure,
+                payload,
+                ...info
+            } = others;
+
+            this.points = {
+                vibrations,
+                temperature,
+                pressure,
+                payload,
+            }
+
             this.heading = {
                 constructor,
                 "category > subcategory": `${category} > ${subcategory}`
