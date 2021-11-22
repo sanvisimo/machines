@@ -47,8 +47,7 @@ class ComponentObserver
             }
 
             $pos = $component->temperature + $component->pressure + $component->payload;
-            for($i = 1; $i <= $pos; $i++){
-
+            for($i = 0; $i < $pos; $i++){
                 $position = $i + 1;
                 $config = new MeasurementConfig;
                 $config->component_id = $component->id;

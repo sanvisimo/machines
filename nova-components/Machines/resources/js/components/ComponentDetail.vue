@@ -2,7 +2,7 @@
   <div class="my-3">
 
       <div class="flex justify-between my-2">
-          <h2>{{ component.name }}</h2>
+          <h2>{{ name }}</h2>
           <div>
               <router-link
                   :to="{
@@ -22,14 +22,30 @@
                  {{ __('Extraordinary Manutention' ) }}
               </router-link>
           </div>
-          <div>
-              <button
-                  type="button"
-                  class="btn btn-white btn-default"
-                  @click="openEditModal"
-              >
-                {{ __('Edit') }}
+          <div class="relative my-4 flex justify-end">
+              <button type="button" @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
+                                    <span class="flex gap-2 items-center">
+                                        <span>{{ __('Menu') }}</span>
+                                        <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
               </button>
+
+              <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+              <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
+                                <span
+                                    @click="openEditModal"
+                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                >
+                                    {{ __('Edit') }}
+                                </span>
+                  <span
+                      @click="openDeleteModal"
+                      class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
+                                    {{ __('Delete') }}
+                                </span>
+              </div>
           </div>
       </div>
 
@@ -77,7 +93,7 @@
                           <h4 class="font-normal text-80">{{ __(index) }}</h4>
                           <div>
                               <div v-for="(attachment, id) in group" :key="`attachment-${attachment.id}`" class="flex items-center justify-end gap-2">
-                                  <a :href="`/storage/${attachment.file_path}`" _target="blank">{{ attachment.name }}</a>
+                                  <a :href="`/storage/${attachment.file_path}`" target="_blank">{{ attachment.name }}</a>
                                   <div>
                                       <font-awesome-icon :icon="`fa-solid ${icon(attachment.file_path)}`" /> <span>{{ last(attachment.file_path) }}</span>
                                   </div>
@@ -162,6 +178,21 @@
               />
             </div>
           </modal>
+          <delete-resource-modal
+              v-if="deleteModalOpen"
+              @confirm="confirmDelete"
+              @close="closeDeleteModal"
+              mode="delete"
+          >
+              <div slot-scope="{ uppercaseMode, mode }" class="p-8">
+                  <heading :level="2" class="mb-6">{{
+                          __(uppercaseMode + ' Resource')
+                      }}</heading>
+                  <p class="text-80 leading-normal">
+                      {{ __('Are you sure you want to ' + mode + ' this resource?') }}
+                  </p>
+              </div>
+          </delete-resource-modal>
 
       </portal>
   </div>
@@ -182,12 +213,15 @@ export default {
       return {
           active: false,
           heading: {},
+          name: "",
           info: {},
           attachments: {},
           resource: {},
           panel: {},
           documentModalOpen: false,
-          editModalOpen: false
+          editModalOpen: false,
+          deleteModalOpen: false,
+          dropdownOpen: false,
       }
     },
     mounted() {
@@ -198,6 +232,7 @@ export default {
     methods: {
         getInfo() {
             const {
+                name,
                 constructor,
                 category,
                 subcategory,
@@ -214,6 +249,7 @@ export default {
                 "category > subcategory": `${category} > ${subcategory}`
             }
 
+            this.name = name;
             this.info = info;
         },
 
@@ -257,14 +293,17 @@ export default {
 
         openEditModal() {
             this.editModalOpen = true;
+            this.dropdownOpen = false;
         },
 
         closeEditModal() {
           this.editModalOpen = false;
+            this.dropdownOpen = false;
         },
 
         handleUpdate(resource) {
           const {
+            name,
             constructor,
             category,
             subcategory,
@@ -276,6 +315,9 @@ export default {
             updated_at,
             ...info
           } = resource;
+
+          this.name = name;
+
           this.heading = {
             constructor,
             "category > subcategory": `${category} > ${subcategory}`
@@ -290,6 +332,28 @@ export default {
             this.fetchAttachments();
             this.fetchArticles();
             this.closeDocumentModal();
+        },
+
+        openDeleteModal() {
+            this.deleteModalOpen = true;
+            this.dropdownOpen = false;
+        },
+
+        async confirmDelete() {
+            await Nova.request().delete(`/nova-api/components?`,
+                {
+                    params: {
+                        resources: [this.component.id]
+                    }
+                }
+            )
+            this.closeDeleteModal();
+            this.$emit('deleted');
+        },
+
+        closeDeleteModal() {
+            this.deleteModalOpen = false;
+            this.dropdownOpen = false;
         },
     }
 }

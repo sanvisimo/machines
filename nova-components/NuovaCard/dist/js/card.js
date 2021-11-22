@@ -25164,6 +25164,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25229,11 +25236,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getIcon: function getIcon(event) {
+      console.log("arg", event.extendedProps);
       return event.extendedProps.type.includes('maintenance') ? 'fa-screwdriver-wrench' : 'fa-temperature-half';
     },
     getColor: function getColor(event) {
-      console.log("event", event.start, event);
-
       if (event.active) {
         if (moment().isAfter(moment(event.start))) {
           return "bg-red-600";
@@ -26322,17 +26328,33 @@ var render = function () {
                         },
                       },
                     },
-                    [_vm._v(_vm._s(_vm.__("Take Charge")))]
+                    [_vm._v(_vm._s(_vm.__("Handle")))]
                   ),
                   _vm._v(" "),
                   _c("font-awesome-icon", {
                     staticClass: "text-primary",
-                    attrs: { icon: "fa-solid " + _vm.getIcon(arg.event) },
+                    attrs: { icon: "fa-solid " + _vm.getIcon(arg.event, arg) },
                   }),
                   _vm._v(" "),
-                  _c("i", { staticClass: "mx-2 text-primary" }, [
+                  _c("span", { staticClass: "mx-2 text-primary" }, [
                     _vm._v(_vm._s(arg.event.title)),
                   ]),
+                  _vm._v(" "),
+                  arg.view.type.includes("list")
+                    ? _c("i", [
+                        _vm._v(
+                          "\n                    [\n                        " +
+                            _vm._s(arg.event.extendedProps.customer) +
+                            " >\n                        " +
+                            _vm._s(arg.event.extendedProps.establishment) +
+                            " >\n                        " +
+                            _vm._s(arg.event.extendedProps.plant) +
+                            " >\n                        " +
+                            _vm._s(arg.event.extendedProps.machine.name) +
+                            "\n                    ]\n                "
+                        ),
+                      ])
+                    : _vm._e(),
                 ]
               },
             },

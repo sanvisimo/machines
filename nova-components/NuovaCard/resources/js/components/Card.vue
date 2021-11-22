@@ -12,10 +12,17 @@
         <div class="card py-6 px-6">
             <FullCalendar ref="fullCalendar" :options="calendarOptions" >
                 <template v-slot:eventContent='arg'>
-                    <button class="btn rounded-full btn-primary px-3 py-2 bg-primary-30% mr-3" @click="goTo(arg.event.extendedProps)">{{ __('Take Charge') }}</button>
-                    <font-awesome-icon :icon="`fa-solid ${getIcon(arg.event)}`" class="text-primary" />
-                    <i class="mx-2 text-primary">{{ arg.event.title }}</i>
-
+                    <button class="btn rounded-full btn-primary px-3 py-2 bg-primary-30% mr-3" @click="goTo(arg.event.extendedProps)">{{ __('Handle') }}</button>
+                    <font-awesome-icon :icon="`fa-solid ${getIcon(arg.event, arg)}`" class="text-primary" />
+                    <span class="mx-2 text-primary">{{ arg.event.title }}</span>
+                    <i v-if="arg.view.type.includes('list')">
+                        [
+                            {{ arg.event.extendedProps.customer }} >
+                            {{ arg.event.extendedProps.establishment }} >
+                            {{ arg.event.extendedProps.plant }} >
+                            {{ arg.event.extendedProps.machine.name }}
+                        ]
+                    </i>
                 </template>
             </FullCalendar>
         </div>
@@ -88,10 +95,10 @@ export default {
             }
         },
         getIcon(event) {
-          return event.extendedProps.type.includes('maintenance') ? 'fa-screwdriver-wrench' : 'fa-temperature-half';
+            console.log("arg", event.extendedProps)
+            return event.extendedProps.type.includes('maintenance') ? 'fa-screwdriver-wrench' : 'fa-temperature-half';
         },
         getColor(event) {
-            console.log("event", event.start, event)
             if(event.active) {
                 if (moment().isAfter(moment(event.start))) {
                     return "bg-red-600"

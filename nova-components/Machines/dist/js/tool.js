@@ -14827,8 +14827,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Update__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Update */ "./resources/js/components/Update.vue");
 /* harmony import */ var _nova_resources_js_mixins_HandlesFormRequest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesFormRequest */ "../../nova/resources/js/mixins/HandlesFormRequest.js");
 /* harmony import */ var _nova_resources_js_mixins_HandlesUploads__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../nova/resources/js/mixins/HandlesUploads */ "../../nova/resources/js/mixins/HandlesUploads.js");
-var _excluded = ["constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"],
-    _excluded2 = ["constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"];
+var _excluded = ["name", "constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"],
+    _excluded2 = ["name", "constructor", "category", "subcategory", "component_category_id", "id", "machine_id", "component_sub_category_id", "created_at", "updated_at"];
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -14839,6 +14839,37 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15025,12 +15056,15 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
     return {
       active: false,
       heading: {},
+      name: "",
       info: {},
       attachments: {},
       resource: {},
       panel: {},
       documentModalOpen: false,
-      editModalOpen: false
+      editModalOpen: false,
+      deleteModalOpen: false,
+      dropdownOpen: false
     };
   },
   mounted: function mounted() {
@@ -15041,6 +15075,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
   methods: {
     getInfo: function getInfo() {
       var _this$component = this.component,
+          name = _this$component.name,
           constructor = _this$component.constructor,
           category = _this$component.category,
           subcategory = _this$component.subcategory,
@@ -15056,6 +15091,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
         constructor: constructor,
         "category > subcategory": "".concat(category, " > ").concat(subcategory)
       };
+      this.name = name;
       this.info = info;
     },
     fetchArticles: function fetchArticles() {
@@ -15139,12 +15175,15 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
     },
     openEditModal: function openEditModal() {
       this.editModalOpen = true;
+      this.dropdownOpen = false;
     },
     closeEditModal: function closeEditModal() {
       this.editModalOpen = false;
+      this.dropdownOpen = false;
     },
     handleUpdate: function handleUpdate(resource) {
-      var constructor = resource.constructor,
+      var name = resource.name,
+          constructor = resource.constructor,
           category = resource.category,
           subcategory = resource.subcategory,
           component_category_id = resource.component_category_id,
@@ -15155,6 +15194,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
           updated_at = resource.updated_at,
           info = _objectWithoutProperties(resource, _excluded2);
 
+      this.name = name;
       this.heading = {
         constructor: constructor,
         "category > subcategory": "".concat(category, " > ").concat(subcategory)
@@ -15167,6 +15207,42 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
       this.fetchAttachments();
       this.fetchArticles();
       this.closeDocumentModal();
+    },
+    openDeleteModal: function openDeleteModal() {
+      this.deleteModalOpen = true;
+      this.dropdownOpen = false;
+    },
+    confirmDelete: function confirmDelete() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return Nova.request()["delete"]("/nova-api/components?", {
+                  params: {
+                    resources: [_this3.component.id]
+                  }
+                });
+
+              case 2:
+                _this3.closeDeleteModal();
+
+                _this3.$emit('deleted');
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    closeDeleteModal: function closeDeleteModal() {
+      this.deleteModalOpen = false;
+      this.dropdownOpen = false;
     }
   }
 });
@@ -16597,20 +16673,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return this.$route.query.component && this.$route.query.component == id;
     },
     fetchData: function fetchData() {
-      var _this = this;
+      var _arguments = arguments,
+          _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var tabs, _yield$Nova$request$g, data;
+        var edit, tabs, _yield$Nova$request$g, data, index, active;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                edit = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : false;
                 tabs = {};
-                _context.next = 3;
+                _context.next = 4;
                 return Nova.request().get("/nova-vendor/machines/components/".concat(_this.resourceId));
 
-              case 3:
+              case 4:
                 _yield$Nova$request$g = _context.sent;
                 data = _yield$Nova$request$g.data;
                 data.components.forEach(function (component) {
@@ -16630,9 +16708,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   tabs[component.name].fields = _objectSpread(_objectSpread({}, tabs[component.name].fields), component);
                 });
                 _this.tabs = tabs;
-                if (!_this.activeTab && tabs[Object.keys(tabs)[0]]) _this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+                index = edit ? Object.keys(tabs).length - 1 : 0;
+                active = edit ? true : !_this.activeTab;
+                console.log('index', index, active);
 
-              case 8:
+                if (active && tabs[Object.keys(tabs)[index]]) {
+                  _this.handleTabClick(tabs[Object.keys(tabs)[index]]);
+                }
+
+                if (_.isEmpty(tabs)) {
+                  _this.activeTab = "";
+                }
+
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -16652,7 +16740,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     handleSetResource: function handleSetResource() {
       this.closeRelationModal();
-      this.fetchData();
+      this.fetchData(true);
+    },
+    handleDelete: function handleDelete() {
+      this.fetchData(true);
     }
   }
 });
@@ -45602,7 +45693,7 @@ var render = function() {
     { staticClass: "my-3" },
     [
       _c("div", { staticClass: "flex justify-between my-2" }, [
-        _c("h2", [_vm._v(_vm._s(_vm.component.name))]),
+        _c("h2", [_vm._v(_vm._s(_vm.name))]),
         _vm._v(" "),
         _c(
           "div",
@@ -45638,17 +45729,110 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c("div", [
+        _c("div", { staticClass: "relative my-4 flex justify-end" }, [
           _c(
             "button",
             {
-              staticClass: "btn btn-white btn-default",
+              staticClass:
+                "relative z-10 block rounded-md bg-white p-2 focus:outline-none",
               attrs: { type: "button" },
-              on: { click: _vm.openEditModal }
+              on: {
+                click: function($event) {
+                  _vm.dropdownOpen = !_vm.dropdownOpen
+                }
+              }
             },
             [
-              _vm._v(
-                "\n              " + _vm._s(_vm.__("Edit")) + "\n            "
+              _c("span", { staticClass: "flex gap-2 items-center" }, [
+                _c("span", [_vm._v(_vm._s(_vm.__("Menu")))]),
+                _vm._v(" "),
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-5 w-5 text-gray-800",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 20 20",
+                      fill: "currentColor"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        "fill-rule": "evenodd",
+                        d:
+                          "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                        "clip-rule": "evenodd"
+                      }
+                    })
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.dropdownOpen,
+                expression: "dropdownOpen"
+              }
+            ],
+            staticClass: "fixed inset-0 h-full w-full z-10",
+            on: {
+              click: function($event) {
+                _vm.dropdownOpen = false
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.dropdownOpen,
+                  expression: "dropdownOpen"
+                }
+              ],
+              staticClass:
+                "absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20"
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
+                  on: { click: _vm.openEditModal }
+                },
+                [
+                  _vm._v(
+                    "\n                                  " +
+                      _vm._s(_vm.__("Edit")) +
+                      "\n                              "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
+                  on: { click: _vm.openDeleteModal }
+                },
+                [
+                  _vm._v(
+                    "\n                                  " +
+                      _vm._s(_vm.__("Delete")) +
+                      "\n                              "
+                  )
+                ]
               )
             ]
           )
@@ -45783,7 +45967,7 @@ var render = function() {
                                 {
                                   attrs: {
                                     href: "/storage/" + attachment.file_path,
-                                    _target: "blank"
+                                    target: "_blank"
                                   }
                                 },
                                 [_vm._v(_vm._s(attachment.name))]
@@ -45937,6 +46121,57 @@ var render = function() {
                   )
                 ]
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.deleteModalOpen
+            ? _c("delete-resource-modal", {
+                attrs: { mode: "delete" },
+                on: { confirm: _vm.confirmDelete, close: _vm.closeDeleteModal },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "default",
+                      fn: function(ref) {
+                        var uppercaseMode = ref.uppercaseMode
+                        var mode = ref.mode
+                        return _c(
+                          "div",
+                          { staticClass: "p-8" },
+                          [
+                            _c(
+                              "heading",
+                              { staticClass: "mb-6", attrs: { level: 2 } },
+                              [
+                                _vm._v(
+                                  _vm._s(_vm.__(uppercaseMode + " Resource"))
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "text-80 leading-normal" }, [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(
+                                    _vm.__(
+                                      "Are you sure you want to " +
+                                        mode +
+                                        " this resource?"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ])
+                          ],
+                          1
+                        )
+                      }
+                    }
+                  ],
+                  null,
+                  false,
+                  3693631278
+                )
+              })
             : _vm._e()
         ],
         1
@@ -46543,7 +46778,8 @@ var render = function() {
               },
               [
                 _c("component-detail", {
-                  attrs: { component: tab.fields, attrs: _vm.$attrs }
+                  attrs: { component: tab.fields, attrs: _vm.$attrs },
+                  on: { deleted: _vm.handleDelete }
                 })
               ],
               1

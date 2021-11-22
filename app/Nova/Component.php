@@ -105,10 +105,22 @@ class Component extends Resource
             Text::make(__('Model'),'model')->size('w-1/3')->rules('required'),
             Text::make(__('Serial number'),'serial_number')->size('w-1/3')->rules('required'),
             Textarea::make(__('Description'),'description')->stacked(),
-            Number::make(__('Point of Vibrations'), 'vibrations')->size('w-1/4'),
-            Number::make(__('Point of Temperature'), 'temperature')->size('w-1/4'),
-            Number::make(__('Point of Pressure'), 'pressure')->size('w-1/4'),
-            Number::make(__('Point of Payload'), 'payload')->size('w-1/4'),
+            Number::make(__('Point of Vibrations'), 'vibrations')->size('w-1/4')
+                ->readonly(function ($request) {
+                    return $request->isUpdateOrUpdateAttachedRequest();
+                }),
+            Number::make(__('Point of Temperature'), 'temperature')->size('w-1/4')
+                ->readonly(function ($request) {
+                    return $request->isUpdateOrUpdateAttachedRequest();
+                }),
+            Number::make(__('Point of Pressure'), 'pressure')->size('w-1/4')
+                ->readonly(function ($request) {
+                    return $request->isUpdateOrUpdateAttachedRequest();
+                }),
+            Number::make(__('Point of Payload'), 'payload')->size('w-1/4')
+                ->readonly(function ($request) {
+                    return $request->isUpdateOrUpdateAttachedRequest();
+                }),
             MorphMany::make(__('Attachments'), 'attachments'),
             HasMany::make(__('Articles'), 'articles', ManagedArticle::class),
             HasMany::make('maintenances')->onlyOnIndex()->hideFromIndex(),

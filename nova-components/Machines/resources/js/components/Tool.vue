@@ -30,7 +30,7 @@
           :label="tab.name"
           :key="'related-tabs-fields' + index"
       >
-          <component-detail :component="tab.fields" :attrs="$attrs" />
+          <component-detail :component="tab.fields" :attrs="$attrs" @deleted="handleDelete" />
       </div>
       <portal to="modals" transition="fade-transition">
           <modal
@@ -96,7 +96,7 @@ export default {
             return this.$route.query.component && this.$route.query.component == id
         },
 
-        async fetchData () {
+        async fetchData (edit = false) {
             let tabs = {}
             const { data } = await Nova.request().get(`/nova-vendor/machines/components/${this.resourceId}`);
             data.components.forEach(component => {
@@ -120,7 +120,16 @@ export default {
             })
 
             this.tabs = tabs
-            if(!this.activeTab && tabs[Object.keys(tabs)[0]]) this.handleTabClick(tabs[Object.keys(tabs)[0]]);
+            const index = edit ? Object.keys(tabs).length - 1 : 0;
+            const active = edit ? true : !this.activeTab;
+            console.log('index', index, active)
+            if(active && tabs[Object.keys(tabs)[index]]) {
+                this.handleTabClick(tabs[Object.keys(tabs)[index]]);
+            }
+
+            if(_.isEmpty(tabs)){
+                this.activeTab = "";
+            }
         },
         handleTabClick(tab, event) {
             tab.init = true
@@ -136,8 +145,12 @@ export default {
 
         handleSetResource() {
             this.closeRelationModal();
-            this.fetchData();
+            this.fetchData(true);
         },
+
+        handleDelete(){
+            this.fetchData(true);
+        }
 
     }
 }

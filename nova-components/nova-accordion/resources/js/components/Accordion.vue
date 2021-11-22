@@ -43,7 +43,7 @@
                             <h4 class="font-normal text-80">{{ __(index) }}</h4>
                             <div>
                                 <div v-for="(attachment, id) in group" :key="`attachment-${attachment.id}`" class="flex items-center justify-end gap-2">
-                                    <a :href="`/storage/${attachment.file_path}`" _target="blank">{{ attachment.name }}</a>
+                                    <a :href="`/storage/${attachment.file_path}`" target="_blank">{{ attachment.name }}</a>
                                     <div>
                                         <font-awesome-icon :icon="`fa-solid ${icon(attachment.file_path)}`" /> <span>{{ last(attachment.file_path) }}</span>
                                     </div>

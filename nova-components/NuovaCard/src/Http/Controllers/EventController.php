@@ -28,25 +28,28 @@ class EventController
                 });
             });
         }
-          $activities = $query->get();
+          $activities = $query->with('machine')->get();
 
         $events = $activities->map(function ($item) {
-           $item['title'] = $item['description'];
-           $item['start'] = Carbon::instance($item['expiration'])->format("Y-m-d");
+            $item['title'] = $item['description'];
+            $item['start'] = Carbon::instance($item['expiration'])->format("Y-m-d");
+            $item['plant'] = $item->machine->plant->plant;
+            $item['establishment'] = $item->machine->plant->establishment->customer_name;
+            $item['customer'] = $item->machine->plant->establishment->customer->customer_name;
 
-           $color = "";
-           if($item['active']) {
-               if (Carbon::now()->gt($item['expiration'])) {
-                   $color = "#dc2626";
-               }
+            $color = "";
+            if($item['active']) {
+                if (Carbon::now()->gt($item['expiration'])) {
+                    $color = "#dc2626";
+                }
 
-               if (Carbon::now()->addDays(5)->gte($item['expiration'])) {
-                   $color = "#f59e0b";
-               }
-           }
+                if (Carbon::now()->addDays(5)->gte($item['expiration'])) {
+                    $color = "#f59e0b";
+                }
+            }
 
-           $item['color'] = $color;
-           return $item;
+            $item['color'] = $color;
+            return $item;
         });
 
 

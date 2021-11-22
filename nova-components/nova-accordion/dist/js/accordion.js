@@ -1407,7 +1407,7 @@ var render = function() {
                                   {
                                     attrs: {
                                       href: "/storage/" + attachment.file_path,
-                                      _target: "blank"
+                                      target: "_blank"
                                     }
                                   },
                                   [_vm._v(_vm._s(attachment.name))]
