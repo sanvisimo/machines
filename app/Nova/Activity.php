@@ -95,7 +95,6 @@ class Activity extends Resource
     {
         $resourceId = $request->get('viaResourceId');
 
-
         return $query->whereIn('component_id', function($query) use ($resourceId) {
           $query->select('id')->from(with(new \App\Models\Component)->getTable())
           ->where('machine_id', $resourceId);
