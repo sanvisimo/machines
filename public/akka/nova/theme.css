@@ -71,3 +71,8 @@
 .sidebar .trigger {
     top: 104px !important;
 }
+
+.login {
+    background-image: url(/bg.jpg);
+    background-size: cover;
+}

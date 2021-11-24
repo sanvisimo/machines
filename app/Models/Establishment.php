@@ -48,6 +48,6 @@ class Establishment extends Model
     }
 
     public function getName() {
-        return $this->customer_name;
+        return $this->customer_name . ' - ' . $this->city;
     }
 }

@@ -153,7 +153,7 @@ class Establishment extends Resource
                 ->displayUsing(function ($value) {
                     return view('link', [
                         'id' => $this->id,
-                        'value' => $value,
+                        'value' => $value . ' - '. $this->city,
                         'slug' => $this->uriKey()
                     ])->render();
                 })->asHtml(),
