@@ -30,7 +30,7 @@ class ActivityObserver
                     $model->periodicity = $activity->periodicity;
                     $model->save();
 
-                    $activity->activitable_id = $model->id;
+                    $activity->activitable_id = $model->getKey();
                     $activity->activitable_type = 'App\Models\Maintenance';
                     $activity->save();
                 }

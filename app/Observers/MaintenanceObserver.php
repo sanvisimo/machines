@@ -41,20 +41,24 @@ class MaintenanceObserver
             $model->element_type = '\App\Models\Component';
             $model->save();
         } else {
+            $model = $activity->replicate();
+            $model->expiration = Carbon::now()->addDays($maintenance->periodicity);
+            $model->save();
+
             $activity->expiration = Carbon::now();
             $activity->active = false;
             $activity->save();
 
-            $model = new Activity;
-            $model->machine_id = $maintenance->machine_id;
-            $model->description = $activity->description;
-            $model->expiration = Carbon::now()->addDays($maintenance->periodicity);
-            $model->type = $maintenance->type;
-            $model->periodicity = $maintenance->periodicity;
-            $model->active = true;
-            $model->element_id = $maintenance->component_id;
-            $model->element_type = '\App\Models\Component';
-            $model->save();
+//            $model = new Activity;
+//            $model->machine_id = $maintenance->machine_id;
+//            $model->description = $activity->description;
+//            $model->expiration = Carbon::now()->addDays($maintenance->periodicity);
+//            $model->type = $maintenance->type;
+//            $model->periodicity = $maintenance->periodicity;
+//            $model->active = true;
+//            $model->element_id = $activity->element_id;
+//            $model->element_type = $activity->element_type;
+//            $model->save();
         }
     }
 

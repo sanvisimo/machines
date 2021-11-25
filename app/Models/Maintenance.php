@@ -32,7 +32,7 @@ class Maintenance extends Model
 
                 $model->machine_id = $component->machine_id;
             }
-            if(!$model->closed_on) {
+            if($model->opening_date && !$model->closed_on) {
                 $model->closed_on = Carbon::now();
                 $model->duration = Carbon::now()->diffInMinutes($model->opening_date);
             }
