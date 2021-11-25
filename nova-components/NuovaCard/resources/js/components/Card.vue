@@ -95,7 +95,6 @@ export default {
             }
         },
         getIcon(event) {
-            console.log("arg", event.extendedProps)
             return event.extendedProps.type.includes('maintenance') ? 'fa-screwdriver-wrench' : 'fa-temperature-half';
         },
         getColor(event) {

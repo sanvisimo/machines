@@ -74,7 +74,7 @@ export default {
         componentConfigId: null,
     }),
 
-    async created() {
+    async mounted() {
         if (Nova.missingResource('measurement-configs'))
             return this.$router.push({ name: '404' })
 
@@ -97,6 +97,7 @@ export default {
             if(this.update){
                 const { data } = await Nova.request().get(`/nova-vendor/machines/components-config/${this.componentId}/${this.position}`);
                 this.componentConfigId = data.id
+                console.log('data', data)
                 url = `/nova-api/measurement-configs/${data.id}/update-fields`;
             }
 
@@ -115,8 +116,9 @@ export default {
                 }
             )
 
-            this.panels = panels
-            this.fields = fields.map(field => {
+            this.panels = panels;
+            console.log('campi',this.componentConfigId, fields)
+            this.fields = _.map(fields, field => {
                 if(field.attribute === 'image'){
                     return {
                         ...field,

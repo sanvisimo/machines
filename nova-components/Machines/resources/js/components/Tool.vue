@@ -122,7 +122,6 @@ export default {
             this.tabs = tabs
             const index = edit ? Object.keys(tabs).length - 1 : 0;
             const active = edit ? true : !this.activeTab;
-            console.log('index', index, active)
             if(active && tabs[Object.keys(tabs)[index]]) {
                 this.handleTabClick(tabs[Object.keys(tabs)[index]]);
             }

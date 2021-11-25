@@ -208,8 +208,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     $route: function $route(newValue, oldValue) {
-      console.log("inio", newValue.query, oldValue.query);
-
       if (newValue.query.tab) {
         this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
       }

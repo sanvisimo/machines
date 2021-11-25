@@ -14599,7 +14599,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       componentConfigId: null
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -14668,7 +14668,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 url = "/nova-api/measurement-configs/creation-fields";
 
                 if (!_this3.update) {
-                  _context3.next = 10;
+                  _context3.next = 11;
                   break;
                 }
 
@@ -14679,10 +14679,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$Nova$request$g = _context3.sent;
                 data = _yield$Nova$request$g.data;
                 _this3.componentConfigId = data.id;
+                console.log('data', data);
                 url = "/nova-api/measurement-configs/".concat(data.id, "/update-fields");
 
-              case 10:
-                _context3.next = 12;
+              case 11:
+                _context3.next = 13;
                 return Nova.request().get(url, {
                   params: {
                     editing: true,
@@ -14693,13 +14694,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 12:
+              case 13:
                 _yield$Nova$request$g2 = _context3.sent;
                 _yield$Nova$request$g3 = _yield$Nova$request$g2.data;
                 panels = _yield$Nova$request$g3.panels;
                 fields = _yield$Nova$request$g3.fields;
                 _this3.panels = panels;
-                _this3.fields = fields.map(function (field) {
+                console.log('campi', _this3.componentConfigId, fields);
+                _this3.fields = _.map(fields, function (field) {
                   if (field.attribute === 'image') {
                     return _objectSpread(_objectSpread({}, field), {}, {
                       attribute: 'image' + _this3.position,
@@ -14712,7 +14714,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 _this3.loading = false;
 
-              case 19:
+              case 21:
               case "end":
                 return _context3.stop();
             }
@@ -15398,7 +15400,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       panels: []
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -15994,14 +15996,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this2.panels = [];
                 _this2.fields = [];
-                console.log('aggiorno?', _this2.update);
                 url = "/nova-api/control-plan-configs/creation-fields";
 
                 if (_this2.update) {
                   url = "/nova-api/control-plan-configs/".concat(_this2.id, "/update-fields");
                 }
 
-                _context2.next = 7;
+                _context2.next = 6;
                 return Nova.request().get(url, {
                   params: {
                     editing: true,
@@ -16012,7 +16013,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 7:
+              case 6:
                 _yield$Nova$request$g2 = _context2.sent;
                 _yield$Nova$request$g3 = _yield$Nova$request$g2.data;
                 panels = _yield$Nova$request$g3.panels;
@@ -16021,7 +16022,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.fields = fields;
                 _this2.loading = false;
 
-              case 14:
+              case 13:
               case "end":
                 return _context2.stop();
             }
@@ -16444,7 +16445,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this4.isWorking = true;
 
                 if (!_this4.$refs.form.reportValidity()) {
-                  _context4.next = 26;
+                  _context4.next = 25;
                   break;
                 }
 
@@ -16469,14 +16470,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.$router.go("".concat(_this4.$route.path, "?tab=0"));
                 }
 
-                _context4.next = 26;
+                _context4.next = 25;
                 break;
 
               case 17:
                 _context4.prev = 17;
                 _context4.t0 = _context4["catch"](2);
                 window.scrollTo(0, 0);
-                console.log("err", _context4.t0);
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
                 _this4.isWorking = false;
@@ -16487,12 +16487,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this4.handleOnCreateResponseError(_context4.t0);
 
-              case 26:
+              case 25:
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
                 _this4.isWorking = false;
 
-              case 29:
+              case 28:
               case "end":
                 return _context4.stop();
             }
@@ -16752,7 +16752,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.tabs = tabs;
                 index = edit ? Object.keys(tabs).length - 1 : 0;
                 active = edit ? true : !_this.activeTab;
-                console.log('index', index, active);
 
                 if (active && tabs[Object.keys(tabs)[index]]) {
                   _this.handleTabClick(tabs[Object.keys(tabs)[index]]);
@@ -16762,7 +16761,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.activeTab = "";
                 }
 
-              case 13:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -17077,7 +17076,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this5.isWorking = true;
 
                 if (!_this5.$refs.form.reportValidity()) {
-                  _context5.next = 30;
+                  _context5.next = 28;
                   break;
                 }
 
@@ -17099,22 +17098,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 13:
                 if (!_this5.submittedViaUpdateResource) {
-                  _context5.next = 18;
+                  _context5.next = 17;
                   break;
                 }
 
-                console.log("eee"); // this.$router.push({ path: redirect }, () => {
-                //   window.scrollTo(0, 0)
-                // })
-
                 _this5.$emit('refresh', resource);
 
-                _context5.next = 21;
+                _context5.next = 19;
                 break;
 
-              case 18:
-                console.log("aaa");
-
+              case 17:
                 if (id != _this5.resourceId) {
                   _this5.$router.push({
                     name: 'edit',
@@ -17135,12 +17128,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 return _context5.abrupt("return");
 
-              case 21:
-                _context5.next = 30;
+              case 19:
+                _context5.next = 28;
                 break;
 
-              case 23:
-                _context5.prev = 23;
+              case 21:
+                _context5.prev = 21;
                 _context5.t0 = _context5["catch"](2);
                 window.scrollTo(0, 0);
                 _this5.submittedViaUpdateResource = false;
@@ -17152,17 +17145,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this5.handleOnUpdateResponseError(_context5.t0);
 
-              case 30:
+              case 28:
                 _this5.submittedViaUpdateResource = false;
                 _this5.submittedViaUpdateResourceAndContinueEditing = false;
                 _this5.isWorking = false;
 
-              case 33:
+              case 31:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[2, 23]]);
+        }, _callee5, null, [[2, 21]]);
       }))();
     },
 

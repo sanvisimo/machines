@@ -25236,7 +25236,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getIcon: function getIcon(event) {
-      console.log("arg", event.extendedProps);
       return event.extendedProps.type.includes('maintenance') ? 'fa-screwdriver-wrench' : 'fa-temperature-half';
     },
     getColor: function getColor(event) {

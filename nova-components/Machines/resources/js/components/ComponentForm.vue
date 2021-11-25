@@ -73,7 +73,7 @@ export default {
         panels: [],
     }),
 
-    async created() {
+    async mounted() {
         if (Nova.missingResource('measurements'))
             return this.$router.push({ name: '404' })
 

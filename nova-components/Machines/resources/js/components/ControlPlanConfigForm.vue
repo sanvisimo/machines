@@ -132,8 +132,6 @@ export default {
             this.panels = []
             this.fields = []
 
-            console.log('aggiorno?', this.update)
-
             let url = `/nova-api/control-plan-configs/creation-fields`
             if(this.update){
                 url = `/nova-api/control-plan-configs/${this.id}/update-fields`

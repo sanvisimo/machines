@@ -177,7 +177,6 @@ export default {
                     }
                 } catch (error) {
                     window.scrollTo(0, 0)
-                    console.log("err", error)
                     this.submittedViaCreateAndAddAnother = false
                     this.submittedViaCreateResource = true
                     this.isWorking = false

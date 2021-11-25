@@ -208,13 +208,8 @@ export default {
           await this.updateLastRetrievedAtTimestamp()
 
           if (this.submittedViaUpdateResource) {
-              console.log("eee")
-            // this.$router.push({ path: redirect }, () => {
-            //   window.scrollTo(0, 0)
-            // })
               this.$emit('refresh', resource);
           } else {
-              console.log("aaa")
             if (id != this.resourceId) {
               this.$router.push({
                 name: 'edit',

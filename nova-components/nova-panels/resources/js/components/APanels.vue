@@ -166,7 +166,6 @@ export default {
     },
     watch:{
         $route(newValue, oldValue){
-            console.log("inio", newValue.query, oldValue.query)
             if(newValue.query.tab) {
 
                 this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
