@@ -1,5 +1,8 @@
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
-
+@font-face{
+	font-family: 'FontEBGRegular';
+	src:url('/maint/nova/public/fonts/Barlow-Regular.ttf');
+}
 /* Document
    ========================================================================== */
 
@@ -1575,7 +1578,7 @@ textarea.form-input:read-only,
   border-color: var(--60) !important;
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05) !important;
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .05) !important;
-  font-family: Nunito, system-ui, BlinkMacSystemFont, -apple-system, sans-serif !important;
+  font-family: Arial, Arial, FontEBGRegular, Nunito, system-ui, BlinkMacSystemFont, -apple-system, sans-serif !important;
 }
 
 .chartist-tooltip:before {
@@ -3467,7 +3470,7 @@ trix-editor.disabled {
 }
 
 .font-sans {
-  font-family: Barlow, Nunito, system-ui, BlinkMacSystemFont, -apple-system, sans-serif;
+  font-family: Arial, Arial, FontEBGRegular, Nunito, system-ui, BlinkMacSystemFont, -apple-system, sans-serif;
 }
 
 .font-mono {
