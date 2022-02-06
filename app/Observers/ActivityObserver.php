@@ -19,7 +19,6 @@ class ActivityObserver
         switch($activity->type) {
             case "maintenance":
             case "maintenance_no":
-
                 $maintenance = $activity->element_type::where('id', $activity->activitable_id)->first();
                 if(!$maintenance) {
                     $model = new Maintenance;

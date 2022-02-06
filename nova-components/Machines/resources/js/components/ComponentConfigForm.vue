@@ -117,7 +117,6 @@ export default {
             )
 
             this.panels = panels;
-            console.log('campi',this.componentConfigId, fields)
             this.fields = _.map(fields, field => {
                 if(field.attribute === 'image'){
                     return {

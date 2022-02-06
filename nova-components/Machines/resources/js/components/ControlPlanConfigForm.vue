@@ -6,6 +6,10 @@
             autocomplete="off"
             ref="form"
         >
+          <div class="flex items-center justify-between">
+            <div class="text-90 font-normal text-2xl mb-3 flex-no-shrink">
+              {{ __('Update Control Plan Config') }}
+            </div>
             <div class="flex justify-end p-4 w-full gap-4">
                 <button type="submit" class="btn btn-default btn-primary">
                     {{ update ? __('Update configuration') : __('Configure Control Plan') }}
@@ -17,23 +21,25 @@
                     {{ __('Cancel') }}
                 </span>
             </div>
-            <form-panel
-                class="mb-8"
-                v-for="panel in panelsWithFields"
-                :shown-via-new-relation-modal="false"
-                :panel="panel"
-                :name="panel.name"
-                :key="panel.name"
-                resource-name="control-plan-configs"
-                :fields="panel.fields"
-                mode="form"
-                :validation-errors="validationErrors"
-                via-resource="machines"
-                :via-resource-id="resourceId"
-                :via-relationship="viaRelationship"
-            />
+          </div>
+
+          <form-panel
+              class="mb-8"
+              v-for="panel in panelsWithFields"
+              :shown-via-new-relation-modal="false"
+              :panel="panel"
+              :name="panel.name"
+              :key="panel.name"
+              resource-name="control-plan-configs"
+              :fields="panel.fields"
+              mode="form"
+              :validation-errors="validationErrors"
+              via-resource="machines"
+              :via-resource-id="resourceId"
+              :via-relationship="viaRelationship"
+          />
         </form>
-        <component-config :resource-id="resourceId" ref="compos" :config="true" :update="update" />
+        <component-config :resource-id="resourceId" ref="compos" :config="true" :update="update" @edit="editComponents" @upload="uploadFile" />
         <div class="flex justify-end p-4 w-full">
             <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">
                 {{ update ? __('Update configuration') : __('Configure Control Plan') }}
@@ -87,7 +93,9 @@ export default {
         loading: true,
         fields: [],
         panels: [],
-        submitted: false
+        submitted: false,
+        components: {},
+        files: [],
     }),
 
     async mounted() {
@@ -175,7 +183,7 @@ export default {
                         data: { redirect, id },
                     } = await this.createRequest()
 
-                    await this.$refs.compos.submitForms(id);
+                    // await this.$refs.compos.submitForms(id);
 
                     this.canLeave = true
 
@@ -207,7 +215,8 @@ export default {
          * Send a create request for this resource
          */
         async createRequest() {
-            let url = `/nova-api/control-plan-configs`;
+            let url = `/nova-vendor/machines/control-plans-configs`;
+            // let url = `/nova-api/control-plan-configs`;
 
             if(this.update) {
                 url = `/nova-vendor/machines/control-plans-configs/${this.id}`;
@@ -216,12 +225,6 @@ export default {
             return Nova.request().post(
                 url,
                 this.createResourceFormData(),
-                {
-                    params: {
-                        editing: true,
-                        editMode: this.update ? 'update' : 'create',
-                    },
-                }
             )
         },
 
@@ -232,13 +235,27 @@ export default {
             return _.tap(new FormData(), formData => {
                 _.each(this.fields, field => {
                     field.fill(formData)
-                })
-
-                formData.append('viaResource', 'machines')
-                formData.append('viaResourceId', this.resourceId)
-                formData.append('viaRelationship', 'controlPlanConfig')
+                });
+                _.each(this.files, file => {
+                  formData.append(`image-${file.position}`, file.file);
+                 });
+                formData.append('components', JSON.stringify(this.components));
             })
         },
+        editComponents(components){
+            this.components = components
+        },
+        uploadFile(file, position){
+            const files = this.files.filter(file => file.position !== position);
+            this.files = [
+              ...files,
+              {
+                position: position,
+                file
+              }
+            ]
+
+        }
     },
 
     computed: {
@@ -257,3 +274,9 @@ export default {
     },
 }
 </script>
+
+<style>
+.control-plan-config h1.text-2xl{
+  display: none;
+}
+</style>

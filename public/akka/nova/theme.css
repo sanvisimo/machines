@@ -76,3 +76,20 @@
     background-image: url(/bg.jpg);
     background-size: cover;
 }
+
+.py-6 {
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem;
+}
+.px-8 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+form .card .w-1\/5 {
+  width: 50%;
+  flex-shrink: 0;
+}
+.table td {
+    height: 2.5rem;
+}

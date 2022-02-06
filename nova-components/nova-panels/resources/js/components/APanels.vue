@@ -3,7 +3,37 @@
         <div class=""></div>
         <div>
             <div class="flex flex-row">
-                <div class="flex justify-between gap-2 items-center px-8 border-b-2 border-40">
+              <div class="relative flex justify-end" v-if="activeTab === 0">
+                <button type="button" @click="dropdownOpen = !dropdownOpen" class="relative z-10 block p-2 focus:outline-none">
+                                    <span class="flex gap-2 items-center">
+                                      <i class="fa-solid fa-bars" />
+<!--                                        <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />-->
+<!--                                        </svg>-->
+                                    </span>
+                </button>
+
+                <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+                <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-24 bg-white rounded-md shadow-xl z-20">
+                                <span
+                                  @click="editMachine"
+                                  class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                >
+                                    {{ __('Edit') }}
+                                </span>
+                  <span
+                    @click="duplicateMachine"
+                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
+                                    {{ __('Duplicate') }}
+                                </span>
+                  <span
+                    @click="openDeleteModal"
+                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
+                                    {{ __('Delete') }}
+                                </span>
+                </div>
+              </div>
+                <div class="flex justify-between gap-2 items-center border-b-2 border-40">
                     <h4 class="text-90 font-normal text-2xl title">{{ panel.name }}</h4>
                     <div class="w-2 h-2 rounded-full block" :class="getStatus()" />
                 </div>
@@ -27,37 +57,6 @@
                     :key="'related-tabs-fields' + index"
                 >
                     <div>
-                        <div class="relative my-4 flex justify-end" v-if="activeTab === 0">
-                                <button type="button" @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
-                                    <span class="flex gap-2 items-center">
-                                        <span>{{ __('Menu') }}</span>
-                                        <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-                                </button>
-
-                                <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-
-                                <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                                <span
-                                    @click="editMachine"
-                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                >
-                                    {{ __('Edit') }}
-                                </span>
-                                <span
-                                    @click="duplicateMachine"
-                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
-                                    {{ __('Duplicate') }}
-                                </span>
-                                <span
-                                    @click="openDeleteModal"
-                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
-                                    {{ __('Delete') }}
-                                </span>
-                                </div>
-                        </div>
-
                         <div v-for="(pan, index) in tab.fields" class="my-4">
                             <component
                                 :is="pan.component"

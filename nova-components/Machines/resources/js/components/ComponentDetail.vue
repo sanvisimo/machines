@@ -1,9 +1,32 @@
 <template>
   <div class="my-3">
 
-      <div class="flex justify-between my-2">
+      <div class="flex items-center my-2">
+          <div class="relative flex justify-end">
+          <button type="button" @click="dropdownOpen = !dropdownOpen" class="relative z-10 block p-2 focus:outline-none">
+                <span class="flex gap-2 items-center">
+                    <i class="fa-solid fa-bars" />
+                </span>
+          </button>
+
+          <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+          <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-24 bg-white rounded-md shadow-xl z-20">
+                  <span
+                    @click="openEditModal"
+                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+                  >
+                      {{ __('Edit') }}
+                  </span>
+            <span
+              @click="openDeleteModal"
+              class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
+                                    {{ __('Delete') }}
+                                </span>
+          </div>
+        </div>
           <h2>{{ name }}</h2>
-          <div>
+          <div class="ml-auto">
               <router-link
                   :to="{
                         name: 'create',
@@ -22,31 +45,7 @@
                  {{ __('Extraordinary Manutention' ) }}
               </router-link>
           </div>
-          <div class="relative my-4 flex justify-end">
-              <button type="button" @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
-                                    <span class="flex gap-2 items-center">
-                                        <span>{{ __('Menu') }}</span>
-                                        <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </span>
-              </button>
 
-              <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-
-              <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                                <span
-                                    @click="openEditModal"
-                                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                >
-                                    {{ __('Edit') }}
-                                </span>
-                  <span
-                      @click="openDeleteModal"
-                      class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
-                                    {{ __('Delete') }}
-                                </span>
-              </div>
-          </div>
       </div>
 
       <card class="mb-6 py-3 px-6">
@@ -56,7 +55,7 @@
       <div class="accordion">
           <div class="accordion__header">
               <div class="accordion__link py-4 px-4 block flex justify-center cursor-pointer" @click.prevent="active = !active">
-                  <div class="bg-blue-dark hover:bg-blue-darker no-underline border p-2">
+                  <div class="bg-blue-dark hover:bg-blue-darker no-underline border p-2  w-full text-center rounded">
                       <strong v-if="!active">{{ __('Show Info') }}</strong>
                       <strong v-if="active">{{ __('Close Info') }}</strong>
                   </div>
@@ -196,9 +195,9 @@
               mode="delete"
           >
               <div slot-scope="{ uppercaseMode, mode }" class="p-8">
-                  <heading :level="2" class="mb-6">{{
-                          __(uppercaseMode + ' Resource')
-                      }}</heading>
+                  <heading :level="2" class="mb-6">
+                    {{ __(uppercaseMode + ' Resource') }}
+                  </heading>
                   <p class="text-80 leading-normal">
                       {{ __('Are you sure you want to ' + mode + ' this resource?') }}
                   </p>

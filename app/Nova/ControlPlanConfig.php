@@ -54,8 +54,8 @@ class ControlPlanConfig extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make(__('Machine'), 'machine', Machine::class),
-            Date::make(__('Start Date'), 'start_date')->default(true)->rules('required')->size('w-1/3')->stacked(false),
-            Number::make(__('Periodicity'), 'periodicity')->default(true)->rules('required')->size('w-1/3')->stacked(false),
+            Date::make(__('Start Date'), 'start_date')->rules('required')->size('w-1/3')->stacked(false),
+            Number::make(__('Periodicity'), 'periodicity')->rules('required')->size('w-1/3')->stacked(false),
             Currency::make(__('Cost'), 'cost')->currency('EUR')->rules('required')->size('w-1/3')->stacked(false),
             Boolean::make(__('Contract'), 'contract')->default(true)->size('w-1/3')->stacked(false),
             Boolean::make(__('Global Condition'), 'global_conditions')->default(true)->readonly(true)->size('w-1/3')->stacked(false),

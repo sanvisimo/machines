@@ -17659,19 +17659,6 @@ exports.default = {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /***/ }),
 
@@ -53121,7 +53108,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "py-6 px-8", class: _vm.fieldClasses },
+      { staticClass: "py-6 px-8 flex-no-shrink", class: _vm.fieldClasses },
       [
         _vm._t("field"),
         _vm._v(" "),
@@ -57366,117 +57353,12 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("heading", {
-        staticClass: "mb-3",
-        attrs: { level: 1 },
-        domProps: { innerHTML: _vm._s(_vm.headingTitle) }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "flex" }, [
-        _vm.resourceInformation.searchable && !_vm.viaHasOne
-          ? _c(
-              "div",
-              {
-                staticClass: "relative h-9 flex-no-shrink",
-                class: {
-                  "mb-6": _vm.resourceInformation.searchable && !_vm.viaHasOne
-                }
-              },
-              [
-                _c("icon", {
-                  staticClass: "absolute search-icon-center ml-3 text-70",
-                  attrs: { type: "search" }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.search,
-                      expression: "search"
-                    }
-                  ],
-                  staticClass:
-                    "appearance-none form-search w-search pl-search shadow",
-                  attrs: {
-                    "data-testid": "search-input",
-                    dusk: "search",
-                    placeholder: _vm.__("Search"),
-                    type: "search",
-                    spellcheck: "false"
-                  },
-                  domProps: { value: _vm.search },
-                  on: {
-                    keydown: function($event) {
-                      $event.stopPropagation()
-                      return _vm.performSearch($event)
-                    },
-                    search: _vm.performSearch,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.search = $event.target.value
-                    }
-                  }
-                })
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "w-full flex items-center",
-            class: { "mb-6": !_vm.viaResource }
-          },
-          [
-            !_vm.viaResource
-              ? _c("custom-index-toolbar", {
-                  attrs: { "resource-name": _vm.resourceName }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("create-resource-button", {
-              staticClass: "flex-no-shrink ml-auto",
-              class: { "mb-6": _vm.viaResource },
-              attrs: {
-                label: _vm.createButtonLabel,
-                "singular-name": _vm.singularName,
-                "resource-name": _vm.resourceName,
-                "via-resource": _vm.viaResource,
-                "via-resource-id": _vm.viaResourceId,
-                "via-relationship": _vm.viaRelationship,
-                "relationship-type": _vm.relationshipType,
-                "authorized-to-create":
-                  _vm.authorizedToCreate && !_vm.resourceIsFull,
-                "authorized-to-relate": _vm.authorizedToRelate
-              }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
       _c(
         "card",
         [
           _c(
             "div",
-            {
-              staticClass: "flex items-center",
-              class: {
-                "py-3 border-b border-50":
-                  _vm.shouldShowCheckBoxes ||
-                  _vm.shouldShowDeleteMenu ||
-                  _vm.softDeletes ||
-                  !_vm.viaResource ||
-                  _vm.hasFilters ||
-                  _vm.haveStandaloneActions
-              }
-            },
+            { staticClass: "flex items-center py-3 border-b border-50" },
             [
               _c("div", { staticClass: "flex items-center" }, [
                 _vm.shouldShowCheckBoxes
@@ -57533,9 +57415,9 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              "\n                      " +
+                                              "\n                        " +
                                                 _vm._s(_vm.__("Select All")) +
-                                                "\n                    "
+                                                "\n                      "
                                             )
                                           ]
                                         )
@@ -57567,7 +57449,7 @@ var render = function() {
                                                 { staticClass: "mr-1" },
                                                 [
                                                   _vm._v(
-                                                    "\n                          " +
+                                                    "\n                            " +
                                                       _vm._s(
                                                         _vm.__(
                                                           "Select All Matching"
@@ -57577,7 +57459,7 @@ var render = function() {
                                                       _vm._s(
                                                         _vm.allMatchingResourceCount
                                                       ) +
-                                                      ")\n                        "
+                                                      ")\n                          "
                                                   )
                                                 ]
                                               )
@@ -57601,9 +57483,62 @@ var render = function() {
                   : _vm._e()
               ]),
               _vm._v(" "),
+              _c("heading", {
+                attrs: { level: 1 },
+                domProps: { innerHTML: _vm._s(_vm.headingTitle) }
+              }),
+              _vm._v(" "),
+              _vm.resourceInformation.searchable && !_vm.viaHasOne
+                ? _c(
+                    "div",
+                    { staticClass: "relative h-9 flex-no-shrink ml-auto" },
+                    [
+                      _c("icon", {
+                        staticClass: "absolute search-icon-center ml-3 text-70",
+                        attrs: { type: "search" }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.search,
+                            expression: "search"
+                          }
+                        ],
+                        staticClass:
+                          "appearance-none form-search w-search pl-search shadow",
+                        attrs: {
+                          "data-testid": "search-input",
+                          dusk: "search",
+                          placeholder: _vm.__("Search"),
+                          type: "search",
+                          spellcheck: "false"
+                        },
+                        domProps: { value: _vm.search },
+                        on: {
+                          keydown: function($event) {
+                            $event.stopPropagation()
+                            return _vm.performSearch($event)
+                          },
+                          search: _vm.performSearch,
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.search = $event.target.value
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "flex items-center ml-auto px-3" },
+                { staticClass: "flex items-center px-3" },
                 [
                   _vm.shouldShowPollingToggle
                     ? _c("resource-polling-button", {
@@ -57654,9 +57589,9 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n              " +
+                                  "\n                " +
                                     _vm._s(_vm.__("Lens")) +
-                                    "\n            "
+                                    "\n              "
                                 )
                               ]
                             )
@@ -57747,8 +57682,25 @@ var render = function() {
                     : _vm._e()
                 ],
                 1
-              )
-            ]
+              ),
+              _vm._v(" "),
+              _c("create-resource-button", {
+                staticClass: "flex-no-shrink mr-3",
+                attrs: {
+                  label: _vm.createButtonLabel,
+                  "singular-name": _vm.singularName,
+                  "resource-name": _vm.resourceName,
+                  "via-resource": _vm.viaResource,
+                  "via-resource-id": _vm.viaResourceId,
+                  "via-relationship": _vm.viaRelationship,
+                  "relationship-type": _vm.relationshipType,
+                  "authorized-to-create":
+                    _vm.authorizedToCreate && !_vm.resourceIsFull,
+                  "authorized-to-relate": _vm.authorizedToRelate
+                }
+              })
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
@@ -57799,7 +57751,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n            " +
+                                "\n              " +
                                   _vm._s(
                                     _vm.__(
                                       "No :resource matched the given criteria.",
@@ -57808,7 +57760,7 @@ var render = function() {
                                       }
                                     )
                                   ) +
-                                  "\n          "
+                                  "\n            "
                               )
                             ]
                           ),
@@ -57900,9 +57852,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n          " +
+                                "\n            " +
                                   _vm._s(_vm.resourceCountLabel) +
-                                  "\n        "
+                                  "\n          "
                               )
                             ]
                           )
