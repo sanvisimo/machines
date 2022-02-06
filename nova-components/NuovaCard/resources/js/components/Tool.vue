@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="flex justify-between">
-            <heading class="mb-6">Calendario</heading>
+        <div class="flex justify-between items-center mb-2">
+            <heading>Calendario</heading>
             <button>{{ __('Extraordinary manutention') }}</button>
         </div>
 
-        <div class="card py-6 px-6">
+        <div class="card py-2 px-6">
             <FullCalendar ref="fullCalendar" :options="calendarOptions" />
         </div>
 

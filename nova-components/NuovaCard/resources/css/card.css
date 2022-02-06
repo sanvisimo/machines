@@ -11,6 +11,8 @@
     background: var(--primary);
     color: #fff;
     font-weight: bold;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
 .akka-agenda .fc-list-event-time,
@@ -20,4 +22,17 @@
 
 .akka-agenda .fc-toolbar-title {
     width: 250px;
+}
+
+.akka-agenda .fc .fc-list-table td, .fc .fc-list-day-cushion {
+  padding: 2px 14px;
+}
+
+.akka-agenda .fc-list-day-cushion.fc-cell-shaded {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.akka-agenda .fc-header-toolbar .fc-toolbar .fc-toolbar-ltr {
+  margin-bottom: .5rem;
 }
