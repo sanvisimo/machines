@@ -2,7 +2,7 @@
         <div class="accordion">
             <div class="accordion__header">
                 <div class="accordion__link p-4 block flex justify-center cursor-pointer" @click.prevent="active = !active">
-                    <div class="bg-blue-dark hover:bg-blue-darker no-underline border p-2">
+                    <div class="bg-blue-dark hover:bg-blue-darker no-underline border p-2 w-full text-center rounded">
                         <strong>{{ __('tutte le informazioni') }}</strong>
                     </div>
                 </div>

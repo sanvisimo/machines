@@ -1296,7 +1296,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "bg-blue-dark hover:bg-blue-darker no-underline border p-2"
+                  "bg-blue-dark hover:bg-blue-darker no-underline border p-2 w-full text-center"
               },
               [_c("strong", [_vm._v(_vm._s(_vm.__("tutte le informazioni")))])]
             )

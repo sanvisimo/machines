@@ -57,7 +57,7 @@ class ControlPlan extends Resource
                     false => __('NO'),
                     true => __('YES'),
                 ])
-                ->hideFromDetail(),
+                ->hideFromDetail()->size('w-1/2')->stacked(false),
             Currency::make(__('Cost'), 'cost')->hideWhenUpdating(),
             Number::make(__('Periodicity'),'periodicity')->size('w-2/3')->stacked(false)->hideWhenUpdating(),
             Text::make(__('Notes'),'periodicity_note')->nullable()->size('w-1/3')->stacked(false)->hideWhenUpdating(),
@@ -65,97 +65,96 @@ class ControlPlan extends Resource
                 'good' => __('Good'),
                 'attention' => __('Attention'),
                 'intervent' => __('Intervent'),
-            ])->nullable(),
+            ])->nullable()->size('w-1/2')->stacked(false),
             ButtonGroup::make(__('Machine status'),'machine_status')->options([
                 'run' => __('Run'),
                 'stop' => __('Stop'),
                 'maintenance' => __('Maintenance')
-            ])->nullable(),
-            ButtonGroup::make(__('Casing integrity check'),'casing_integrity_check')->nullable()->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'casing_integrity_check_notes')->nullable()->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Nameplate integrity'),'nameplate_integrity')->nullable()->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'nameplate_integrity_notes')->nullable()->size('w-1/3')->stacked(false),
-            Number::make(__('RPM'),'rpm')->nullable(),
+            ])->nullable()->size('w-1/2')->stacked(false),
+            ButtonGroup::make(__('Casing integrity check'),'casing_integrity_check')->nullable()->size('w-1/2')->stacked(false),
+            ButtonGroup::make(__('Nameplate integrity'),'nameplate_integrity')->nullable()->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'nameplate_integrity_notes')->nullable()->size('w-1/3')->stacked(false),
+            Number::make(__('RPM'),'rpm')->nullable()->size('w-1/2')->stacked(false),
             ButtonGroup::make(__('Check pressure gauges'),'check_pressure_gauges')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_pressure_gauges : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_pressure_gauges_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_pressure_gauges : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_pressure_gauges_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_pressure_gauges : false;
+//                })->size('w-1/3')->stacked(false),
             ButtonGroup::make(__('Check sight glasses oil'),'check_sight_glasses_oil')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_oil : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_sight_glasses_oil_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_oil : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_sight_glasses_oil_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_oil : false;
+//                })->size('w-1/3')->stacked(false),
             ButtonGroup::make(__('Check sight glasses water'),'check_sight_glasses_water')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_water : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_sight_glasses_water_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_water : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_sight_glasses_water_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_water : false;
+//                })->size('w-1/3')->stacked(false),
             ButtonGroup::make(__('Check thermometers'),'check_thermometers')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_thermometers : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_thermometers_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_thermometers : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_thermometers_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_thermometers : false;
+//                })->size('w-1/3')->stacked(false),
             Number::make(__('Electric absorption'),'electric_absorption')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->electric_absorption : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'electric_absorption_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->electric_absorption : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'electric_absorption_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->electric_absorption : false;
+//                })->size('w-1/3')->stacked(false),
             ButtonGroup::make(__('Check cleaning protective grid'),'check_cleaning_protective_grid')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_cleaning_protective_grid : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_cleaning_protective_grid_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_cleaning_protective_grid : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_cleaning_protective_grid_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_cleaning_protective_grid : false;
+//                })->size('w-1/3')->stacked(false),
             ButtonGroup::make(__('Check cleaning junction box'),'check_cleaning_junction_box')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_cleaning_junction_box : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_cleaning_junction_box_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_cleaning_junction_box : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_cleaning_junction_box_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_cleaning_junction_box : false;
+//                })->size('w-1/3')->stacked(false),
             ButtonGroup::make(__('Check integrity flexible electric'),'check_integrity_flexible_electric')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_integrity_flexible_electric : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_integrity_flexible_electric_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_integrity_flexible_electric : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_integrity_flexible_electric_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_integrity_flexible_electric : false;
+//                })->size('w-1/3')->stacked(false),
             ButtonGroup::make(__('Check ground connections'),'check_ground_connections')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_ground_connections : false;
-                })->size('w-2/3')->stacked(false),
-            Text::make(__('Notes'),'check_ground_connections_notes')->nullable()
-                ->showOnUpdating(function() use ($controlPlanConfig) {
-                    return $controlPlanConfig ? $controlPlanConfig->check_ground_connections : false;
-                })->size('w-1/3')->stacked(false),
+                })->size('w-1/2')->stacked(false),
+//            Text::make(__('Notes'),'check_ground_connections_notes')->nullable()
+//                ->showOnUpdating(function() use ($controlPlanConfig) {
+//                    return $controlPlanConfig ? $controlPlanConfig->check_ground_connections : false;
+//                })->size('w-1/3')->stacked(false),
             Text::make(__('Thermography'),'thermography')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->thermography : false;
-                })->size('w-2/3')->stacked(false),
-            File::make(__('Notes'),'thermography_documentation')->nullable()
+                })->size('w-1/2')->stacked(false),
+            File::make(__('Thermography'),'thermography_documentation')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->thermography : false;
-                })->size('w-1/3')->stacked(false)
+                })->size('w-1/2')->stacked(false)
                 ->disk('public')
                 ->storeAs(function (Request $request) {
                     return ($request->thermography_documentation->getClientOriginalName());
@@ -166,7 +165,7 @@ class ControlPlan extends Resource
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->laser_alignment : false;
                 })->size('w-2/3')->stacked(false),
-            File::make(__('Notes'),'laser_alignment_documentation')->nullable()
+            File::make(__('Laser Alignment'),'laser_alignment_documentation')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->laser_alignment : false;
                 })->size('w-1/3')->stacked(false)
@@ -176,7 +175,7 @@ class ControlPlan extends Resource
                 })
                 ->storeOriginalName('attachment_name')
                 ->hideFromIndex(),
-
+            Text::make(__('Notes'),'casing_integrity_check_notes'),
             \Akka\Machines\ControlPlan::make(__('Control Plan')),
         ];
     }

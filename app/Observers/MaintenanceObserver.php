@@ -41,9 +41,11 @@ class MaintenanceObserver
             $model->element_type = '\App\Models\Component';
             $model->save();
         } else {
-            $model = $activity->replicate();
-            $model->expiration = Carbon::now()->addDays($maintenance->periodicity);
-            $model->save();
+            if($maintenance->type !== "maintenance_no") {
+                $model = $activity->replicate();
+                $model->expiration = Carbon::now()->addDays($maintenance->periodicity);
+                $model->save();
+            }
 
             $activity->expiration = Carbon::now();
             $activity->active = false;

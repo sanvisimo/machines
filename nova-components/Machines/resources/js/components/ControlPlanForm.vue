@@ -7,6 +7,10 @@
             autocomplete="off"
             ref="form"
         >
+          <div class="flex items-center justify-between">
+            <div class="text-90 font-normal text-2xl mb-3 flex-no-shrink">
+              {{ __('Update Control Plan') }}
+            </div>
             <div class="flex justify-end p-4 w-full gap-4">
                 <button type="submit" class="btn btn-default btn-primary">{{ __('Save') }}</button>
                 <span
@@ -17,7 +21,7 @@
                     {{ __('Edit') }}
                 </span>
             </div>
-
+          </div>
 
             <form-panel
                 v-for="panel in panelsWithFields"
@@ -40,7 +44,7 @@
             />
 
         </form>
-        <component-config :resource-id="machine_id" ref="compos" :config="false" :control-plan="controlPlan" v-if="controlPlan" />
+        <component-config :resource-id="machine_id" ref="compos" :config="false" :control-plan="controlPlan" v-if="controlPlan" @edit="editComponents" />
         <div class="flex justify-end p-4 w-full">
             <button type="button" class="btn btn-default btn-primary" @click="submitViaCreateResource">{{ __('Save') }}</button>
         </div>
@@ -90,7 +94,8 @@ export default {
         fields: [],
         panels: [],
         submitted: false,
-        machine_id: null
+        machine_id: null,
+        components: {}
     }),
 
     async mounted() {
@@ -165,8 +170,6 @@ export default {
                         data: { redirect, id },
                     } = await this.createRequest()
 
-                    await this.$refs.compos.submitForms(id);
-
                     this.canLeave = true
 
                     const msg = this.update ? this.__('The Measurement was updated!') : this.__('The Measurement was created!');
@@ -211,8 +214,13 @@ export default {
             return _.tap(new FormData(), formData => {
                 _.each(this.fields, field => {
                     field.fill(formData)
-                })
+                });
+
+                formData.append('components', JSON.stringify(this.components));
             })
+        },
+        editComponents(components){
+            this.components = components
         },
 
         /**
@@ -243,3 +251,9 @@ export default {
     },
 }
 </script>
+
+<style>
+.control-plan h1.text-2xl{
+  display: none;
+}
+</style>

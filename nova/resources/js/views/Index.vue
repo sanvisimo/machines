@@ -26,68 +26,19 @@
       />
     </div>
 
-    <heading :level="1" class="mb-3" v-html="headingTitle" />
-
-    <div class="flex">
-      <!-- Search -->
-      <div
-        v-if="resourceInformation.searchable && !viaHasOne"
-        class="relative h-9 flex-no-shrink"
-        :class="{
-          'mb-6': resourceInformation.searchable && !viaHasOne,
-        }"
-      >
-        <icon type="search" class="absolute search-icon-center ml-3 text-70" />
-
-        <input
-          data-testid="search-input"
-          dusk="search"
-          class="appearance-none form-search w-search pl-search shadow"
-          :placeholder="__('Search')"
-          type="search"
-          v-model="search"
-          @keydown.stop="performSearch"
-          @search="performSearch"
-          spellcheck="false"
-        />
-      </div>
-
-      <div class="w-full flex items-center" :class="{ 'mb-6': !viaResource }">
-        <custom-index-toolbar
-          v-if="!viaResource"
-          :resource-name="resourceName"
-        />
-
-        <!-- Create / Attach Button -->
-        <create-resource-button
-          :label="createButtonLabel"
-          :singular-name="singularName"
-          :resource-name="resourceName"
-          :via-resource="viaResource"
-          :via-resource-id="viaResourceId"
-          :via-relationship="viaRelationship"
-          :relationship-type="relationshipType"
-          :authorized-to-create="authorizedToCreate && !resourceIsFull"
-          :authorized-to-relate="authorizedToRelate"
-          class="flex-no-shrink ml-auto"
-          :class="{ 'mb-6': viaResource }"
-        />
-      </div>
-    </div>
-
     <card>
       <div
-        class="flex items-center"
-        :class="{
-          'py-3 border-b border-50':
-            shouldShowCheckBoxes ||
-            shouldShowDeleteMenu ||
-            softDeletes ||
-            !viaResource ||
-            hasFilters ||
-            haveStandaloneActions,
-        }"
-      >
+        class="flex items-center py-3 border-b border-50">
+<!--        :class="{-->
+<!--          'py-3 border-b border-50':-->
+<!--            shouldShowCheckBoxes ||-->
+<!--            shouldShowDeleteMenu ||-->
+<!--            softDeletes ||-->
+<!--            !viaResource ||-->
+<!--            hasFilters ||-->
+<!--            haveStandaloneActions,-->
+<!--        }"-->
+<!--      >-->
         <div class="flex items-center">
           <div class="px-3" v-if="shouldShowCheckBoxes">
             <!-- Select All -->
@@ -134,7 +85,29 @@
           </div>
         </div>
 
-        <div class="flex items-center ml-auto px-3">
+        <heading :level="1" v-html="headingTitle" />
+
+        <!-- Search -->
+        <div
+          v-if="resourceInformation.searchable && !viaHasOne"
+          class="relative h-9 flex-no-shrink ml-auto"
+        >
+          <icon type="search" class="absolute search-icon-center ml-3 text-70" />
+
+          <input
+            data-testid="search-input"
+            dusk="search"
+            class="appearance-none form-search w-search pl-search shadow"
+            :placeholder="__('Search')"
+            type="search"
+            v-model="search"
+            @keydown.stop="performSearch"
+            @search="performSearch"
+            spellcheck="false"
+          />
+        </div>
+
+        <div class="flex items-center px-3">
           <resource-polling-button
             v-if="shouldShowPollingToggle"
             :currently-polling="currentlyPolling"
@@ -232,6 +205,20 @@
             @close="deleteModalOpen = false"
           />
         </div>
+
+        <!-- Create / Attach Button -->
+        <create-resource-button
+          :label="createButtonLabel"
+          :singular-name="singularName"
+          :resource-name="resourceName"
+          :via-resource="viaResource"
+          :via-resource-id="viaResourceId"
+          :via-relationship="viaRelationship"
+          :relationship-type="relationshipType"
+          :authorized-to-create="authorizedToCreate && !resourceIsFull"
+          :authorized-to-relate="authorizedToRelate"
+          class="flex-no-shrink mr-3"
+        />
       </div>
 
       <loading-view :loading="loading">

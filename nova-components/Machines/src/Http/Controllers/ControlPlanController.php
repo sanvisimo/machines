@@ -5,6 +5,8 @@ namespace Akka\Machines\Http\Controllers;
 use App\Models\ControlPlanConfig;
 use App\Models\ControlPlan;
 use App\Models\Measurement;
+use App\Models\MeasurementConfig;
+use Illuminate\Support\Facades\Schema;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ControlPlanController

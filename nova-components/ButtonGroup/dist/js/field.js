@@ -12928,10 +12928,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_0__.FormField, laravel_nova__WEBPACK_IMPORTED_MODULE_0__.HandlesValidationErrors],
-  props: ['resourceName', 'resourceId', 'field'],
+  props: ["resourceName", "resourceId", "field"],
   data: function data() {
     return {
       value: null,
@@ -12946,15 +12955,15 @@ __webpack_require__.r(__webpack_exports__);
      * Set the initial, internal value for the field.
      */
     setInitialValue: function setInitialValue() {
-      this.value = this.field.value !== null ? this.field.value : '';
+      this.value = this.field.value !== null ? this.field.value : "";
     },
     getOptions: function getOptions() {
       var options = [{
         value: 1,
-        label: 'fa-thumbs-up'
+        label: "fa-thumbs-up"
       }, {
         value: 0,
-        label: 'fa-thumbs-down'
+        label: "fa-thumbs-down"
       }];
       this.options = this.field.options ? this.field.options : options;
     },
@@ -12966,7 +12975,7 @@ __webpack_require__.r(__webpack_exports__);
      * Fill the given FormData object with the field's internal value.
      */
     fill: function fill(formData) {
-      formData.append(this.field.attribute, this.value || '');
+      formData.append(this.field.attribute, this.value || "");
     }
   }
 });
@@ -13050,7 +13059,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.active[data-v-c023248a] {\n    background: red;\n    color: #FFF;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.active[data-v-c023248a] {\n  background: red;\n  color: #fff;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -40085,17 +40094,15 @@ var render = function () {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "flex items-center justify-end mb-4" },
+          { staticClass: "flex items-center justify-end" },
           _vm._l(_vm.options, function (option, index) {
             return _c(
               "button",
               {
+                key: index,
                 staticClass:
-                  "border border-primary-30% hover:bg-primary-30% hover:text-white active:bg-purple-600 font-bold text-sm px-6 py-3 outline-none focus:outline-none mb-1 ease-linear transition-all duration-150",
+                  "\n          border border-primary-30%\n          hover:bg-primary-30% hover:text-white\n          active:bg-purple-600\n          font-bold\n          px-2\n          py-1\n          text-md\n          outline-none\n          focus:outline-none\n          ease-linear\n          transition-all\n          duration-150\n        ",
                 class: {
-                  "rounded-l": index === 0,
-                  "text-xl": !_vm.field.options,
-                  "rounded-r": index === _vm.options.length - 1,
                   "bg-primary-30%": _vm.value === option.value,
                   "bg-transparent": _vm.value !== option.value,
                   "text-white": _vm.value === option.value,

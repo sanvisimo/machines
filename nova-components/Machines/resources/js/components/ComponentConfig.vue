@@ -1,136 +1,185 @@
 <template>
-    <div>
-        <div class="flex flex-row">
-            <button
-                class="py-5 px-8 border-b-4 focus:outline-none tab self-center"
-                :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary-30%': 'text-grey font-semibold border-40']"
-                v-for="(tab, key) in tabs"
-                :key="key"
-                @click="handleTabClick(tab, $event)"
-            >{{ tab.name }}
-            </button>
+  <div>
+    <card>
+      <table class="table w-full table-default">
+        <thead>
+          <tr>
+            <th v-for="(column, index) in columns" :key="index">
+              <span>{{ __(column) }}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody v-for="tab in tabs" :key="tab.index">
+          <tr>
+            <td colspan="12" class="text-center">
+              <h5>{{ tab.name }}</h5>
+            </td>
+          </tr>
+          <component-config-row
+              v-if="config"
+              v-for="vibration in tab.vibrations"
+              :component-id="tab.id"
+              :name="`C${tab.index + 1} - B${vibration}`"
+              :key="`vibration-C${tab.index}-B${vibration}`"
+              :position="`C${tab.index}-B${vibration}`"
+              :update="update"
+              @edit="updateComponent"
+              @upload="uploadImage"
+          />
+          <component-config-row
+              v-if="config"
+              v-for="articles in tab.articles"
+              :name="`C${tab.index + 1} - P${articles}`"
+              :component-id="tab.id"
+              :key="`vibration-C${tab.index}-P${articles}`"
+              :position="`C${tab.index}-P${articles}`"
+              :update="update"
+              @edit="updateComponent"
+              @upload="uploadImage"
+          />
+          <component-row
+              v-if="!config"
+            v-for="vibration in tab.vibrations"
+            :key="`C${tab.index}-B${vibration}`"
+            :name="`C${tab.index + 1} - B${vibration}`"
+            :position="`C${tab.index}-B${vibration}`"
+            :component-id="tab.id"
+            :ref="`vibration-C${tab.index}-B${vibration}`"
+            :control-plan="controlPlan"
+            @edit="updateComponent"
+          />
 
-            <div class="flex-1 border-b-42 border-40"></div>
-        </div>
-        <div
-            v-for="(tab, index) in tabs"
-            v-show="tab.name === activeTab"
-            :label="tab.name"
-            :key="'related-tabs-fields' + index"
-        >
-            <div>
-                <div v-for="(vibration) in tab.vibrations" class="border-b-4 my-3 px-3">
-                    <h2 class="text-90 font-normal text-2xl mb-3">C{{ tab.index + 1 }} - B{{ vibration }}</h2>
-                    <component-config-form
-                        v-if="config"
-                        :component-id="tab.id"
-                        :ref="`vibration-C${tab.index}-B${vibration}`"
-                        :position="`C${tab.index}-B${vibration}`"
-                        :update="update"
-                    />
-                    <component-form
-                        v-else
-                        :component-id="tab.id"
-                        :ref="`vibration-C${tab.index}-B${vibration}`"
-                        :position="`C${tab.index}-B${vibration}`"
-                        :control-plan="controlPlan"
-                    />
-                </div>
-                <div v-for="(article) in tab.articles" class="border-b-4 my-3 px-3">
-                    <h2 class="text-90 font-normal text-2xl mb-3">C{{ tab.index + 1 }} - P{{ article }}</h2>
-                    <component-config-form
-                        v-if="config"
-                        :component-id="tab.id"
-                        :ref="`position-C${tab.index}-P${article}`"
-                        :position="`C${tab.index}-P${article}`"
-                        :update="update"
-                    />
-                    <component-form
-                        v-else
-                        :control-plan="controlPlan"
-                        :component-id="tab.id"
-                        :ref="`position-C${tab.index}-P${article}`"
-                        :position="`C${tab.index}-P${article}`"
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="flex flex-row">
-            <button
-                class="py-5 px-8 border-b-4 focus:outline-none tab self-center"
-                :class="[activeTab === tab.name ? 'text-grey-black font-bold border-primary-30%': 'text-grey font-semibold border-40']"
-                v-for="(tab, key) in tabs"
-                :key="key"
-                @click="handleTabClick(tab, $event)"
-            >{{ tab.name }}
-            </button>
+          <component-row
+              v-if="!config"
+            v-for="article in tab.articles"
+            :key="`C${tab.index}-P${article}`"
+            :name="`C${tab.index + 1} - P${article}`"
+            :position="`C${tab.index}-P${article}`"
+            :component-id="tab.id"
+            :ref="`vibration-C${tab.index}-P${article}`"
+            :control-plan="controlPlan"
+            @edit="updateComponent"
+          />
 
-            <div class="flex-1 border-b-42 border-40"></div>
-        </div>
-    </div>
+        </tbody>
+      </table>
+    </card>
+  </div>
 </template>
 
 <script>
 import Title from "./Title";
-import Create from '../../../../../nova/resources/js/views/Create'
+import Create from "../../../../../nova/resources/js/views/Create";
+import ComponentConfigRow from "./ComponentConfigRow";
 
 export default {
-    props: ['resourceName', 'resourceId', 'panel', 'config', 'controlPlan', 'update'],
-    components: {
-        Title,
-        Create
+  props: [
+    "resourceName",
+    "resourceId",
+    "panel",
+    "config",
+    "controlPlan",
+    "update",
+  ],
+  components: {
+    Title,
+    Create,
+      ComponentConfigRow
+  },
+  data() {
+    return {
+      tabs: null,
+      activeTab: "",
+      components: {},
+      updateColumns: [
+        "Position",
+        "Anomaly",
+        "Lubricant levels",
+        "Lubricant appearence",
+        "Leakage",
+        "Temperature",
+        "Pressure",
+        "SPM",
+        "SISM 1",
+        "SISM 2",
+        "SISM 3",
+        "Notes",
+      ],
+        configColumns: [
+            "Position",
+            "Lubricant levels",
+            "Lubricant appearence",
+            "Leakage",
+            "Temperature",
+            "Pressure",
+            "SPM",
+            "SISM",
+            "Image",
+        ],
+    };
+  },
+    computed: {
+      columns() {
+          return this.config ? this.configColumns : this.updateColumns;s
+      }
     },
-    data () {
-        return {
-            tabs: null,
-            activeTab: "",
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async submitForms(id) {
+      for (let tab in this.tabs) {
+        for (let i = 0; i < this.tabs[tab].vibrations; i++) {
+          const key = `vibration-C${this.tabs[tab].index}-B${i + 1}`;
+          await this.$refs[key][0].submitForm(id);
         }
+        for (let i = 0; i < this.tabs[tab].articles; i++) {
+          const key = `position-C${this.tabs[tab].index}-P${i + 1}`;
+          await this.$refs[key][0].submitForm(id);
+        }
+      }
+      // this.$refs.positions.submitForm();
     },
-    mounted() {
-        this.fetchData();
+    async fetchData() {
+      let tabs = {};
+      const { data } = await Nova.request().get(
+        `/nova-vendor/machines/components-config/${this.resourceId}`
+      );
+      data.components.forEach((component, index) => {
+        if (!tabs.hasOwnProperty(component.name)) {
+          tabs[component.name] = {
+            id: component.id,
+            name: component.name,
+            index,
+            init: false,
+            vibrations: component.vibrations,
+            articles:
+              component.temperature + component.pressure + component.payload,
+          };
+        }
+
+        tabs[component.name].fields = {
+          ...tabs[component.name].fields,
+          ...component,
+        };
+      });
+
+      this.tabs = tabs;
+      this.handleTabClick(tabs[Object.keys(tabs)[0]]);
     },
-    methods: {
-        async submitForms(id){
-            for(let tab in this.tabs){
-                for(let i = 0; i < this.tabs[tab].vibrations; i++) {
-                    const key = `vibration-C${this.tabs[tab].index}-B${i+1}`;
-                    await this.$refs[key][0].submitForm(id);
-                }
-                for(let i = 0; i < this.tabs[tab].articles; i++) {
-                    const key = `position-C${this.tabs[tab].index}-P${i+1}`;
-                    await this.$refs[key][0].submitForm(id);
-                }
-            }
-          // this.$refs.positions.submitForm();
-        },
-        async fetchData () {
-            let tabs = {}
-            const { data } = await Nova.request().get(`/nova-vendor/machines/components-config/${this.resourceId}`);
-            data.components.forEach((component, index) => {
-                if (!tabs.hasOwnProperty(component.name)) {
-                    tabs[component.name] = {
-                        id: component.id,
-                        name: component.name,
-                        index,
-                        init: false,
-                        vibrations: component.vibrations,
-                        articles: component.temperature + component.pressure + component.payload
-                    }
-                }
-
-                tabs[component.name].fields = {
-                    ...tabs[component.name].fields,
-                    ...component
-                };
-            })
-
-            this.tabs = tabs
-            this.handleTabClick(tabs[Object.keys(tabs)[0]]);
-        },
-        handleTabClick(tab, event) {
-            tab.init = true
-            this.activeTab = tab.name
-        },
-    }
-}
+    handleTabClick(tab, event) {
+      tab.init = true;
+      this.activeTab = tab.name;
+    },
+    updateComponent(component) {
+      const comps = {...this.components};
+      comps[component.position] = component;
+      this.components = comps;
+      this.$emit('edit', comps);
+    },
+    uploadImage(file, position){
+      this.$emit('upload', file, position);
+    },
+  },
+};
 </script>

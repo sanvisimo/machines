@@ -152,7 +152,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova_src_mixins_BehavesAsPanel__WEBPACK_IMPORTED_MODULE_1__["default"]],
@@ -1830,11 +1829,111 @@ var render = function() {
         "div",
         [
           _c("div", { staticClass: "flex flex-row" }, [
+            _vm.activeTab === 0
+              ? _c("div", { staticClass: "relative flex justify-end" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "relative z-10 block p-2 focus:outline-none",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.dropdownOpen = !_vm.dropdownOpen
+                        }
+                      }
+                    },
+                    [_vm._m(0)]
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.dropdownOpen,
+                        expression: "dropdownOpen"
+                      }
+                    ],
+                    staticClass: "fixed inset-0 h-full w-full z-10",
+                    on: {
+                      click: function($event) {
+                        _vm.dropdownOpen = false
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.dropdownOpen,
+                          expression: "dropdownOpen"
+                        }
+                      ],
+                      staticClass:
+                        "absolute right-0 mt-2 py-2 w-24 bg-white rounded-md shadow-xl z-20"
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
+                          on: { click: _vm.editMachine }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.__("Edit")) +
+                              "\n                                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
+                          on: { click: _vm.duplicateMachine }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.__("Duplicate")) +
+                              "\n                                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
+                          on: { click: _vm.openDeleteModal }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.__("Delete")) +
+                              "\n                                "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "div",
               {
                 staticClass:
-                  "flex justify-between gap-2 items-center px-8 border-b-2 border-40"
+                  "flex justify-between gap-2 items-center border-b-2 border-40"
               },
               [
                 _c(
@@ -1872,7 +1971,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v(_vm._s(tab.name) + "\n                ")]
+                  [_vm._v(_vm._s(tab.name) + "\n                    ")]
                 )
               }),
               0
@@ -1898,170 +1997,26 @@ var render = function() {
                   [
                     _c(
                       "div",
-                      [
-                        _vm.activeTab === 0
-                          ? _c(
-                              "div",
-                              { staticClass: "relative my-4 flex justify-end" },
-                              [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "relative z-10 block rounded-md bg-white p-2 focus:outline-none",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.dropdownOpen = !_vm.dropdownOpen
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "span",
-                                      {
-                                        staticClass: "flex gap-2 items-center"
-                                      },
-                                      [
-                                        _c("span", [
-                                          _vm._v(_vm._s(_vm.__("Menu")))
-                                        ]),
-                                        _vm._v(" "),
-                                        _c(
-                                          "svg",
-                                          {
-                                            staticClass:
-                                              "h-5 w-5 text-gray-800",
-                                            attrs: {
-                                              xmlns:
-                                                "http://www.w3.org/2000/svg",
-                                              viewBox: "0 0 20 20",
-                                              fill: "currentColor"
-                                            }
-                                          },
-                                          [
-                                            _c("path", {
-                                              attrs: {
-                                                "fill-rule": "evenodd",
-                                                d:
-                                                  "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
-                                                "clip-rule": "evenodd"
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("div", {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: _vm.dropdownOpen,
-                                      expression: "dropdownOpen"
-                                    }
-                                  ],
-                                  staticClass:
-                                    "fixed inset-0 h-full w-full z-10",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.dropdownOpen = false
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "show",
-                                        rawName: "v-show",
-                                        value: _vm.dropdownOpen,
-                                        expression: "dropdownOpen"
-                                      }
-                                    ],
-                                    staticClass:
-                                      "absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20"
-                                  },
-                                  [
-                                    _c(
-                                      "span",
-                                      {
-                                        staticClass:
-                                          "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
-                                        on: { click: _vm.editMachine }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(_vm.__("Edit")) +
-                                            "\n                            "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      {
-                                        staticClass:
-                                          "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
-                                        on: { click: _vm.duplicateMachine }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(_vm.__("Duplicate")) +
-                                            "\n                            "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      {
-                                        staticClass:
-                                          "block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer",
-                                        on: { click: _vm.openDeleteModal }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(_vm.__("Delete")) +
-                                            "\n                            "
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._l(tab.fields, function(pan, index) {
-                          return _c(
-                            "div",
-                            { staticClass: "my-4" },
-                            [
-                              _c(pan.component, {
-                                tag: "component",
-                                attrs: {
-                                  name: index,
-                                  panel: pan,
-                                  resourceId: _vm.resourceId,
-                                  resourceName: "machines",
-                                  resource: _vm.resource
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        })
-                      ],
-                      2
+                      _vm._l(tab.fields, function(pan, index) {
+                        return _c(
+                          "div",
+                          { staticClass: "my-4" },
+                          [
+                            _c(pan.component, {
+                              tag: "component",
+                              attrs: {
+                                name: index,
+                                panel: pan,
+                                resourceId: _vm.resourceId,
+                                resourceName: "machines",
+                                resource: _vm.resource
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      }),
+                      0
                     )
                   ]
                 )
@@ -2111,7 +2066,7 @@ var render = function() {
                                   { staticClass: "text-80 leading-normal" },
                                   [
                                     _vm._v(
-                                      "\n                    " +
+                                      "\n                        " +
                                         _vm._s(
                                           _vm.__(
                                             "Are you sure you want to " +
@@ -2119,7 +2074,7 @@ var render = function() {
                                               " this resource?"
                                           )
                                         ) +
-                                        "\n                "
+                                        "\n                    "
                                     )
                                   ]
                                 )
@@ -2131,7 +2086,7 @@ var render = function() {
                       ],
                       null,
                       false,
-                      3693631278
+                      1688942382
                     )
                   })
                 : _vm._e(),
@@ -2202,9 +2157,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                            " +
+                                      "\n                                " +
                                         _vm._s(_vm.__("Cancel")) +
-                                        "\n                        "
+                                        "\n                            "
                                     )
                                   ]
                                 ),
@@ -2243,7 +2198,16 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "flex gap-2 items-center" }, [
+      _c("i", { staticClass: "fa-solid fa-bars" })
+    ])
+  }
+]
 render._withStripped = true
 
 

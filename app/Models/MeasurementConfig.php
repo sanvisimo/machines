@@ -16,6 +16,23 @@ class MeasurementConfig extends Model
      */
     protected $guarded = [];
 
+    protected $fillable = [
+        'lubricant_levels',
+        'lubricant_appearence',
+        'leakage',
+        'temperature',
+        'temperature_min',
+        'temperature_max',
+        'pressure',
+        'pressure_min',
+        'pressure_max',
+        'vibrations_type_SPM',
+        'vibrations_type_SISM',
+        'component_id',
+        'position',
+        'image'
+    ];
+
     public function measurements()
     {
         return $this->hasMany(Measurement::class);

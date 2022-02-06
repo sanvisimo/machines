@@ -106,9 +106,11 @@ class ManagedArticle extends Resource
                 })
                 ->storeOriginalName('attachment_name')
                 ->hideFromIndex(),
-            Boolean::make(__('Attachment'), 'attachment', function (){
-                return $this->attachment;
-            })->onlyOnIndex(),
+          Text::make(__('Attachment'), 'attachment')->displayUsing(function ($value){
+              return view('image', [
+                'name' => $value
+              ])->render();
+            })->asHtml()->onlyOnIndex(),
         ];
     }
 
