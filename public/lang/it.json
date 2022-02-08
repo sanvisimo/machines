@@ -20,5 +20,12 @@
     "Duplicate": "Duplica",
     "Update configuration": "Aggiorna configurazione",
     "Save": "Salva",
-    "Handle": "Gestisci"
+    "Handle": "Gestisci",
+  "articles": "Articoli",
+  "contracts": "Contratti",
+  "activities": "Attività",
+  "maintenance": "Manutenzione",
+  "measurement": "Misurazione",
+  "Planned Measurement": "Misurazione Pianificata",
+  "Update Control Plan": "Aggiornamento Piano di Controllo"
 }

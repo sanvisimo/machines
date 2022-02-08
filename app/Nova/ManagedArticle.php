@@ -97,7 +97,9 @@ class ManagedArticle extends Resource
                 ->showOnCreating()
                 ->hideWhenUpdating(),
             Text::make(__('Measurement point'), 'measurement_point')
-                ->hideWhenCreating(),
+                ->hideWhenCreating()
+                ->hideFromIndex()
+                ->hideFromDetail(),
             Text::make(__('Notes'), 'note'),
             File::make(__('Attachment'), 'attachment')
                 ->disk('public')
