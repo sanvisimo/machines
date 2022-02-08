@@ -14916,7 +14916,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -48623,20 +48622,17 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass:
-            "flex justify-center items-center text-primary cursor-pointer"
+          staticClass: "flex justify-center items-center cursor-pointer",
+          class: {
+            "text-primary": _vm.imageName,
+            "text-danger": !_vm.imageName
+          }
         },
         [
           _c("font-awesome-icon", {
             attrs: { icon: "fa-solid fa-file-image" },
             on: { click: _vm.openModal }
           }),
-          _vm._v(" "),
-          _vm.imageName
-            ? _c("span", { staticClass: "ml-4" }, [
-                _vm._v(" " + _vm._s(_vm.imageName))
-              ])
-            : _vm._e(),
           _vm._v(" "),
           _c(
             "portal",
