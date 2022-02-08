@@ -2243,7 +2243,7 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _c("router-link", { attrs: { to: bread.url } }, [
-            _vm._v(_vm._s(bread.label))
+            _vm._v(_vm._s(_vm.__(bread.label)))
           ])
         ],
         1

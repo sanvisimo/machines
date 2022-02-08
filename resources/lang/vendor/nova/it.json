@@ -563,5 +563,9 @@
     "Fixfee contract": "Contratto fixfee",
     "Monitoring contract": "Contratto di monitoraggio",
     "Establishment code": "Codice stabilimento",
-    "Establishment name": "Nome stabilimento"
+    "Establishment name": "Nome stabilimento",
+    "customers":  "Clienti",
+  "establishments": "Siti",
+  "plants": "Impianti",
+  "machines": "Macchine"
 }

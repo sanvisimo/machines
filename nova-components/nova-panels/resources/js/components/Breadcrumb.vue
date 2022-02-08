@@ -2,7 +2,7 @@
     <div class="flex">
         <div v-for="(bread, index) in breadcrumb" :key="index">
             <span class="mx-1" v-if="index !== 0">></span>
-            <router-link :to="bread.url">{{ bread.label }}</router-link>
+            <router-link :to="bread.url">{{ __(bread.label) }}</router-link>
         </div>
     </div>
 </template>
