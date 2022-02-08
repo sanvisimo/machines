@@ -562,16 +562,6 @@
     "Contracts": "Contratti",
     "Fixfee contract": "Contratto fixfee",
     "Monitoring contract": "Contratto di monitoraggio",
-    "NAME": "Nome",
-    "Crea User": "Crea utente",
-    "Roles": "Ruoli",
-    "users": "Utenti",
-    "Category": "Categoria",
-    "Sub Category": "Sotto categoria",
-    "Point of Payload": "Potenza o portata",
-    "Point of Pressure": "Punti pressione",
-    "Point of Temperature": "Punti temperatura",
-    "Point of Vibrations": "Punti vibrazioni",
-    "Establishment code": "Codice Sito",
-    "Establishment name": "Nome sito"
+    "Establishment code": "Codice stabilimento",
+    "Establishment name": "Nome stabilimento"
 }
