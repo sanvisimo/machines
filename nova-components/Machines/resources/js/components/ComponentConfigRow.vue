@@ -41,9 +41,8 @@
         </div>
     </td>
     <td>
-      <div class="flex justify-center items-center text-primary cursor-pointer">
+      <div class="flex justify-center items-center cursor-pointer" :class="{'text-primary': imageName, 'text-danger': !imageName }" >
         <font-awesome-icon icon="fa-solid fa-file-image" @click="openModal" />
-        <span class="ml-4" v-if="imageName"> {{ imageName }}</span>
         <portal to="modals">
           <image-field
             v-if="modalOpen"
