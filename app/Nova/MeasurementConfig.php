@@ -63,6 +63,7 @@ class MeasurementConfig extends Resource
             Boolean::make(__('Pressure'),'pressure'),
             Number::make(__('Min'),'pressure_min'),
             Number::make(__('Max'),'pressure_max'),
+            Boolean::make(__('RPM'),'rpm'),
             Boolean::make(__('Vibration type SPM'),'vibrations_type_SPM'),
             Boolean::make(__('Vibration type SISM'),'vibrations_type_SISM'),
             BelongsTo::make('controlPlanConfig')->onlyOnDetail(),

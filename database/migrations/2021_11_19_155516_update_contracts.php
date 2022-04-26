@@ -26,6 +26,9 @@ class UpdateContracts extends Migration
      */
     public function down()
     {
-        //
+      Schema::rename('contractables', 'contractable');
+      Schema::table('contracts', function (Blueprint $table) {
+        $table->dropColumn('type');
+      });
     }
 }

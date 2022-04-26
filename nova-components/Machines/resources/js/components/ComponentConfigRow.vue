@@ -31,6 +31,11 @@
         </div>
     </td>
     <td>
+      <div class="flex justify-center items-center">
+        <boolean-field v-model="field.rpm" @input="edit" />
+      </div>
+    </td>
+    <td>
         <div class="flex justify-center items-center">
             <boolean-field v-model="field.vibrations_type_SPM" @input="edit" />
         </div>
@@ -101,6 +106,7 @@ export default {
         leakage: false,
         temperature: false,
         pressure: false,
+        rpm: false,
         vibrations_type_SPM: false,
         vibrations_type_SISM: false,
         image: null

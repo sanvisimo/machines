@@ -98,8 +98,30 @@
     <td>
       <div>
         <input-text
+          :inputData.sync="field.rpm"
+          :disabled="getFieldByAttribute('rpm')"
+          type="number"
+          placeholder="0"
+          @update:inputData="edit"
+        />
+      </div>
+    </td>
+    <td>
+      <div>
+        <input-text
           :inputData.sync="field.vibrations_type_SPM"
           :disabled="getFieldByAttribute('vibrations_type_SPM')"
+          type="number"
+          placeholder="0"
+          @update:inputData="edit"
+        />
+      </div>
+    </td>
+    <td>
+      <div>
+        <input-text
+          :inputData.sync="field.vibrations_type_SPM_1"
+          :disabled="getFieldByAttribute('vibrations_type_SPM_1')"
           type="number"
           placeholder="0"
           @update:inputData="edit"
@@ -198,7 +220,9 @@ export default {
         temperature: null,
         pressure: null,
         leakage: null,
+        rpm: null,
         vibrations_type_SPM: null,
+        vibrations_type_SPM_1: null,
         vibrations_type_SISM_1:null,
         vibrations_type_SISM_2:null,
         vibrations_type_SISM_3:null

@@ -108,10 +108,18 @@ class Measurement extends Resource
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->pressure : false;
                 }),
+            Number::make(__('RPM'), 'rpm')
+              ->showOnUpdating(function() use ($measurementConfig) {
+                return $measurementConfig ? $measurementConfig->rpm : false;
+              }),
             Number::make(__('Vibration type SPM'), 'vibrations_type_SPM')
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->vibrations_type_SPM : false;
                 }),
+            Number::make(__('Vibration type SPM 1'), 'vibrations_type_SPM_1')
+              ->showOnUpdating(function() use ($measurementConfig) {
+                return $measurementConfig ? $measurementConfig->vibrations_type_SPM : false;
+              }),
             Number::make(__('Vibration type SISM 1'), 'vibrations_type_SISM_1')
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->vibrations_type_SISM : false;

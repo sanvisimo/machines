@@ -14384,8 +14384,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tabs: null,
       activeTab: "",
       components: {},
-      updateColumns: ["Position", "Anomaly", "Lubricant levels", "Lubricant appearence", "Leakage", "Temperature", "Pressure", "SPM", "SISM 1", "SISM 2", "SISM 3", "Notes"],
-      configColumns: ["Position", "Lubricant levels", "Lubricant appearence", "Leakage", "Temperature", "Pressure", "SPM", "SISM", "Image"]
+      updateColumns: ["Position", "Anomaly", "Lubricant levels", "Lubricant appearence", "Leakage", "Temperature", "Pressure", "RPM", "HDM", "HDC", "H", "V", "A", "Notes"],
+      configColumns: ["Position", "Lubricant levels", "Lubricant appearence", "Leakage", "Temperature", "Pressure", "RPM", "SPM", "SISM", "Image"]
     };
   },
   computed: {
@@ -14916,6 +14916,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -14959,6 +14964,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         leakage: false,
         temperature: false,
         pressure: false,
+        rpm: false,
         vibrations_type_SPM: false,
         vibrations_type_SISM: false,
         image: null
@@ -16058,6 +16064,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16104,7 +16132,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         temperature: null,
         pressure: null,
         leakage: null,
+        rpm: null,
         vibrations_type_SPM: null,
+        vibrations_type_SPM_1: null,
         vibrations_type_SISM_1: null,
         vibrations_type_SISM_2: null,
         vibrations_type_SISM_3: null
@@ -48586,6 +48616,26 @@ var render = function() {
           _c("boolean-field", {
             on: { input: _vm.edit },
             model: {
+              value: _vm.field.rpm,
+              callback: function($$v) {
+                _vm.$set(_vm.field, "rpm", $$v)
+              },
+              expression: "field.rpm"
+            }
+          })
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c(
+        "div",
+        { staticClass: "flex justify-center items-center" },
+        [
+          _c("boolean-field", {
+            on: { input: _vm.edit },
+            model: {
               value: _vm.field.vibrations_type_SPM,
               callback: function($$v) {
                 _vm.$set(_vm.field, "vibrations_type_SPM", $$v)
@@ -49554,6 +49604,34 @@ var render = function() {
         [
           _c("input-text", {
             attrs: {
+              inputData: _vm.field.rpm,
+              disabled: _vm.getFieldByAttribute("rpm"),
+              type: "number",
+              placeholder: "0"
+            },
+            on: {
+              "update:inputData": [
+                function($event) {
+                  return _vm.$set(_vm.field, "rpm", $event)
+                },
+                _vm.edit
+              ],
+              "update:input-data": function($event) {
+                return _vm.$set(_vm.field, "rpm", $event)
+              }
+            }
+          })
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c(
+        "div",
+        [
+          _c("input-text", {
+            attrs: {
               inputData: _vm.field.vibrations_type_SPM,
               disabled: _vm.getFieldByAttribute("vibrations_type_SPM"),
               type: "number",
@@ -49568,6 +49646,34 @@ var render = function() {
               ],
               "update:input-data": function($event) {
                 return _vm.$set(_vm.field, "vibrations_type_SPM", $event)
+              }
+            }
+          })
+        ],
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("td", [
+      _c(
+        "div",
+        [
+          _c("input-text", {
+            attrs: {
+              inputData: _vm.field.vibrations_type_SPM_1,
+              disabled: _vm.getFieldByAttribute("vibrations_type_SPM_1"),
+              type: "number",
+              placeholder: "0"
+            },
+            on: {
+              "update:inputData": [
+                function($event) {
+                  return _vm.$set(_vm.field, "vibrations_type_SPM_1", $event)
+                },
+                _vm.edit
+              ],
+              "update:input-data": function($event) {
+                return _vm.$set(_vm.field, "vibrations_type_SPM_1", $event)
               }
             }
           })
