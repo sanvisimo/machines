@@ -14,7 +14,7 @@ class UpdateMeasurements extends Migration
     public function up()
     {
       Schema::table('measurement_configs', function (Blueprint $table) {
-        $table->boolean('rpm')->nullable()->after('pressure_max');
+        $table->boolean('rpm')->nullable()->after('pressure_max')->default(false);
       });
       Schema::table('measurements', function (Blueprint $table) {
         $table->string('rpm')->nullable()->after('pressure');
