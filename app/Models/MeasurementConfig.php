@@ -26,6 +26,7 @@ class MeasurementConfig extends Model
         'pressure',
         'pressure_min',
         'pressure_max',
+        'rpm',
         'vibrations_type_SPM',
         'vibrations_type_SISM',
         'component_id',
