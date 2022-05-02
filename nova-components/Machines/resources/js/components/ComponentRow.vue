@@ -121,7 +121,7 @@
       <div>
         <input-text
           :inputData.sync="field.vibrations_type_SPM_1"
-          :disabled="getFieldByAttribute('vibrations_type_SPM_1')"
+          :disabled="getFieldByAttribute('vibrations_type_SPM_2')"
           type="number"
           placeholder="0"
           @update:inputData="edit"

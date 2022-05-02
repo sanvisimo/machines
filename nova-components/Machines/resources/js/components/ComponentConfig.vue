@@ -175,7 +175,9 @@ export default {
       this.activeTab = tab.name;
     },
     updateComponent(component) {
+
       const comps = {...this.components};
+      console.log('comps', component, comps);
       comps[component.position] = component;
       this.components = comps;
       this.$emit('edit', comps);

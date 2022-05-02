@@ -24,7 +24,7 @@ class Measurement extends Model
       'pressure',
       'rpm',
       'vibrations_type_SPM',
-      'vibrations_type_SPM_1',
+      'vibrations_type_SPM_2',
       'vibrations_type_SISM_1',
       'vibrations_type_SISM_2',
       'vibrations_type_SISM_3',
