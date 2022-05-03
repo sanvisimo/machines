@@ -5,11 +5,11 @@
             <div class="flex flex-row">
               <div class="relative flex justify-end" v-if="activeTab === 0">
                 <button type="button" @click="dropdownOpen = !dropdownOpen" class="relative z-10 block p-2 focus:outline-none">
-                                    <span class="flex gap-2 items-center">
-                                      <i class="fa-solid fa-bars" />
-<!--                                        <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />-->
-<!--                                        </svg>-->
-                                    </span>
+                    <span class="flex gap-2 items-center">
+                      <i class="fa-solid fa-bars" />
+<!--                        <svg class="h-5 w-5 text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />-->
+<!--                        </svg>-->
+                    </span>
                 </button>
 
                 <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
@@ -113,7 +113,6 @@
                     </div>
                 </form>
             </modal>
-
         </portal>
     </div>
 </template>
@@ -165,8 +164,8 @@ export default {
     },
     watch:{
         $route(newValue, oldValue){
+          console.log("nova", newValue)
             if(newValue.query.tab) {
-
                 this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
             }
         }

@@ -151,7 +151,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova_src_mixins_BehavesAsPanel__WEBPACK_IMPORTED_MODULE_1__["default"]],
@@ -207,6 +206,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     $route: function $route(newValue, oldValue) {
+      console.log("nova", newValue);
+
       if (newValue.query.tab) {
         this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
       }
