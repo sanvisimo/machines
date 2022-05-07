@@ -116,7 +116,7 @@ class Measurement extends Resource
                 ->showOnUpdating(function() use ($measurementConfig) {
                     return $measurementConfig ? $measurementConfig->vibrations_type_SPM : false;
                 }),
-            Number::make(__('Vibration type SPM 1'), 'vibrations_type_SPM_1')
+            Number::make(__('Vibration type SPM 1'), 'vibrations_type_SPM_2')
               ->showOnUpdating(function() use ($measurementConfig) {
                 return $measurementConfig ? $measurementConfig->vibrations_type_SPM : false;
               }),

@@ -16135,7 +16135,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         leakage: null,
         rpm: null,
         vibrations_type_SPM: null,
-        vibrations_type_SPM_1: null,
+        vibrations_type_SPM_2: null,
         vibrations_type_SISM_1: null,
         vibrations_type_SISM_2: null,
         vibrations_type_SISM_3: null
@@ -49661,7 +49661,7 @@ var render = function() {
         [
           _c("input-text", {
             attrs: {
-              inputData: _vm.field.vibrations_type_SPM_1,
+              inputData: _vm.field.vibrations_type_SPM_2,
               disabled: _vm.getFieldByAttribute("vibrations_type_SPM_2"),
               type: "number",
               placeholder: "0"
@@ -49669,12 +49669,12 @@ var render = function() {
             on: {
               "update:inputData": [
                 function($event) {
-                  return _vm.$set(_vm.field, "vibrations_type_SPM_1", $event)
+                  return _vm.$set(_vm.field, "vibrations_type_SPM_2", $event)
                 },
                 _vm.edit
               ],
               "update:input-data": function($event) {
-                return _vm.$set(_vm.field, "vibrations_type_SPM_1", $event)
+                return _vm.$set(_vm.field, "vibrations_type_SPM_2", $event)
               }
             }
           })

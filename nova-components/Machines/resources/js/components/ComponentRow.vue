@@ -120,7 +120,7 @@
     <td>
       <div>
         <input-text
-          :inputData.sync="field.vibrations_type_SPM_1"
+          :inputData.sync="field.vibrations_type_SPM_2"
           :disabled="getFieldByAttribute('vibrations_type_SPM_2')"
           type="number"
           placeholder="0"
@@ -222,7 +222,7 @@ export default {
         leakage: null,
         rpm: null,
         vibrations_type_SPM: null,
-        vibrations_type_SPM_1: null,
+        vibrations_type_SPM_2: null,
         vibrations_type_SISM_1:null,
         vibrations_type_SISM_2:null,
         vibrations_type_SISM_3:null
