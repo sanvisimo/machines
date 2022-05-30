@@ -151,6 +151,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova_src_mixins_BehavesAsPanel__WEBPACK_IMPORTED_MODULE_1__["default"]],
@@ -1887,9 +1892,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                      " +
                               _vm._s(_vm.__("Edit")) +
-                              "\n                                "
+                              "\n                  "
                           )
                         ]
                       ),
@@ -1903,9 +1908,28 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                        " +
                               _vm._s(_vm.__("Duplicate")) +
-                              "\n                                "
+                              "\n                  "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "block px-4 py-2 text-sm capitalize cursor-pointer text-gray-700 hover:bg-blue-500 hover:text-white no-underline",
+                          attrs: {
+                            href: "/ml/grid.php?id=" + _vm.resourceId,
+                            target: "_blank"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.__("Stats")) +
+                              "\n                  "
                           )
                         ]
                       ),
@@ -1921,7 +1945,7 @@ var render = function() {
                           _vm._v(
                             "\n                                    " +
                               _vm._s(_vm.__("Delete")) +
-                              "\n                                "
+                              "\n                  "
                           )
                         ]
                       )

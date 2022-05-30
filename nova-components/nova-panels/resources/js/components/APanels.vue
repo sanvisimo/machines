@@ -15,22 +15,27 @@
                 <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
                 <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-24 bg-white rounded-md shadow-xl z-20">
-                                <span
-                                  @click="editMachine"
-                                  class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                >
-                                    {{ __('Edit') }}
-                                </span>
+                  <span
+                    @click="editMachine"
+                    class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+                  >
+                      {{ __('Edit') }}
+                  </span>
                   <span
                     @click="duplicateMachine"
                     class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
-                                    {{ __('Duplicate') }}
-                                </span>
+                        {{ __('Duplicate') }}
+                  </span>
+                  <a
+                    class="block px-4 py-2 text-sm capitalize cursor-pointer text-gray-700 hover:bg-blue-500 hover:text-white no-underline"
+                    :href="`/ml/grid.php?id=${resourceId}`" target="_blank" >
+                        {{ __('Stats') }}
+                  </a>
                   <span
                     @click="openDeleteModal"
                     class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white cursor-pointer">
                                     {{ __('Delete') }}
-                                </span>
+                  </span>
                 </div>
               </div>
                 <div class="flex justify-between gap-2 items-center border-b-2 border-40">

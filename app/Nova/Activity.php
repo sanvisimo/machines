@@ -164,6 +164,7 @@ class Activity extends Resource
                     'control_plan' => __('Planned Measurement'),
                     'maintenance_no' => __('Extraordinary Maintenance'),
                     'control_plan_no' => __('Extraordinary Measurement'),
+                    'lubrification' => __('Lubrification'),
             ])->displayUsingLabels()->rules('required'),
 
             NovaDependencyContainer::make([
@@ -172,6 +173,7 @@ class Activity extends Resource
                     ->withMeta(['extraAttributes' => ['min' => 0]])
             ])
                 ->dependsOn('type', 'maintenance')
+                ->dependsOn('type', 'lubrification')
                 ->dependsOn('type', 'control_plan')->rules('required'),
 
             MorphTo::make(__('Element'), 'element')->types([
@@ -187,7 +189,8 @@ class Activity extends Resource
                 ]),
             ])
                 ->dependsOn('type', 'maintenance')
-                ->dependsOn('type', 'maintenance_no'),
+                ->dependsOn('type', 'maintenance_no')
+                ->dependsOn('type', 'lubrification'),
         ];
     }
 
