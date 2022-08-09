@@ -423,7 +423,20 @@
   "Update attached :resource: :title": "Update attached :resource: :title",
   ":resource Details: :title": ":resource Details: :title",
   "The HasOne relationship has already been filled.": "The HasOne relationship has already been filled.",
-  "An error occured while uploading the file.": "An error occured while uploading the file.",
-    "Machines": "Machines",
-    "Machine": "Machine"
+  "An error occurred while uploading the file.": "An error occurred while uploading the file.",
+  "Machines": "Machines",
+  "Machine": "Machine",
+  "check_ground_connections": "Check Ground Connections",
+  "check_integrity_flexible_electric": "Check integrity flexible electric",
+  "check_pressure_gauges": "Check pressure gauges",
+  "rpm": "RPM",
+  "check_sight_glasses_oil": "Check Sight Glasses Oil",
+  "check_sight_glasses_water": "Check Sight Glasses Water",
+  "check_thermometers": "Check thermometers",
+  "casing_integrity_check": "Casing integrity check",
+  "nameplate_integrity": "Nameplate integrity",
+  "electric_absorption": "Electric absorption",
+  "check_cleaning_protective_grid": "Check cleaning protective grid",
+  "check_cleaning_junction_box":"Check cleaning junction_box",
+  "global_condition": "Global Condition"
 }

@@ -14514,7 +14514,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateComponent: function updateComponent(component) {
       var comps = _objectSpread({}, this.components);
 
-      console.log('comps', component, comps);
       comps[component.position] = component;
       this.components = comps;
       this.$emit('edit', comps);
@@ -14688,7 +14687,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 url = "/nova-api/measurement-configs/creation-fields";
 
                 if (!_this3.update) {
-                  _context3.next = 11;
+                  _context3.next = 10;
                   break;
                 }
 
@@ -14699,11 +14698,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$Nova$request$g = _context3.sent;
                 data = _yield$Nova$request$g.data;
                 _this3.componentConfigId = data.id;
-                console.log('data', data);
                 url = "/nova-api/measurement-configs/".concat(data.id, "/update-fields");
 
-              case 11:
-                _context3.next = 13;
+              case 10:
+                _context3.next = 12;
                 return Nova.request().get(url, {
                   params: {
                     editing: true,
@@ -14714,7 +14712,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 13:
+              case 12:
                 _yield$Nova$request$g2 = _context3.sent;
                 _yield$Nova$request$g3 = _yield$Nova$request$g2.data;
                 panels = _yield$Nova$request$g3.panels;
@@ -14733,7 +14731,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 _this3.loading = false;
 
-              case 20:
+              case 19:
               case "end":
                 return _context3.stop();
             }
@@ -17008,8 +17006,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 
@@ -17044,7 +17040,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       panels: [],
       submitted: false,
       machine_id: null,
-      components: {}
+      components: {},
+      data: null
     };
   },
   mounted: function mounted() {
@@ -17185,16 +17182,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this4.isWorking = true;
 
-                if (!_this4.$refs.form.reportValidity()) {
-                  _context4.next = 23;
+                _this4.createResourceFormData();
+
+                if (!(_this4.$refs.form.reportValidity() && !Object.keys(_this4.validationErrors.errors).length)) {
+                  _context4.next = 24;
                   break;
                 }
 
-                _context4.prev = 2;
-                _context4.next = 5;
+                _context4.prev = 3;
+                _context4.next = 6;
                 return _this4.createRequest();
 
-              case 5:
+              case 6:
                 _yield$_this4$createR = _context4.sent;
                 _yield$_this4$createR2 = _yield$_this4$createR.data;
                 redirect = _yield$_this4$createR2.redirect;
@@ -17203,16 +17202,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 msg = _this4.update ? _this4.__('The Measurement was updated!') : _this4.__('The Measurement was created!');
                 Nova.success(msg);
 
-                if (!_this4.update) {
-                  _this4.$router.go("".concat(_this4.$route.path, "?tab=0"));
-                }
+                _this4.$router.push("/resources/machines/".concat(_this4.machine_id));
 
-                _context4.next = 23;
+                _context4.next = 24;
                 break;
 
-              case 15:
-                _context4.prev = 15;
-                _context4.t0 = _context4["catch"](2);
+              case 16:
+                _context4.prev = 16;
+                _context4.t0 = _context4["catch"](3);
                 window.scrollTo(0, 0);
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
@@ -17224,17 +17221,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this4.handleOnCreateResponseError(_context4.t0);
 
-              case 23:
+              case 24:
                 _this4.submittedViaCreateAndAddAnother = false;
                 _this4.submittedViaCreateResource = true;
                 _this4.isWorking = false;
 
-              case 26:
+              case 27:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[2, 15]]);
+        }, _callee4, null, [[3, 16]]);
       }))();
     },
 
@@ -17249,7 +17246,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                return _context5.abrupt("return", Nova.request().post("/nova-vendor/machines/control-plans/".concat(_this5.controlPlan.id), _this5.createResourceFormData()));
+                return _context5.abrupt("return", Nova.request().post("/nova-vendor/machines/control-plans/".concat(_this5.controlPlan.id), _this5.data // this.createResourceFormData(),
+                ));
 
               case 1:
               case "end":
@@ -17266,13 +17264,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     createResourceFormData: function createResourceFormData() {
       var _this6 = this;
 
-      return _.tap(new FormData(), function (formData) {
+      var errors = {};
+      this.validationErrors = new laravel_nova__WEBPACK_IMPORTED_MODULE_1__.Errors();
+      this.data = _.tap(new FormData(), function (formData) {
         _.each(_this6.fields, function (field) {
           field.fill(formData);
+
+          if (field.attribute === 'global_conditions' || field.attribute === 'machine_status') {
+            var value = formData.get(field.attribute);
+            console.log(field.attribute, value);
+            if (!value) errors[field.attribute] = ["The field is required"];
+          }
         });
 
         formData.append('components', JSON.stringify(_this6.components));
       });
+      console.log("err", errors);
+
+      if (Object.keys(errors).length > 0) {
+        this.validationErrors = new laravel_nova__WEBPACK_IMPORTED_MODULE_1__.Errors(errors);
+      }
     },
     editComponents: function editComponents(components) {
       this.components = components;
@@ -18581,7 +18592,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    console.log("mountend");
     this.value = this.notes;
   },
   methods: {

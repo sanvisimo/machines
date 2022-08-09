@@ -6,6 +6,7 @@ use App\Models\Activity;
 use App\Models\ControlPlan;
 use App\Models\ControlPlanConfig;
 use App\Models\Measurement;
+use App\Models\Anomaly;
 use Illuminate\Support\Carbon;
 
 class ControlPlanObserver
@@ -33,16 +34,70 @@ class ControlPlanObserver
 //        $lastControlPlan = ControlPlan::where('control_plan_config_id', $controlPlanConfig->id)->latest()->first();
         $oldActivity = Activity::where('activitable_id', $controlPlan->id)
             ->where('activitable_type', 'App\Models\ControlPlan')->first();
+
+
+      $fields = ['casing_integrity_check',
+      'nameplate_integrity',
+      'check_pressure_gauges',
+      'check_sight_glasses_oil',
+      'check_sight_glasses_water',
+      'check_thermometers',
+      'check_cleaning_protective_grid',
+      'check_cleaning_junction_box',
+      'check_integrity_flexible_electric',
+      'check_ground_connections'];
+
+        $anomaly = Anomaly::where('machine_id', $controlPlan->machine_id)
+          ->where('field', 'global_conditions')
+          ->where('solved', 0)
+          ->first();
+        if($controlPlan->global_conditions !== 'good'){
+          if(!$anomaly) {
+            $anomaly = new Anomaly();
+            $anomaly->machine_id = $controlPlan->machine_id;
+            $anomaly->control_plan_id = $controlPlan->id;
+            $anomaly->field = 'global_conditions';
+            $anomaly->value = $controlPlan->global_conditions;
+            $anomaly->save();
+          }
+        } else {
+          if($anomaly) {
+            $anomaly->solved = true;
+            $anomaly->save();
+          }
+        }
+
+      foreach ($fields as $field){
+        $anomaly = Anomaly::where('machine_id', $controlPlan->machine_id)
+          ->where('field', $field)
+          ->where('solved', 0)
+          ->first();
+          if(!$controlPlan->$field && $controlPlanConfig->$field) {
+            if(!$anomaly) {
+              $anomaly = new Anomaly();
+              $anomaly->machine_id = $controlPlan->machine_id;
+              $anomaly->control_plan_id = $controlPlan->id;
+              $anomaly->field = $field;
+              $anomaly->value = 'intervento';
+              $anomaly->save();
+            }
+          } else {
+            if($anomaly) {
+              $anomaly->solved = true;
+              $anomaly->save();
+            }
+          }
+        }
+
         if($oldActivity->active && $oldActivity->type === 'control_plan') {
             $oldActivity->expiration = Carbon::now();
             $oldActivity->active = false;
             $oldActivity->save();
-            $model = new ControlPlan;
-            $model->machine_id = $controlPlan->machine_id;
-            $model->control_plan_config_id = $controlPlan->control_plan_config_id;
-            $model->contract = $controlPlanConfig->contract;
-            $model->cost = $controlPlanConfig->cost;
-            $model->periodicity = $controlPlanConfig->periodicity;
+            $model = $controlPlan->replicate();
+            $model->global_conditions = null;
+            $model->machine_status = null;
+            $model->created_at = Carbon::now();
+            $model->updated_at = Carbon::now();
             $model->save();
 
             $controlPlan->measurements->map(function($measurement) use($model){

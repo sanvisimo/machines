@@ -97,7 +97,6 @@ export default {
             if(this.update){
                 const { data } = await Nova.request().get(`/nova-vendor/machines/components-config/${this.componentId}/${this.position}`);
                 this.componentConfigId = data.id
-                console.log('data', data)
                 url = `/nova-api/measurement-configs/${data.id}/update-fields`;
             }
 

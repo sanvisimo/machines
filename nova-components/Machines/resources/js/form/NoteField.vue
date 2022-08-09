@@ -53,7 +53,6 @@ export default {
     };
   },
   mounted() {
-    console.log("mountend")
     this.value = this.notes
   },
   methods: {

@@ -38,9 +38,10 @@
                   </span>
                 </div>
               </div>
-                <div class="flex justify-between gap-2 items-center border-b-2 border-40">
+                <div class="flex items-center justify-center gap-2 border-b-2 border-40">
                     <h4 class="text-90 font-normal text-2xl title">{{ panel.name }}</h4>
-                    <div class="w-2 h-2 rounded-full block" :class="getStatus()" />
+                    <span :class="getStatusColor">({{__(getStatus)}})</span>
+                  <div class="w-2 h-2 rounded-full block" :class="getAnomaliesColor()" />
                 </div>
                 <div class="flex-1 border-b-2 border-40"></div>
                 <div class="flex flex-row">
@@ -135,10 +136,14 @@ export default {
             dropdownOpen: false,
             deleteModalOpen: false,
             duplicateModalOpen: false,
-            working: false
+            working: false,
+            anomalies: null
         };
     },
-    mounted() {
+    async mounted() {
+      const { data } = await Nova.request().get(`/akka/panels/anomalies/${this.resourceId}`);
+      this.anomalies = data.anomalies
+
         let tabs = {}
 
         tabs = [
@@ -168,13 +173,34 @@ export default {
         this.handleTabClick(tabs[Object.keys(tabs)[tabIndex]]);
     },
     watch:{
-        $route(newValue, oldValue){
-          console.log("nova", newValue)
+        $route(newValue){
             if(newValue.query.tab) {
                 this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
             }
         }
     },
+  computed: {
+    getStatus() {
+      const status = this.panel.fields.find(field => field.indexName === "state");
+      return status.value ?? 'active';
+    },
+    getStatusColor() {
+      const status = this.panel.fields.find(field => field.indexName === "state");
+      // const status = {
+      //     value: "suspended"
+      // }
+      switch(status.value){
+        case 'suspended':
+          return 'text-red-600';
+        case 'not_operative':
+          return 'text-yellow-500';
+        case 'active':
+        default:
+          return 'text-green-500';
+      }
+      // return 'bg-green-500';
+    }
+  },
     methods: {
         /**
          * Handle the actionExecuted event and pass it up the chain.
@@ -244,24 +270,18 @@ export default {
         closeDeleteModal() {
             this.deleteModalOpen = false
         },
-
-        getStatus() {
-            // const status = this.panel.fields.find(field => field.indexName === "state");
-            const status = {
-                value: "suspended"
-            }
-            switch(status.value){
-                case 'suspended':
-                    return 'bg-red-600';
-                case 'not_operative':
-                    return 'bg-yellow-500';
-                case 'active':
-                default:
-                    return 'bg-green-500';
-
-            }
-            return 'bg-green-500';
+      getAnomaliesColor() {
+        if(this.anomalies > 5) {
+          return 'bg-red-600';
         }
+
+        if(this.anomalies > 0) {
+          return 'bg-yellow-500';
+        }
+
+        return 'bg-green-500';
+
+      }
     }
 }
 </script>

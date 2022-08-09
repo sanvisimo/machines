@@ -22,7 +22,6 @@
                 </span>
             </div>
           </div>
-
             <form-panel
                 v-for="panel in panelsWithFields"
                 @update-last-retrieved-at-timestamp="updateLastRetrievedAtTimestamp"
@@ -42,7 +41,6 @@
                 :via-resource-id="machine_id"
                 via-relationship="controlPlans"
             />
-
         </form>
         <component-config :resource-id="machine_id" ref="compos" :config="false" :control-plan="controlPlan" v-if="controlPlan" @edit="editComponents" />
         <div class="flex justify-end p-4 w-full">
@@ -95,7 +93,8 @@ export default {
         panels: [],
         submitted: false,
         machine_id: null,
-        components: {}
+        components: {},
+      data: null,
     }),
 
     async mounted() {
@@ -163,8 +162,9 @@ export default {
          */
         async createResource() {
             this.isWorking = true
+          this.createResourceFormData()
 
-            if (this.$refs.form.reportValidity()) {
+            if (this.$refs.form.reportValidity() && !Object.keys(this.validationErrors.errors).length) {
                 try {
                     const {
                         data: { redirect, id },
@@ -175,9 +175,8 @@ export default {
                     const msg = this.update ? this.__('The Measurement was updated!') : this.__('The Measurement was created!');
 
                     Nova.success(msg)
-                    if(!this.update) {
-                        this.$router.go(`${this.$route.path}?tab=0`);
-                    }
+                    this.$router.push(`/resources/machines/${this.machine_id}`);
+
                 } catch (error) {
                     window.scrollTo(0, 0)
                     this.submittedViaCreateAndAddAnother = false
@@ -203,7 +202,7 @@ export default {
         async createRequest() {
             return Nova.request().post(
                 `/nova-vendor/machines/control-plans/${this.controlPlan.id}`,
-                this.createResourceFormData(),
+                this.data // this.createResourceFormData(),
             )
         },
 
@@ -211,13 +210,27 @@ export default {
          * Create the form data for creating the resource.
          */
         createResourceFormData() {
-            return _.tap(new FormData(), formData => {
+          const errors = {}
+          this.validationErrors = new Errors()
+          this.data = _.tap(new FormData(), formData => {
                 _.each(this.fields, field => {
-                    field.fill(formData)
+                  field.fill(formData)
+                  if(field.attribute === 'global_conditions' || field.attribute === 'machine_status') {
+                    const value = formData.get(field.attribute)
+                    console.log(field.attribute, value)
+                    if(!value) errors[field.attribute] = ["The field is required"]
+                  }
+
                 });
 
                 formData.append('components', JSON.stringify(this.components));
             })
+          console.log("err", errors)
+
+          if(Object.keys(errors).length > 0) {
+            this.validationErrors = new Errors(errors)
+          }
+
         },
         editComponents(components){
             this.components = components

@@ -30,4 +30,12 @@ class ControlPlan extends Model
     {
         return $this->hasMany(Measurement::class);
     }
+
+    /**
+     * Get the anomalies for the blog post.
+     */
+    public function anomalies()
+    {
+        return $this->hasMany(Anomaly::class);
+    }
 }

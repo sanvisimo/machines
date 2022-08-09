@@ -81,7 +81,9 @@ class Maintenance extends Resource
      */
     public static function redirectAfterUpdate(NovaRequest $request, $resource)
     {
-        return '/resources/'.Machine::uriKey().'/'.$resource->model()->machine->id;
+        $controlPlan = \App\Models\ControlPlan::where('machine_id', $resource->model()->machine->id)
+          ->orderBy('id', 'DESC')->first();
+        return '/resources/'. ControlPlan::uriKey().'/'.$controlPlan->id;
     }
 
 
@@ -95,7 +97,7 @@ class Maintenance extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Work Permit'),'work_permit'),
+            Text::make(__('Work Permit'),'work_permit')->rules('required'),
             BelongsTo::make(__('Component'), 'component', Component::class)->readonly(),
 //            BelongsTo::make(__('Activity'), 'activity', 'App\Nova\Activity'),
             MorphOne::make('Activity'),
@@ -117,7 +119,7 @@ class Maintenance extends Resource
             ])
                 ->dependsOn('type', 'maintenance')
                 ->hideWhenUpdating(),
-            DateTime::make(__('Onsite intervention'), 'onsite_intervention')->nullable(),
+            DateTime::make(__('Onsite intervention'), 'onsite_intervention')->rules('required'),
             DateTime::make(__('Closed on'), 'closed_on')->nullable(),
             Number::make(__('Duration'), 'duration')->nullable(),
             Currency::make(__('Indicative cost'), 'indicative_cost')->nullable(),

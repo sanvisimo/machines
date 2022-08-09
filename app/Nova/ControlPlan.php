@@ -61,21 +61,21 @@ class ControlPlan extends Resource
             Currency::make(__('Cost'), 'cost')->hideWhenUpdating(),
             Number::make(__('Periodicity'),'periodicity')->size('w-2/3')->stacked(false)->hideWhenUpdating(),
             Text::make(__('Notes'),'periodicity_note')->nullable()->size('w-1/3')->stacked(false)->hideWhenUpdating(),
-            ButtonGroup::make(__('Global condition'),'global_conditions')->options([
+            ButtonGroup::make(__('global_condition'), 'global_conditions')->options([
                 'good' => __('Good'),
                 'attention' => __('Attention'),
                 'intervent' => __('Intervent'),
-            ])->nullable()->size('w-1/2')->stacked(false),
+            ])->rules('required', 'min:255')->size('w-1/2')->stacked(false),
             ButtonGroup::make(__('Machine status'),'machine_status')->options([
                 'run' => __('Run'),
                 'stop' => __('Stop'),
                 'maintenance' => __('Maintenance')
-            ])->nullable()->size('w-1/2')->stacked(false),
-            ButtonGroup::make(__('Casing integrity check'),'casing_integrity_check')->nullable()->size('w-1/2')->stacked(false),
-            ButtonGroup::make(__('Nameplate integrity'),'nameplate_integrity')->nullable()->size('w-1/2')->stacked(false),
+            ])->rules('required')->size('w-1/2')->stacked(false),
+            ButtonGroup::make(__('casing_integrity_check'),'casing_integrity_check')->nullable()->size('w-1/2')->stacked(false),
+            ButtonGroup::make(__('nameplate_integrity'),'nameplate_integrity')->nullable()->size('w-1/2')->stacked(false),
 //            Text::make(__('Notes'),'nameplate_integrity_notes')->nullable()->size('w-1/3')->stacked(false),
-            Number::make(__('RPM'),'rpm')->nullable()->size('w-1/2')->stacked(false),
-            ButtonGroup::make(__('Check pressure gauges'),'check_pressure_gauges')->nullable()
+            Number::make(__('rpm'),'rpm')->nullable()->size('w-1/2')->stacked(false),
+            ButtonGroup::make(__('check_pressure_gauges'),'check_pressure_gauges')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_pressure_gauges : false;
                 })->size('w-1/2')->stacked(false),
@@ -83,7 +83,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->check_pressure_gauges : false;
 //                })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Check sight glasses oil'),'check_sight_glasses_oil')->nullable()
+            ButtonGroup::make(__('check_sight_glasses_oil'),'check_sight_glasses_oil')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_oil : false;
                 })->size('w-1/2')->stacked(false),
@@ -91,7 +91,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_oil : false;
 //                })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Check sight glasses water'),'check_sight_glasses_water')->nullable()
+            ButtonGroup::make(__('check_sight_glasses_water'),'check_sight_glasses_water')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_water : false;
                 })->size('w-1/2')->stacked(false),
@@ -99,7 +99,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->check_sight_glasses_water : false;
 //                })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Check thermometers'),'check_thermometers')->nullable()
+            ButtonGroup::make(__('check_thermometers'),'check_thermometers')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_thermometers : false;
                 })->size('w-1/2')->stacked(false),
@@ -107,7 +107,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->check_thermometers : false;
 //                })->size('w-1/3')->stacked(false),
-            Number::make(__('Electric absorption'),'electric_absorption')->nullable()
+            Number::make(__('electric_absorption'),'electric_absorption')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->electric_absorption : false;
                 })->size('w-1/2')->stacked(false),
@@ -115,7 +115,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->electric_absorption : false;
 //                })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Check cleaning protective grid'),'check_cleaning_protective_grid')->nullable()
+            ButtonGroup::make(__('check_cleaning_protective_grid'),'check_cleaning_protective_grid')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_cleaning_protective_grid : false;
                 })->size('w-1/2')->stacked(false),
@@ -123,7 +123,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->check_cleaning_protective_grid : false;
 //                })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Check cleaning junction box'),'check_cleaning_junction_box')->nullable()
+            ButtonGroup::make(__('check_cleaning_junction_box'),'check_cleaning_junction_box')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_cleaning_junction_box : false;
                 })->size('w-1/2')->stacked(false),
@@ -131,7 +131,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->check_cleaning_junction_box : false;
 //                })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Check integrity flexible electric'),'check_integrity_flexible_electric')->nullable()
+            ButtonGroup::make(__('check_integrity_flexible_electric'),'check_integrity_flexible_electric')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_integrity_flexible_electric : false;
                 })->size('w-1/2')->stacked(false),
@@ -139,7 +139,7 @@ class ControlPlan extends Resource
 //                ->showOnUpdating(function() use ($controlPlanConfig) {
 //                    return $controlPlanConfig ? $controlPlanConfig->check_integrity_flexible_electric : false;
 //                })->size('w-1/3')->stacked(false),
-            ButtonGroup::make(__('Check ground connections'),'check_ground_connections')->nullable()
+            ButtonGroup::make(__('check_ground_connections'),'check_ground_connections')->nullable()
                 ->showOnUpdating(function() use ($controlPlanConfig) {
                     return $controlPlanConfig ? $controlPlanConfig->check_ground_connections : false;
                 })->size('w-1/2')->stacked(false),
@@ -230,4 +230,16 @@ class ControlPlan extends Resource
     {
         return [];
     }
+
+  /**
+   * Return the location to redirect the user after update.
+   *
+   * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+   * @param  \Laravel\Nova\Resource  $resource
+   * @return string
+   */
+  public static function redirectAfterUpdate(NovaRequest $request, $resource)
+  {
+    return '/resources/'. Machine::uriKey().'/'.$resource->model()->machine->id;
+  }
 }

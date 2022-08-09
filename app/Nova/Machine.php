@@ -192,7 +192,8 @@ class Machine extends Resource
                         ->hideFromIndex()
                         ->hideFromDetail(),
 
-                    HasMany::make(__('Activities'), 'lastActivities', Activity::class),
+                    HasMany::make(__('Tasks due'), 'lastActivities', Activity::class),
+                    HasMany::make(__('Anomalies'), 'anomalies_unsolved', Anomaly::class),
 
                     Machines::make(),
 

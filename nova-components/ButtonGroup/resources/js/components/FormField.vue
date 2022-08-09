@@ -41,6 +41,9 @@
           <font-awesome-icon :icon="`fa-solid ${option.label}`" v-else />
         </button>
       </div>
+      <p v-if="hasError" class="my-2 text-danger">
+        {{ firstError }}
+      </p>
     </template>
   </default-field>
 </template>

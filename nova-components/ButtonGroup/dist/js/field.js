@@ -12937,6 +12937,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_0__.FormField, laravel_nova__WEBPACK_IMPORTED_MODULE_0__.HandlesValidationErrors],
@@ -40127,6 +40130,12 @@ var render = function () {
           }),
           0
         ),
+        _vm._v(" "),
+        _vm.hasError
+          ? _c("p", { staticClass: "my-2 text-danger" }, [
+              _vm._v("\n      " + _vm._s(_vm.firstError) + "\n    "),
+            ])
+          : _vm._e(),
       ]),
     ],
     2

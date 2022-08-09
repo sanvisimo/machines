@@ -39,7 +39,8 @@
         "optimistdigital/nova-tailwind": "^1.1",
         "orlyapps/nova-belongsto-depend": "^3.0",
         "pktharindu/nova-permissions": "^2.1",
-        "sloveniangooner/locale-anywhere": "dev-master"
+        "sloveniangooner/locale-anywhere": "dev-master",
+        "acme/color-picker": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
@@ -122,6 +123,14 @@
         {
             "type": "path",
             "url": "./nova-components/ButtonGroup"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ColorPicker"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ColorPicker"
         }
     ]
 }

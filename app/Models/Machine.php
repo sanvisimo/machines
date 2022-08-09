@@ -83,4 +83,15 @@ class Machine extends Model
     {
         return $this->morphMany(Attachment::class, 'attachmentable');
     }
+
+
+    public function anomalies()
+    {
+        return $this->hasMany(Anomaly::class);
+    }
+
+    public function anomalies_unsolved()
+    {
+      return $this->anomalies()->where('solved', 0);
+    }
 }

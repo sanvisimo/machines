@@ -40,7 +40,9 @@
         "build-control-plan-field-prod": "cd nova-components/ControlPlanField && npm run prod",
         "watch-button-group": "cd nova-components/ButtonGroup && npm run watch",
         "build-button-group": "cd nova-components/ButtonGroup && npm run dev",
-        "build-button-group-prod": "cd nova-components/ButtonGroup && npm run prod"
+        "build-button-group-prod": "cd nova-components/ButtonGroup && npm run prod",
+        "build-color-picker": "cd nova-components/ColorPicker && npm run dev",
+        "build-color-picker-prod": "cd nova-components/ColorPicker && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.21",

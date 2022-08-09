@@ -156,6 +156,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mixins: [laravel_nova_src_mixins_BehavesAsPanel__WEBPACK_IMPORTED_MODULE_1__["default"]],
@@ -167,55 +168,109 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dropdownOpen: false,
       deleteModalOpen: false,
       duplicateModalOpen: false,
-      working: false
+      working: false,
+      anomalies: null
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    var tabs = {};
-    tabs = [{
-      id: 0,
-      name: this.__('Overview'),
-      init: true,
-      fields: {}
-    }, {
-      id: 1,
-      name: this.__('Calendar'),
-      init: false,
-      fields: {}
-    }, {
-      id: 2,
-      name: this.__('Control Plan'),
-      init: false,
-      fields: {}
-    }];
-    this.panel.fields.forEach(function (field) {
-      if (field.pan !== "Profile") {
-        if (!tabs[field.tab].fields.hasOwnProperty(field.pan)) {
-          tabs[field.tab].fields[field.pan] = {
-            name: field.pan,
-            init: false,
-            listable: field.listableTab,
-            component: _this.componentName(field),
-            fields: []
-          };
-        }
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _yield$Nova$request$g, data, tabs, tabIndex;
 
-        tabs[field.tab].fields[field.pan].fields.push(field);
-      }
-    });
-    this.tabs = tabs;
-    var tabIndex = this.$route.query.tab ? this.$route.query.tab : 0;
-    this.handleTabClick(tabs[Object.keys(tabs)[tabIndex]]);
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return Nova.request().get("/akka/panels/anomalies/".concat(_this.resourceId));
+
+            case 2:
+              _yield$Nova$request$g = _context.sent;
+              data = _yield$Nova$request$g.data;
+              _this.anomalies = data.anomalies;
+              tabs = {};
+              tabs = [{
+                id: 0,
+                name: _this.__('Overview'),
+                init: true,
+                fields: {}
+              }, {
+                id: 1,
+                name: _this.__('Calendar'),
+                init: false,
+                fields: {}
+              }, {
+                id: 2,
+                name: _this.__('Control Plan'),
+                init: false,
+                fields: {}
+              }];
+
+              _this.panel.fields.forEach(function (field) {
+                if (field.pan !== "Profile") {
+                  if (!tabs[field.tab].fields.hasOwnProperty(field.pan)) {
+                    tabs[field.tab].fields[field.pan] = {
+                      name: field.pan,
+                      init: false,
+                      listable: field.listableTab,
+                      component: _this.componentName(field),
+                      fields: []
+                    };
+                  }
+
+                  tabs[field.tab].fields[field.pan].fields.push(field);
+                }
+              });
+
+              _this.tabs = tabs;
+              tabIndex = _this.$route.query.tab ? _this.$route.query.tab : 0;
+
+              _this.handleTabClick(tabs[Object.keys(tabs)[tabIndex]]);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   watch: {
-    $route: function $route(newValue, oldValue) {
-      console.log("nova", newValue);
-
+    $route: function $route(newValue) {
       if (newValue.query.tab) {
         this.handleTabClick(this.tabs[Object.keys(this.tabs)[newValue.query.tab]]);
       }
+    }
+  },
+  computed: {
+    getStatus: function getStatus() {
+      var _status$value;
+
+      var status = this.panel.fields.find(function (field) {
+        return field.indexName === "state";
+      });
+      return (_status$value = status.value) !== null && _status$value !== void 0 ? _status$value : 'active';
+    },
+    getStatusColor: function getStatusColor() {
+      var status = this.panel.fields.find(function (field) {
+        return field.indexName === "state";
+      }); // const status = {
+      //     value: "suspended"
+      // }
+
+      switch (status.value) {
+        case 'suspended':
+          return 'text-red-600';
+
+        case 'not_operative':
+          return 'text-yellow-500';
+
+        case 'active':
+        default:
+          return 'text-green-500';
+      } // return 'bg-green-500';
+
     }
   },
   methods: {
@@ -254,30 +309,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     confirmDuplicateModal: function confirmDuplicateModal() {
       var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _yield$Nova$request$g, data;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var _yield$Nova$request$g2, data;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 _this2.working = true;
-                _context.next = 3;
+                _context2.next = 3;
                 return Nova.request().get("/akka/panels/machines/".concat(_this2.resourceId, "/duplicate"));
 
               case 3:
-                _yield$Nova$request$g = _context.sent;
-                data = _yield$Nova$request$g.data;
+                _yield$Nova$request$g2 = _context2.sent;
+                data = _yield$Nova$request$g2.data;
                 _this2.working = false;
 
                 _this2.$router.push("/resources/machines/".concat(data.machine.id, "/edit"));
 
               case 7:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     },
     closeDuplicateModal: function closeDuplicateModal() {
@@ -289,12 +344,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     confirmDelete: function confirmDelete() {
       var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context2.next = 2;
+                _context3.next = 2;
                 return Nova.request()["delete"]("/nova-api/machines?", {
                   params: {
                     resources: [_this3.resourceId]
@@ -308,31 +363,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }))();
     },
     closeDeleteModal: function closeDeleteModal() {
       this.deleteModalOpen = false;
     },
-    getStatus: function getStatus() {
-      // const status = this.panel.fields.find(field => field.indexName === "state");
-      var status = {
-        value: "suspended"
-      };
+    getAnomaliesColor: function getAnomaliesColor() {
+      if (this.anomalies > 5) {
+        return 'bg-red-600';
+      }
 
-      switch (status.value) {
-        case 'suspended':
-          return 'bg-red-600';
-
-        case 'not_operative':
-          return 'bg-yellow-500';
-
-        case 'active':
-        default:
-          return 'bg-green-500';
+      if (this.anomalies > 0) {
+        return 'bg-yellow-500';
       }
 
       return 'bg-green-500';
@@ -1958,7 +2004,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "flex justify-between gap-2 items-center border-b-2 border-40"
+                  "flex items-center justify-center gap-2 border-b-2 border-40"
               },
               [
                 _c(
@@ -1967,9 +2013,13 @@ var render = function() {
                   [_vm._v(_vm._s(_vm.panel.name))]
                 ),
                 _vm._v(" "),
+                _c("span", { class: _vm.getStatusColor }, [
+                  _vm._v("(" + _vm._s(_vm.__(_vm.getStatus)) + ")")
+                ]),
+                _vm._v(" "),
                 _c("div", {
                   staticClass: "w-2 h-2 rounded-full block",
-                  class: _vm.getStatus()
+                  class: _vm.getAnomaliesColor()
                 })
               ]
             ),
